@@ -1,5 +1,4 @@
 local TidyPlates = _G.TidyPlates
-local TidyPlatesOptions = _G.TidyPlatesOptions
 local TidyPlatesThemeList = _G.TidyPlatesThemeList
 local TidyPlatesUtility = _G.TidyPlatesUtility
 local TidyPlatesWidgets = _G.TidyPlatesWidgets
