@@ -1,0 +1,7 @@
+## Interface: 30300
+## Title: Tidy Plates: Grey Theme
+## Notes: Use apostrophes wisely.
+## Author: Binny (Kader Backport)
+## Dependencies: TidyPlates, TidyPlatesHub
+
+Grey.lua

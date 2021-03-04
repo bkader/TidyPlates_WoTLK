@@ -1,0 +1,7 @@
+## Interface: 30300
+## Title: Tidy Plates: Graphite
+## Notes: Minimalisty
+## Author: Binny (Kader Backport)
+## Dependencies: TidyPlates, TidyPlatesHub
+
+Graphite.lua

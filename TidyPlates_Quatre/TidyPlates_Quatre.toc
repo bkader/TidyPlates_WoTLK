@@ -1,0 +1,7 @@
+## Interface: 30300
+## Title: Tidy Plates: Quatre Theme
+## Notes: It's the 4th!
+## Author: Binny (Kader Backport)
+## Dependencies: TidyPlates, TidyPlatesHub
+
+Quatre.lua
