@@ -1,6 +1,3 @@
-local TidyPlatesUtility = _G.TidyPlatesUtility
-local TidyPlatesWidgets = _G.TidyPlatesWidgets
-
 local GetRelativeThreat = TidyPlatesUtility.GetRelativeThreat
 
 ----------------------
@@ -21,10 +18,8 @@ do
         if curTime < nextScheduledUpdate then
             return
         end
-        --print("Checking All Fade Frames")
-        local framecount = 0
-        local alpha = 0
-        local timeRemains = 0
+
+        local framecount, alpha, timeRemains = 0, 0, 0
         nextScheduledUpdate = curTime + updateInterval
         -- Cycle through the watchlist, hiding frames which are timed-out
         for frame, expiration in pairs(Framelist) do
@@ -65,9 +60,8 @@ do
 end
 
 ---------------------------------------------------------------------
-
-local font = "FONTS\\arialn.ttf"
-local art = "Interface\\Addons\\TidyPlatesWidgets\\ThreatLine\\ThreatLineUnified"
+local font = "FONTS\\ARIALN.ttf"
+local art = "Interface\\Addons\\TidyPlates\\widgets\\ThreatLine\\ThreatLineUnified"
 local artCoordinates = {
     Line = {0, .2, 0, 1},
     Right = {.5, .75, 0, 1},
@@ -92,7 +86,7 @@ local function UpdateThreatLine(frame, unitid)
         leaderThreatPct, leaderUnitId, leaderThreatDelta = GetRelativeThreat(unitid)
     end
 
-    if not (leaderThreatPct) then
+    if not leaderThreatPct then
         frame:_Hide()
         return
     end
@@ -126,6 +120,7 @@ local function UpdateThreatLine(frame, unitid)
                 threatcolor = frame._TankedColor
             end
 
+            --if frame.ShowText then
             frame.TargetText:SetText(UnitName(leaderUnitId)) -- TP 6.1
             frame.TargetText:SetTextColor(threatcolor.r, threatcolor.g, threatcolor.b) -- TP 6.1
         else
@@ -205,10 +200,10 @@ local function WatcherFrameHandler(frame, event)
         return
     end
 
-    local widget, guid
+    local widget
     -- Reset the GUID/UnitID Lookup List
-    for gid in pairs(TargetList) do
-        TargetList[gid] = nil
+    for guid in pairs(TargetList) do
+        TargetList[guid] = nil
     end
 
     -- Build a list of links to Target GUIDs
@@ -223,20 +218,18 @@ local function WatcherFrameHandler(frame, event)
     end
 
     -- This code enables full raid target watching
-    if UnitInRaid("player") then
-        local raidsize = TidyPlatesUtility.GetNumRaidMembers() - 1
-        for index = 1, raidsize do
-            local unitid = "raid" .. index .. "target"
-            guid = UnitGUID(unitid)
-            if guid then
-                TargetList[guid] = unitid
-            end
+    local raidsize = GetNumRaidMembers() - 1
+    for index = 1, raidsize do
+        local unitid = "raid" .. index .. "target"
+        guid = UnitGUID(unitid)
+        if guid then
+            TargetList[guid] = unitid
         end
     end
 
     -- Reference the list of GUIDs to active widgets (with GUIDs and Hostile)
-    for gid, unitid in pairs(TargetList) do
-        widget = WidgetList[gid]
+    for guid, unitid in pairs(TargetList) do
+        widget = WidgetList[guid]
         if widget then
             UpdateThreatLine(widget, unitid)
         end
@@ -244,7 +237,6 @@ local function WatcherFrameHandler(frame, event)
 
     lastUpdate = GetTime()
 end
-
 
 local function EnableWatcherFrame(arg)
     if arg then
@@ -288,6 +280,8 @@ local function CreateWidgetFrame(parent)
     -- Target-Of Text
     frame.TargetText = frame:CreateFontString(nil, "OVERLAY")
     frame.TargetText:SetFont(font, 8, "OUTLINE")
+    --frame.TargetText:SetShadowOffset(1, -1)
+    --frame.TargetText:SetShadowColor(0,0,0,1)
     frame.TargetText:SetWidth(50)
     frame.TargetText:SetHeight(20)
     frame.TargetText:SetJustifyH("RIGHT")

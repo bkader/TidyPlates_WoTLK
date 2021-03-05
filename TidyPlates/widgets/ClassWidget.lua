@@ -1,14 +1,11 @@
-local TidyPlatesUtility = _G.TidyPlatesUtility
-local TidyPlatesWidgets = _G.TidyPlatesWidgets
-
 ---------------
 -- Class Widget
 ---------------
-local classWidgetPath = "Interface\\Addons\\TidyPlatesWidgets\\ClassWidget\\"
+local classWidgetPath = "Interface\\Addons\\TidyPlates\\widgets\\ClassWidget\\"
 
 local function UpdateClassWidget(self, unit, showFriendly)
+    local class
     if unit then
-		local class
         if showFriendly and unit.reaction == "FRIENDLY" and unit.type == "PLAYER" then
             class = TidyPlatesUtility.GroupMembers.Class[unit.name]
         elseif unit.type == "PLAYER" then

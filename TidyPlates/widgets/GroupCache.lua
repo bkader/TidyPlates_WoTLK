@@ -1,7 +1,4 @@
-local TidyPlates = _G.TidyPlates
-local TidyPlatesUtility = _G.TidyPlatesUtility
-
---Group Roster Monitor
+-- Group Roster Monitor
 local Group = {}
 Group.Names = {}
 Group.Tanks = {}
@@ -20,13 +17,13 @@ end
 
 local function UpdateRoster(frame, event, ...)
     -- Check Group Type
-    local groupType, groupSize, unitId, unitName
+    local groupType, groupSize
     if UnitInRaid("player") then
         groupType = "raid"
-        groupSize = TidyPlatesUtility.GetNumRaidMembers() - 1
+        groupSize = GetNumRaidMembers() - 1
     elseif UnitInParty("player") then
         groupType = "party"
-        groupSize = TidyPlatesUtility.GetNumPartyMembers()
+        groupSize = GetNumPartyMembers()
     else
         groupType = "solo"
         groupSize = 1
@@ -45,8 +42,8 @@ local function UpdateRoster(frame, event, ...)
     -- Cycle through Group
     if groupType then
         for index = 1, groupSize do
-            unitId = groupType .. index
-            unitName = UnitName(unitId)
+            local unitId = groupType .. index
+            local unitName = UnitName(unitId)
             if unitName then
                 Group.Names[unitId] = unitName
                 Group.Class[unitName] = select(2, UnitClass(unitId))

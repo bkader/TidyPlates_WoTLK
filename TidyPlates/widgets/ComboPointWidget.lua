@@ -1,9 +1,8 @@
-local TidyPlatesWidgets = _G.TidyPlatesWidgets
 ------------------------------
 -- Combo Point Widget
 ------------------------------
+local comboWidgetPath = "Interface\\Addons\\TidyPlates\\widgets\\ComboWidget\\"
 
-local comboWidgetPath = "Interface\\Addons\\TidyPlatesWidgets\\ComboWidget\\"
 local WidgetList = {}
 
 -- Update Graphics
@@ -82,7 +81,6 @@ local function CreateWidgetFrame(parent)
     frame:SetWidth(64)
     frame.Icon = frame:CreateTexture(nil, "OVERLAY")
     frame.Icon:SetAllPoints(frame)
-
     -- End Custom Code
 
     -- Required Widget Code

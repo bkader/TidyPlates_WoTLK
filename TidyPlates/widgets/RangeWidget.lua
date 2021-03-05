@@ -1,7 +1,12 @@
-local TidyPlates = _G.TidyPlates
-local TidyPlatesUtility = _G.TidyPlatesUtility
-local TidyPlatesWidgets = _G.TidyPlatesWidgets
-
+--[[
+		UnitInRange: 40
+		2: ~9
+		3: 7.5-8
+		4: 28
+		Item6450:15
+		Dismiss Pet: 10 yds
+		Melee Range: 4
+--]]
 local RangesCache = {}
 local Ranges = {}
 local RangeWatcher = CreateFrame("Frame")
@@ -32,15 +37,16 @@ local function CheckRanges(self)
         return
     end
     nextRangeCheckup = currentTime + updateFreq
-    local group, size, unitid, inRange
+    local group, size, inRange
     local estRange = nil
+
     -- Check Group Type
     if UnitInRaid("player") then
         group = "raid"
-        size = TidyPlatesUtility.GetNumRaidMembers() - 1
+        size = GetNumRaidMembers() - 1
     elseif UnitInParty("player") then
         group = "party"
-        size = TidyPlatesUtility.GetNumPartyMembers()
+        size = GetNumPartyMembers()
     else
         group = nil
     end
@@ -48,17 +54,14 @@ local function CheckRanges(self)
     -- Cycle through Group
     if group then
         for index = 1, size do
-            unitid = group .. index
+            local unitid = group .. index
             Ranges[UnitName(unitid)] = GetRange(unitid)
         end
     end
 
-    --Ranges[UnitName("pet")] = GetRange("pet")		-- For testing
-
     -- Check Cache
     for name, range in pairs(Ranges) do
         if range ~= RangesCache[name] then
-            --print("Range Change")
             RangesCache[name] = range
             TidyPlates:Update()
         end
@@ -69,7 +72,7 @@ local usingRangeWidget = false
 local function ActivateRangeWidget()
     if usingRangeWidget then
         wipe(Ranges)
-        if (UnitInRaid("player") or UnitInParty("player")) then
+        if UnitInRaid("player") or UnitInParty("player") then
             RangeWatcher:SetScript("OnUpdate", CheckRanges)
         else
             RangeWatcher:SetScript("OnUpdate", nil)
@@ -86,20 +89,14 @@ RangeWatcher:RegisterEvent("PARTY_CONVERTED_TO_RAID")
 ---------------------------------------------------------------------------
 
 -- Widget
-local art = "Interface\\Addons\\TidyPlatesWidgets\\RangeWidget\\RangeWidget"
+local art = "Interface\\Addons\\TidyPlates\\widgets\\RangeWidget\\RangeWidget"
 
 local function UpdateRangeWidget(self, unit, range)
     local unitrange, saferange
     saferange = range or self.Range
-    if unit.reaction == "FRIENDLY" then --and unit.type == "PLAYER" then
+    if unit.reaction == "FRIENDLY" then
         unitrange = Ranges[unit.name] or 100
-        --self.String:SetText(range)
         if unitrange <= saferange then
-            --self.Texture:SetVertexColor(1,.1,0,.55)  -- Red
-            --elseif unitrange == self.unitrange then
-            --	self.Texture:Show()
-            --	self.Texture:SetVertexColor(1,.5,0,.25)
-            --self.String:SetTextColor(1,.5,0)
             self.Texture:Show()
             self.Texture:SetVertexColor(1, .25, 0, .50) -- Red
         else

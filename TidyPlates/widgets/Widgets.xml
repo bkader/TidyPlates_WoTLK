@@ -1,0 +1,20 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+	<Script file="WidgetCore.lua"/>
+	<Script file="GroupCache.lua"/>
+	<Script file="Tanks.lua"/>
+	<Script file="Aggro.lua"/>
+
+	<Script file="ClassWidget.lua"/>
+	<Script file="ComboPointWidget.lua"/>
+	<Script file="ThreatWheelWidget.lua"/>
+	<Script file="ThreatLineWidget.lua"/>
+
+	<Script file="TankedWidget.lua"/>
+
+	<Script file="DebuffWidget.lua"/>
+	<Script file="RangeWidget.lua"/>
+	<Script file="TotemIconWidget.lua"/>
+	<Script file="SelectionWidget.lua"/>
+	<Script file="UnitCache.lua"/>
+</Ui>

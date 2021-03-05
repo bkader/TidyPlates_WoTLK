@@ -1,8 +1,3 @@
-local TidyPlates = _G.TidyPlates
-local TidyPlatesThemeList = _G.TidyPlatesThemeList
-local TidyPlatesUtility = _G.TidyPlatesUtility
-local TidyPlatesWidgets = _G.TidyPlatesWidgets
-
 local CallIn = TidyPlatesUtility.CallIn
 local copytable = TidyPlatesUtility.copyTable
 local mergetable = TidyPlatesUtility.mergeTable
@@ -22,7 +17,7 @@ local OUT_OF_COMBAT = "Hide when Combat starts, Show when Combat ends"
 
 local function SetAutoHide(option)
     useAutoHide = option
-    if useAutoHide and (not InCombatLockdown()) then
+    if useAutoHide and (not InCombat) then
         SetCVar("nameplateShowEnemies", 0)
     end
 end
@@ -36,11 +31,11 @@ local function SetSpellCastWatcher(enable)
 end
 
 local function ShowMinimapButton(enable)
-	if enable then
-		TidyPlatesUtility:ShowMinimapButton()
-	else
-		TidyPlatesUtility:HideMinimapButton()
-	end
+    if enable then
+        TidyPlatesUtility:ShowMinimapButton()
+    else
+        TidyPlatesUtility:HideMinimapButton()
+    end
 end
 
 -------------------------------------------------------------------------------------
@@ -54,7 +49,7 @@ TidyPlatesOptions = {
     EnemyAutomation = NO_AUTOMATION,
     EnableCastWatcher = false,
     WelcomeShown = false,
-    EnableMinimapButton = false,
+    EnableMinimapButton = false
 }
 
 local TidyPlatesOptionsDefaults = copytable(TidyPlatesOptions)
@@ -85,9 +80,9 @@ local function LoadTheme(incomingtheme)
     if type(theme) == "table" then
         if theme.SetStyle and type(theme.SetStyle) == "function" then
             -- Multi-Style Theme
-            for name, style in pairs(theme) do
+            for stylename, style in pairs(theme) do
                 if type(style) == "table" then
-                    theme[name] = mergetable(TidyPlates.Template, style)
+                    theme[stylename] = mergetable(TidyPlates.Template, style)
                 end
             end
         else
@@ -105,19 +100,17 @@ local function LoadTheme(incomingtheme)
         TidyPlates:ActivateTheme(theme)
         if theme.OnActivateTheme then
             theme.OnActivateTheme(theme, incomingtheme)
-        end -- ie. (Theme Table, Theme Name) -- nil is sent for all themes, to reset everything, and then the current theme is activated
-
+        end
         currentThemeName = incomingtheme
         return theme
     else
-        TidyPlatesOptions[activespec] = "No Theme"
-        currentThemeName = "No Theme"
-        TidyPlates:ActivateTheme(TidyPlatesThemeList["No Theme"])
+        TidyPlatesOptions[activespec] = "None"
+        currentThemeName = "None"
+        TidyPlates:ActivateTheme(TidyPlatesThemeList["None"])
         return nil
     end
 end
 
---TidyPlates.PostLoadTheme = function() end
 TidyPlates.LoadTheme = LoadTheme
 TidyPlates._LoadTheme = LoadTheme
 
@@ -134,7 +127,6 @@ local ApplyPanelSettings
 
 local version = GetAddOnMetadata("TidyPlates", "version")
 local versionString = string.gsub(string.gsub(string.gsub(version, "%$", ""), "%(", ""), "%)", "")
---local versionString = string.gsub(version, "%$", "")
 local addonString = GetAddOnMetadata("TidyPlates", "title")
 local titleString = addonString .. " " .. versionString
 local firstShow = true
@@ -149,9 +141,9 @@ local panel = PanelHelpers:CreatePanelFrame("TidyPlatesInterfaceOptions", "Tidy 
 local helppanel = PanelHelpers:CreatePanelFrame("TidyPlatesInterfaceOptionsHelp", "Troubleshooting")
 panel:SetBackdrop({
 	bgFile = "Interface/Tooltips/UI-Tooltip-Background",
-	insets = {left = 2, right = 2, top = 2, bottom = 2}
-})
-panel:SetBackdropColor(0.06, 0.06, 0.06, .7)
+	insets = {left = 2, right = 2, top = 2, bottom = 2}}
+)
+panel:SetBackdropColor(0.06, 0.06, 0.06, 1)
 
 -- Convert the Theme List into a Menu List
 local function UpdateThemeNames()
@@ -159,6 +151,7 @@ local function UpdateThemeNames()
     if type(TidyPlatesThemeList) == "table" then
         for themename, themepointer in pairs(TidyPlatesThemeList) do
             TidyPlatesThemeNames[themecount] = themename
+            --TidyPlatesThemeIndexes[themename] = themecount
             themecount = themecount + 1
         end
         -- Theme Choices
@@ -193,21 +186,19 @@ local function ActivateInterfacePanel()
     -- Primary Spec
     ----------------------
     --  Dropdown
-    panel.PrimarySpecTheme = PanelHelpers:CreateDropdownFrame("TidyPlatesChooserDropdown", panel, ThemeDropdownMenuItems, "No Theme", nil, true)
+    panel.PrimarySpecTheme = PanelHelpers:CreateDropdownFrame("TidyPlatesChooserDropdown", panel, ThemeDropdownMenuItems, "None", nil, true)
     panel.PrimarySpecTheme:SetPoint("TOPLEFT", 16, -108)
-
     -- Edit Button
     panel.PrimaryEditButton = CreateFrame("Button", "TidyPlatesEditButton", panel)
     panel.PrimaryEditButton:SetPoint("LEFT", panel.PrimarySpecTheme, "RIGHT", 29, 2)
     panel.PrimaryEditButton.Texture = panel.PrimaryEditButton:CreateTexture(nil, "OVERLAY")
     panel.PrimaryEditButton.Texture:SetAllPoints(panel.PrimaryEditButton)
-    panel.PrimaryEditButton.Texture:SetTexture("Interface\\Addons\\TidyPlates\\Media\\Wrench")
+    panel.PrimaryEditButton.Texture:SetTexture("Interface\\Addons\\TidyPlates\\media\\Wrench")
     panel.PrimaryEditButton:SetHeight(16)
     panel.PrimaryEditButton:SetWidth(16)
     panel.PrimaryEditButton:Enable()
     panel.PrimaryEditButton:EnableMouse()
     panel.PrimaryEditButton:SetScript("OnClick", function() ConfigureTheme("primary") end)
-
     -- Label
     panel.PrimaryLabel = panel:CreateFontString(nil, "ARTWORK", "GameFontNormal")
     panel.PrimaryLabel:SetPoint("BOTTOMLEFT", panel.PrimarySpecTheme, "TOPLEFT", 20, 5)
@@ -219,28 +210,25 @@ local function ActivateInterfacePanel()
     -- Secondary Spec
     ----------------------
     -- Dropdown
-    panel.SecondarySpecTheme = PanelHelpers:CreateDropdownFrame("TidyPlatesChooserDropdown2", panel, ThemeDropdownMenuItems, "No Theme", nil, true)
+    panel.SecondarySpecTheme = PanelHelpers:CreateDropdownFrame("TidyPlatesChooserDropdown2", panel, ThemeDropdownMenuItems, "None", nil, true)
     panel.SecondarySpecTheme:SetPoint("TOPLEFT", panel.PrimarySpecTheme, "TOPRIGHT", 45, 0)
-
-    -- Edit Button
+	-- Edit Button
     panel.SecondaryEditButton = CreateFrame("Button", "TidyPlatesEditButton", panel)
     panel.SecondaryEditButton:SetPoint("LEFT", panel.SecondarySpecTheme, "RIGHT", 29, 2)
     panel.SecondaryEditButton.Texture = panel.SecondaryEditButton:CreateTexture(nil, "OVERLAY")
     panel.SecondaryEditButton.Texture:SetAllPoints(panel.SecondaryEditButton)
-    panel.SecondaryEditButton.Texture:SetTexture("Interface\\Addons\\TidyPlates\\Media\\Wrench")
+    panel.SecondaryEditButton.Texture:SetTexture("Interface\\Addons\\TidyPlates\\media\\Wrench")
     panel.SecondaryEditButton:SetHeight(16)
     panel.SecondaryEditButton:SetWidth(16)
     panel.SecondaryEditButton:Enable()
     panel.SecondaryEditButton:EnableMouse()
     panel.SecondaryEditButton:SetScript("OnClick", function() ConfigureTheme("secondary") end)
-
     -- Label
     panel.SecondaryLabel = panel:CreateFontString(nil, "ARTWORK", "GameFontNormal")
     panel.SecondaryLabel:SetPoint("BOTTOMLEFT", panel.SecondarySpecTheme, "TOPLEFT", 20, 5)
     panel.SecondaryLabel:SetWidth(170)
     panel.SecondaryLabel:SetJustifyH("LEFT")
     panel.SecondaryLabel:SetText("Secondary Theme:")
-
     ---- Note
     panel.ThemeChooserDescription = panel:CreateFontString(nil, "ARTWORK") --, 'GameFontLarge'
     panel.ThemeChooserDescription:SetFont("Fonts\\FRIZQT__.TTF", 10, nil)
@@ -256,8 +244,7 @@ local function ActivateInterfacePanel()
 
     -- Enemy Visibility
     panel.AutoShowEnemy = PanelHelpers:CreateDropdownFrame("TidyPlatesAutoShowEnemy", panel, AutomationDropdownItems, NO_AUTOMATION, nil, true)
-    panel.AutoShowEnemy:SetPoint("TOPLEFT", panel.PrimarySpecTheme, "TOPLEFT", 0, -75)
-
+    panel.AutoShowEnemy:SetPoint("TOPLEFT", panel.PrimarySpecTheme, "TOPLEFT", 0, -80)
     -- Label
     panel.AutoShowEnemyLabel = panel:CreateFontString(nil, "ARTWORK", "GameFontNormal")
     panel.AutoShowEnemyLabel:SetPoint("BOTTOMLEFT", panel.AutoShowEnemy, "TOPLEFT", 20, 5)
@@ -268,7 +255,6 @@ local function ActivateInterfacePanel()
     -- Friendly Visibility
     panel.AutoShowFriendly = PanelHelpers:CreateDropdownFrame("TidyPlatesAutoShowFriendly", panel, AutomationDropdownItems, NO_AUTOMATION, nil, true)
     panel.AutoShowFriendly:SetPoint("TOPLEFT", panel.AutoShowEnemy, "TOPRIGHT", 45, 0)
-
     -- Label
     panel.AutoShowFriendlyLabel = panel:CreateFontString(nil, "ARTWORK", "GameFontNormal")
     panel.AutoShowFriendlyLabel:SetPoint("BOTTOMLEFT", panel.AutoShowFriendly, "TOPLEFT", 20, 5)
@@ -276,18 +262,18 @@ local function ActivateInterfacePanel()
     panel.AutoShowFriendlyLabel:SetJustifyH("LEFT")
     panel.AutoShowFriendlyLabel:SetText("Friendly Nameplates:")
 
-    -- Description
+    -- Automation helppanel
 	panel.AutomationDescription = panel:CreateFontString(nil, "ARTWORK")
 	panel.AutomationDescription:SetFont("Fonts\\FRIZQT__.TTF", 10, nil)
-	panel.AutomationDescription:SetPoint("BOTTOMLEFT", panel.AutoShowEnemy, "TOPLEFT", 20, 5)
+	panel.AutomationDescription:SetPoint("BOTTOMLEFT", panel.AutoShowEnemy, "TOPLEFT", 20, 8)
 	panel.AutomationDescription:SetWidth(340)
 	panel.AutomationDescription:SetHeight(50)
 	panel.AutomationDescription:SetJustifyH("LEFT")
-	panel.AutomationDescription:SetText("Automation can automatically turn on or off Friendly and Enemy nameplates. ")
+	panel.AutomationDescription:SetText("Automation can automatically turn on or off Friendly and Enemy nameplates.")
 	panel.AutomationDescription:SetTextColor(1,1,1,1)
 
     -- Blizz Button
-    local BlizzOptionsButton = CreateFrame("Button", "TidyPlatesOptions_BlizzOptionsButton", panel, "TidyPlatesPanelButtonTemplate")
+    BlizzOptionsButton = CreateFrame("Button", "TidyPlatesOptions_BlizzOptionsButton", panel, "UIPanelButtonTemplate2")
     BlizzOptionsButton:SetPoint("TOPLEFT", panel.AutoShowEnemy, "TOPLEFT", 16, -55)
     BlizzOptionsButton:SetWidth(300)
     BlizzOptionsButton:SetText("Blizzard Nameplate Motion & Visibility")
@@ -295,17 +281,15 @@ local function ActivateInterfacePanel()
     -- Cast Watcher
     panel.EnableCastWatcher = PanelHelpers:CreateCheckButton("TidyPlatesOptions_EnableCastWatcher", panel, "Show Non-Target Casting Bars (When Possible)")
     panel.EnableCastWatcher:SetPoint("TOPLEFT", BlizzOptionsButton, "TOPLEFT", 0, -35)
-    panel.EnableCastWatcher:SetScript("OnClick", function(self)
-        SetSpellCastWatcher(self:GetChecked())
-    end)
+    panel.EnableCastWatcher:SetScript("OnClick", function(self) SetSpellCastWatcher(self:GetChecked()) end)
 
     -- Minimap Button
     panel.EnableMinimapButton = PanelHelpers:CreateCheckButton("TidyPlatesOptions_EnableMinimapButton", panel, "Enable Minimap Icon")
     panel.EnableMinimapButton:SetPoint("TOPLEFT", panel.EnableCastWatcher, "TOPLEFT", 0, -35)
-	panel.EnableMinimapButton:SetScript("OnClick", function(self) ShowMinimapButton(self:GetChecked()) end)
+    panel.EnableMinimapButton:SetScript("OnClick", function(self) ShowMinimapButton(self:GetChecked()) end)
 
     -- Reset
-    ResetButton = CreateFrame("Button", "TidyPlatesOptions_ResetButton", panel, "TidyPlatesPanelButtonTemplate")
+    ResetButton = CreateFrame("Button", "TidyPlatesOptions_ResetButton", panel, "UIPanelButtonTemplate2")
     ResetButton:SetPoint("BOTTOMRIGHT", -16, 8)
     ResetButton:SetWidth(155)
     ResetButton:SetText("Reset Configuration")
@@ -344,9 +328,9 @@ local function ActivateInterfacePanel()
     end)
 
     ResetButton:SetScript("OnClick", function()
-        SetCVar("ShowClassColorInNameplate", 1) -- Required for Class Detection
+        SetCVar("ShowClassColorInNameplate", 1)
         SetCVar("nameplateShowEnemies", 1)
-        SetCVar("threatWarning", 3) -- Required for threat/aggro detection
+        SetCVar("threatWarning", 3)
         _G["InterfaceOptionsNamesPanelUnitNameplatesFriends"]:SetChecked(false)
 
         if IsShiftKeyDown() then
@@ -371,7 +355,7 @@ local function ActivateInterfacePanel()
     InterfaceOptions_AddCategory(panel)
 end
 
-_G.TidyPlatesInterfacePanel = panel
+TidyPlatesInterfacePanel = panel
 
 local function ApplyAutomationSettings()
     SetSpellCastWatcher(TidyPlatesOptions.EnableCastWatcher)
@@ -427,10 +411,10 @@ end
 
 local function ShowWelcome()
     if not TidyPlatesOptions.WelcomeShown then
-        SetCVar("ShowClassColorInNameplate", 1) -- Required for Class Detection
+        SetCVar("ShowClassColorInNameplate", 1)
         SetCVar("nameplateShowEnemies", 1)
         SetCVar("nameplateShowFriends", 0)
-        SetCVar("threatWarning", 3) -- Required for threat/aggro detection
+        SetCVar("threatWarning", 3)
         TidyPlatesOptions.WelcomeShown = true
     end
 end
@@ -449,10 +433,16 @@ local function ShowWarnings()
             )
         end
     end
+
+    -- Warn user if no theme is selected
+    if currentThemeName == "None" and not warned[activespec] then
+        print("|cFFFF6600Tidy Plates: |cFFFF9900No Theme is Selected. |cFF77FF00Use |cFFFFFF00/tidyplates|cFF77FF00 to bring up the Theme Selection Window.")
+        warned[activespec] = true
+    end
 end
 
 function panelevents:ACTIVE_TALENT_GROUP_CHANGED()
-    if TidyPlatesUtility.GetSpec(false, false) == 2 then
+    if GetActiveTalentGroup(false, false) == 2 then
         activespec = "secondary"
     else
         activespec = "primary"
@@ -501,11 +491,11 @@ function panelevents:PLAYER_LOGIN()
     UpdateThemeNames()
     ActivateInterfacePanel()
     ShowWelcome()
-    LoadTheme("No Theme")
+    LoadTheme("None")
     ApplyAutomationSettings()
 end
 
-panel:SetScript("OnEvent", function(self, event, ...) panelevents[event]() end )
+panel:SetScript("OnEvent", function(self, event, ...) panelevents[event](self, ...) end)
 for eventname in pairs(panelevents) do
     panel:RegisterEvent(eventname)
 end
@@ -514,10 +504,9 @@ end
 -- Slash Commands
 -------------------------------------------------------------------------------------
 
-local TidyPlatesSlashCommands = _G.TidyPlatesSlashCommands or {}
-_G.TidyPlatesSlashCommands = TidyPlatesSlashCommands
+TidyPlatesSlashCommands = {}
 
-local function slash_TidyPlates(arg)
+function slash_TidyPlates(arg)
     if type(TidyPlatesSlashCommands[arg]) == "function" then
         TidyPlatesSlashCommands[arg]()
         TidyPlates:ForceUpdate()
@@ -526,5 +515,5 @@ local function slash_TidyPlates(arg)
     end
 end
 
-_G.SLASH_TIDYPLATES1 = "/tidyplates"
+SLASH_TIDYPLATES1 = "/tidyplates"
 SlashCmdList["TIDYPLATES"] = slash_TidyPlates

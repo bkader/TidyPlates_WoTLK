@@ -1,14 +1,13 @@
 ## Interface: 30300
 ## Title: Tidy Plates Hub
 ## Notes: Provides a common configuration panel for supported themes.
-## Author: Daniel/Binbwen (Kader Backport)
+## Author: Daniel/Binbwen
 ## Dependencies: TidyPlates
-## SavedVariables: TidyPlatesHubCache
-## SavedVariablesPerCharacter: TidyPlatesHubSettings
+## SavedVariables: TidyPlatesHubCache, TidyPlatesHubTankCache, TidyPlatesHubDamageCache
+## SavedVariablesPerCharacter: TidyPlatesHubSavedVariables, TidyPlatesHubTankSavedVariables, TidyPlatesHubDamageSavedVariables
 
-ModeLists.lua
-Defaults.lua
 Helpers.lua
-Templates.lua
-Hub.lua
+RapidPanel.lua
+DamagePanel.lua
+TankPanel.lua
 Functions.lua

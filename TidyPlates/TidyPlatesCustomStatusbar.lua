@@ -1,5 +1,4 @@
-local fraction, range, value, barsize, final
-
+local fraction, range, value, barsize
 local function UpdateBar(self)
     range = self.MaxVal - self.MinVal
     value = self.Value - self.MinVal
@@ -9,16 +8,15 @@ local function UpdateBar(self)
     if range > 0 and value > 0 and range >= value then
         fraction = value / range
     else
-        fraction = 0.01
+        fraction = .01
     end
+
     if self.Orientation == "VERTICAL" then
         self.Bar:SetHeight(barsize * fraction)
-        final = self.Bottom - ((self.Bottom - self.Top) * fraction) -- bottom = 1, top = 0
-        self.Bar:SetTexCoord(self.Left, self.Right, final, self.Bottom)
+        self.Bar:SetTexCoord(0, 1, 1 - fraction, 1)
     else
         self.Bar:SetWidth(barsize * fraction)
-        final = ((self.Right - self.Left) * fraction) + self.Left
-        self.Bar:SetTexCoord(self.Left, final, self.Top, self.Bottom)
+        self.Bar:SetTexCoord(0, fraction, 0, 1)
     end
 end
 
@@ -93,18 +91,11 @@ local function SetMinMaxValues(self, minval, maxval)
     UpdateBar(self)
 end
 
-local function SetTexCoord(self, left, right, top, bottom) -- 0. 1. 0. 1
-    self.Left, self.Right, self.Top, self.Bottom = left or 0, right or 1, top or 0, bottom or 1
-    UpdateBar(self)
-end
-
-_G.CreateTidyPlatesStatusbar = function(parent)
+CreateTidyPlatesStatusbar = function(parent)
     local frame = CreateFrame("Frame", nil, parent)
-    --frame.Dim = 1
     frame:SetHeight(1)
     frame:SetWidth(1)
     frame.Value, frame.MinVal, frame.MaxVal, frame.Orientation = 1, 0, 1, "HORIZONTAL"
-    frame.Left, frame.Right, frame.Top, frame.Bottom = 0, 1, 0, 1
     frame.Bar = frame:CreateTexture(nil, "BORDER")
 
     frame.SetValue = SetValue
@@ -115,7 +106,6 @@ _G.CreateTidyPlatesStatusbar = function(parent)
     frame.SetStatusBarGradientAuto = SetStatusBarGradientAuto
     frame.SetStatusBarSmartGradient = SetStatusBarSmartGradient
     frame.SetStatusBarTexture = SetStatusBarTexture
-    frame.SetTexCoord = SetTexCoord
 
     frame:SetScript("OnSizeChanged", UpdateSize)
     UpdateSize(frame)

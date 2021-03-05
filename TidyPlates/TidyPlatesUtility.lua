@@ -1,9 +1,11 @@
-local TidyPlatesUtility = _G.TidyPlatesUtility or {}
-_G.TidyPlatesUtility = TidyPlatesUtility
+TidyPlatesUtility = {}
+TidyPlatesData = {}
+
+local _
+
 -------------------------------------------------------------------------------------
 --  General Helpers
 -------------------------------------------------------------------------------------
-local _
 local copytable
 copytable = function(original)
     local duplicate = {}
@@ -16,22 +18,6 @@ copytable = function(original)
     end
     return duplicate
 end
-
-local function RaidMemberCount()
-    return GetNumRaidMembers()
-end
-
-local function PartyMemberCount()
-    return GetNumPartyMembers()
-end
-
-local function GetSpec()
-    return GetActiveTalentGroup()
-end
-
-TidyPlatesUtility.GetNumRaidMembers = RaidMemberCount
-TidyPlatesUtility.GetNumPartyMembers = PartyMemberCount
-TidyPlatesUtility.GetSpec = GetSpec
 
 local function mergetable(master, mate)
     local merged = {}
@@ -70,7 +56,6 @@ local function updatetable(original, added)
         if type(var) == "table" then
             original[index] = updatetable(var, added[index]) or var
         else
-            --original[index] = added[index] or original[index]
             if added[index] ~= nil then
                 original[index] = added[index]
             else
@@ -106,7 +91,7 @@ do
         if not UnitExists(unit) then
             return
         end
-        local _, group, size
+        local group, size
 
         local playerthreat, leaderThreat, tempthreat, petthreat, leaderUnitID = 0, 0, 0, 0, nil
         local playerThreatVal, leaderThreatVal = 0, 0
@@ -124,10 +109,10 @@ do
         -- Get Group Type
         if UnitInRaid("player") then
             group = "raid"
-            size = TidyPlatesUtility:GetNumRaidMembers() - 1
+            size = GetNumRaidMembers() - 1
         elseif UnitInParty("player") then
             group = "party"
-            size = TidyPlatesUtility:GetNumPartyMembers()
+            size = GetNumPartyMembers()
         else
             group = nil
         end
@@ -175,7 +160,7 @@ local function CreatePanelFrame(self, reference, listname, title)
     panelframe.Label:SetText(title or listname)
     return panelframe
 end
--- [[
+
 local function CreateDescriptionFrame(self, reference, parent, title, text)
     local descframe = CreateFrame("Frame", reference, parent)
     descframe:SetHeight(15)
@@ -195,17 +180,11 @@ local function CreateDescriptionFrame(self, reference, parent, title, text)
     --
     return descframe
 end
---]]
+
 local function CreateCheckButton(self, reference, parent, label)
     local checkbutton = CreateFrame("CheckButton", reference, parent, "InterfaceOptionsCheckButtonTemplate")
     _G[reference .. "Text"]:SetText(label)
-    checkbutton.GetValue = function()
-        if checkbutton:GetChecked() then
-            return true
-        else
-            return false
-        end
-    end
+    checkbutton.GetValue = function() return (checkbutton:GetChecked() == 1) end
     checkbutton.SetValue = checkbutton.SetChecked
 
     return checkbutton
@@ -226,8 +205,8 @@ local function CreateRadioButtons(self, reference, parent, numberOfButtons, defa
         end
 
         radioButtonSet[index]:SetScript("OnClick", function(self)
-            for i = 1, numberOfButtons do
-                radioButtonSet[i]:SetChecked(false)
+            for button = 1, numberOfButtons do
+                radioButtonSet[button]:SetChecked(false)
             end
             self:SetChecked(true)
         end)
@@ -259,7 +238,6 @@ local function CreateSliderFrame(self, reference, parent, label, val, minval, ma
     local slider = CreateFrame("Slider", reference, parent, "OptionsSliderTemplate")
     slider:SetWidth(100)
     slider:SetHeight(15)
-    --
     slider:SetMinMaxValues(minval or 0, maxval or 1)
     slider:SetValueStep(step or .1)
     slider:SetValue(val or .5)
@@ -271,11 +249,11 @@ local function CreateSliderFrame(self, reference, parent, label, val, minval, ma
     slider.Low = _G[reference .. "Low"]
     slider.High = _G[reference .. "High"]
     slider.Label:SetText(label or "")
-
     -- Value
     slider.Value = slider:CreateFontString(nil, "ARTWORK", "GameFontWhite")
     slider.Value:SetPoint("BOTTOM", 0, -10)
     slider.Value:SetWidth(50)
+    --slider.Value
     if mode and mode == "ACTUAL" then
         slider.Value:SetText(tostring(ceil(val)))
         slider:SetScript("OnValueChanged", function()
@@ -309,7 +287,7 @@ local function CreateDropdownFrame(helpertable, reference, parent, menu, default
     end
     dropdown.Text:SetWidth(100)
     dropdown:SetWidth(120)
-    --
+
     if label then
         dropdown.Label = dropdown:CreateFontString(nil, "ARTWORK", "GameFontNormal")
         dropdown.Label:SetPoint("TOPLEFT", 18, 18)
@@ -318,25 +296,22 @@ local function CreateDropdownFrame(helpertable, reference, parent, menu, default
 
     dropdown.Value = default
 
-    local function OnClickDropdownItem(self)
-        dropdown.Text:SetText(self:GetText())
-        dropdown.Value = self:GetID()
-        if dropdown.OnValueChanged then
-            dropdown.OnValueChanged()
-        end
-    end
-
-    dropdown.initialize = function(self, level) -- Replaces the default init function
+	-- Injects the init function into the template
+    dropdown.initialize = function(self, level)
         for index, item in pairs(menu) do
-            item.value = index
-            item.func = OnClickDropdownItem
-
-            UIDropDownMenu_AddButton(item)
+            item.func = function(self)
+                dropdown.Text:SetText(item.text)
+                dropdown.Value = index
+                if dropdown.OnValueChanged then
+                    dropdown.OnValueChanged()
+                end
+            end
+            UIDropDownMenu_AddButton(item, level)
         end
     end
 
     dropdown.SetValue = function(self, value)
-        if byName and value then
+        if byName then
             dropdown.Text:SetText(value)
         else
             dropdown.Text:SetText(menu[value].text)
@@ -355,7 +330,6 @@ local function CreateDropdownFrame(helpertable, reference, parent, menu, default
     return dropdown
 end
 
--- [[ COLOR
 local CreateColorBox
 do
     local workingFrame
@@ -375,10 +349,7 @@ do
     local function ShowColorPicker(frame)
         local r, g, b, a = frame:GetBackdropColor()
         workingFrame = frame
-        ColorPickerFrame.func, ColorPickerFrame.opacityFunc, ColorPickerFrame.cancelFunc =
-            ChangeColor,
-            ChangeColor,
-            ChangeColor
+        ColorPickerFrame.func, ColorPickerFrame.opacityFunc, ColorPickerFrame.cancelFunc = ChangeColor, ChangeColor, ChangeColor
         ColorPickerFrame.startingval = {r, g, b, a}
         ColorPickerFrame:SetColorRGB(r, g, b)
         ColorPickerFrame.hasOpacity = true
@@ -403,7 +374,7 @@ do
         })
         colorbox:SetBackdropColor(r, g, b, a)
         colorbox:SetScript("OnClick", function() ShowColorPicker(colorbox) end)
-        --
+        -- Label
         colorbox.Label = colorbox:CreateFontString(nil, "ARTWORK", "GameFontWhiteSmall")
         colorbox.Label:SetPoint("TOPLEFT", colorbox, "TOPRIGHT", 4, -7)
         colorbox.Label:SetText(label)
@@ -416,12 +387,12 @@ do
         colorbox.SetValue = function(self, color)
             colorbox:SetBackdropColor(color.r, color.g, color.b, color.a)
         end
+
         return colorbox
     end
 end
 
-local PanelHelpers = _G.PanelHelpers or {}
-_G.PanelHelpers = PanelHelpers
+PanelHelpers = {}
 
 PanelHelpers.CreatePanelFrame = CreatePanelFrame
 PanelHelpers.CreateDescriptionFrame = CreateDescriptionFrame
@@ -446,8 +417,6 @@ local function StartMovement(frame)
             OriginalAnchor.yOfs = frame:GetPoint(1)
         print("Starting Movement from, ", OriginalAnchor.xOfs, OriginalAnchor.yOfs)
     end
-
-    -- Store Current Screen-RelativePosition to frame.NewAnchor
 end
 
 local function FinishMovement(frame)
@@ -455,20 +424,11 @@ local function FinishMovement(frame)
     local NewAnchor = frame.NewAnchor
     local OriginalAnchor = frame.OriginalAnchor
     NewAnchor.point, NewAnchor.relativeTo, NewAnchor.relativePoint, NewAnchor.xOfs, NewAnchor.yOfs = frame:GetPoint(1)
-    print(
-        frame:GetName(),
-        " has been moved, ",
-        NewAnchor.xOfs - OriginalAnchor.xOfs,
-        " , ",
-        NewAnchor.yOfs - OriginalAnchor.yOfs
-    )
+    print(frame:GetName(), " has been moved, ", NewAnchor.xOfs - OriginalAnchor.xOfs, " , ", NewAnchor.yOfs - OriginalAnchor.yOfs)
     frame:StopMovingOrSizing()
-    -- Process the
 end
 
 local function EnableFreePositioning(frame)
-    -- http://www.wowwiki.com/API_Frame_StartMoving
-    -- point, relativeTo, relativePoint, xOfs, yOfs = MyRegion:GetPoint(n)
     frame:SetMovable(true)
     frame:EnableMouse(true)
     frame:SetScript("OnMouseDown", StartMovement)

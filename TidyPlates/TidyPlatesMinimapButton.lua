@@ -1,27 +1,21 @@
-local TidyPlates = _G.TidyPlates
-local TidyPlatesThemeList = _G.TidyPlatesThemeList
-local TidyPlatesUtility = _G.TidyPlatesUtility
-local TidyPlatesWidgets = _G.TidyPlatesWidgets
+local addonName = "TidyPlatesIcon"
 
-local LibStub = _G.LibStub
+local LibStub = LibStub
 local LibIcon, LibDataBroker
 if LibStub then
-	LibIcon = LibStub("LibDBIcon-1.0", true)
-	LibDataBroker = LibStub("LibDataBroker-1.1", true)
+    LibIcon = LibStub("LibDBIcon-1.0", true)
+    LibDataBroker = LibStub("LibDataBroker-1.1", true)
 end
-
-local addonName = "TidyPlatesIcon"
-local TidyPlatesIconFrame
 
 ----------------------------------------------------------------------------------------
 -- Dropdown Menu Functions
 ----------------------------------------------------------------------------------------
 
 local DropdownFrame = CreateFrame("Frame", "TidyPlatesDropdownFrame", UIParent, "UIDropDownMenuTemplate")
-local ButtonTexture = "Interface\\Addons\\TidyPlates\\Media\\TidyPlatesIcon"
+local ButtonTexture = "Interface\\Addons\\TidyPlates\\media\\TidyPlatesIcon"
 
 local function GetCurrentSpec()
-    if TidyPlatesUtility.GetSpec(false, false) == 2 then
+    if GetActiveTalentGroup(false, false) == 2 then
         return "secondary"
     else
         return "primary"
@@ -100,12 +94,8 @@ end
 ----------------------------------------------------------------------------------------
 
 local function CreateStandaloneIcon()
-    if TidyPlatesIconFrame and TidyPlatesIconFrame.Show then
-        return
-    end
     local ButtonFrame = CreateFrame("Button", "TidyPlatesIconFrame", UIParent)
 
-    --ButtonFrame:SetUserPlaced()
     ButtonFrame:SetWidth(31)
     ButtonFrame:SetHeight(31)
     ButtonFrame:SetFrameStrata("LOW")
@@ -135,7 +125,7 @@ local function CreateStandaloneIcon()
     local function OnEnter()
         GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
         GameTooltip:AddLine("Tidy Plates")
-        GameTooltip:AddLine("Right-Click: Quick Menu|nLeft-Click: Theme Panel|nMiddle-Click: Tidy Plates Panel", 0.8, 0.8, 0.8, 1)
+        GameTooltip:AddLine("Right-Click: Quick Menu|nLeft-Click: Theme Panel|nMiddle-Click: Tidy Plates Panel", .8, .8, .8, 1)
         GameTooltip:Show()
     end
 
@@ -158,7 +148,6 @@ local function CreateStandaloneIcon()
             UIDropDownMenu_Initialize(DropdownFrame, InitializeDropdownMenu, "MENU")
             ToggleDropDownMenu(1, nil, DropdownFrame, frame)
         elseif button == "MiddleButton" then
-            --InterfaceOptionsFrame_OpenToCategory("TidyPlatesInterfaceOptions")
             InterfaceOptionsFrame_OpenToCategory("Tidy Plates")
         elseif button == "RightButton" then
             ConfigureCurrentTheme()
@@ -183,7 +172,6 @@ local function CreateStandaloneIcon()
     ButtonFrame:SetScript("OnDragStop", OnDragStop)
 
     ButtonFrame:SetPoint("CENTER", UIParent)
-	ButtonFrame:Hide()
 
     TidyPlatesIconFrame = ButtonFrame
 end
@@ -192,37 +180,40 @@ end
 -- LDB Button Creation
 ----------------------------------------------------------------------------------------
 local function CreateDataBrokerIcon()
-    local ButtonFrameObject = LibDataBroker:NewDataObject(addonName, {
-        type = "launcher",
-        label = addonName,
-        icon = ButtonTexture,
-        OnClick = function(frame, button)
-            GameTooltip:Hide()
-            if button == "LeftButton" then
-                UIDropDownMenu_Initialize(DropdownFrame, InitializeDropdownMenu, "MENU")
-                ToggleDropDownMenu(1, nil, DropdownFrame, frame)
-            elseif button == "MiddleButton" then
-                InterfaceOptionsFrame_OpenToCategory("Tidy Plates")
-            elseif button == "RightButton" then
-                ConfigureCurrentTheme()
-            end
-            PlaySound("igMainMenuOptionCheckBoxOn")
-        end,
-        OnTooltipShow = function(tooltip)
-            if tooltip and tooltip.AddLine then
-                tooltip:SetText("Tidy Plates")
-                tooltip:AddLine("Right-Click: Quick Menu|nLeft-Click: Theme Panel|nMiddle-Click: Tidy Plates Panel", 0.8, 0.8, 0.8, 1)
-                tooltip:Show()
-            end
-        end
-    })
-
-	if not LibIcon then return end
-
-    TidyPlatesOptions.LDB = TidyPlatesOptions.LDB or {}
-	if ButtonFrameObject then
-		LibIcon:Register(addonName, ButtonFrameObject, TidyPlatesOptions.LDB)
+	local ButtonFrameObject
+	if LibDataBroker then
+		ButtonFrameObject = LibDataBroker:NewDataObject(addonName, {
+	        type = "launcher",
+	        label = addonName,
+	        icon = ButtonTexture,
+	        OnClick = function(frame, button)
+	            GameTooltip:Hide()
+	            if button == "LeftButton" then
+	                UIDropDownMenu_Initialize(DropdownFrame, InitializeDropdownMenu, "MENU")
+	                ToggleDropDownMenu(1, nil, DropdownFrame, frame)
+	            elseif button == "MiddleButton" then
+	                InterfaceOptionsFrame_OpenToCategory("Tidy Plates")
+	            elseif button == "RightButton" then
+	                ConfigureCurrentTheme()
+	            end
+	            PlaySound("igMainMenuOptionCheckBoxOn")
+	        end,
+	        OnTooltipShow = function(tooltip)
+	            if tooltip and tooltip.AddLine then
+	                tooltip:SetText("Tidy Plates")
+	                tooltip:AddLine("Right-Click: Quick Menu|nLeft-Click: Theme Panel|nMiddle-Click: Tidy Plates Panel", .8, .8, .8, 1)
+	                tooltip:Show()
+	            end
+	        end
+	    })
 	end
+
+    if not LibIcon then return end
+
+    if not ButtonFrameObject then return end
+    TidyPlatesOptions.LDB = TidyPlatesOptions.LDB or {}
+    LibIcon:Register(addonName, ButtonFrameObject, TidyPlatesOptions.LDB)
+    TidyPlatesIconFrame = ButtonFrameObject
 end
 
 ----------------------------------------------------------------------------------------
@@ -230,52 +221,35 @@ end
 ----------------------------------------------------------------------------------------
 
 local function CreateMinimapButton()
-	if not TidyPlatesIconFrame then
-		if LibStub and LibDataBroker then
-			CreateDataBrokerIcon()
-		else
-			CreateStandaloneIcon()
-		end
-	end
-end
-
-local function HideMinimapButton()
-    if TidyPlatesIconFrame and TidyPlatesIconFrame.Hide then
-        if LibIcon then
-            LibIcon:Hide(addonName)
+    if not TidyPlatesIconFrame then
+        if LibDataBroker then
+            CreateDataBrokerIcon()
         else
-            TidyPlatesIconFrame:Hide()
+            CreateStandaloneIcon()
         end
     end
 end
 
-local function ShowMinimapButton()
-	if not TidyPlatesIconFrame then
-		CreateMinimapButton()
-	end
+local function HideMinimapButton()
+    if TidyPlatesIconFrame and LibIcon then
+        LibIcon:Hide(addonName)
+    elseif TidyPlatesIconFrame then
+        TidyPlatesIconFrame:Hide()
+    end
+end
 
-    if TidyPlatesIconFrame and TidyPlatesIconFrame.Show then
-        if LibIcon then
-            LibIcon:Show(addonName)
-        else
-            TidyPlatesIconFrame:Show()
-        end
+local function ShowMinimapButton()
+    if not TidyPlatesIconFrame then
+        CreateMinimapButton()
+    end
+
+    if TidyPlatesIconFrame and LibIcon then
+        LibIcon:Show(addonName)
+    elseif TidyPlatesIconFrame then
+        TidyPlatesIconFrame:Show()
     end
 end
 
 TidyPlatesUtility.CreateMinimapButton = CreateMinimapButton
 TidyPlatesUtility.HideMinimapButton = HideMinimapButton
 TidyPlatesUtility.ShowMinimapButton = ShowMinimapButton
-
--------------------------------------------------------------------------------------
--- Slash Commands
--------------------------------------------------------------------------------------
-
-local function EnableTidyPlatesMiniButton(arg)
-    TidyPlatesOptions.EnableMinimapButton = true
-    CreateMinimapButton()
-    ShowMinimapButton()
-end
-
-_G.SLASH_TIDYPLATESICON1 = "/tidyplatesicon"
-SlashCmdList["TIDYPLATESICON"] = EnableTidyPlatesMiniButton

@@ -1,4 +1,3 @@
-local TidyPlatesThemeList = _G.TidyPlatesThemeList
 ----------------------------------
 -- Helpers
 ----------------------------------
@@ -7,30 +6,22 @@ local PrefixList = {
     ["MY"] = 2,
     ["NO"] = 3,
     ["CC"] = 4,
-    ["OTHER"] = 5,
-    ["All"] = 1,
-    ["My"] = 2,
-    ["No"] = 3,
-    ["Other"] = 5,
-    ["all"] = 1,
-    ["my"] = 2,
-    ["no"] = 3,
-    ["cc"] = 4,
-    ["other"] = 5
+    ["OTHER"] = 5
 }
 
 local function CallForStyleUpdate()
     for name, theme in pairs(TidyPlatesThemeList) do
         if theme.OnApplyThemeCustomization then
-            theme:OnApplyThemeCustomization()
+            theme.OnApplyThemeCustomization()
         end
     end
 end
 
-local function GetPanelValues(panel, targetTable)
-    for i in pairs(targetTable) do
-        if panel[i] then
-            targetTable[i] = panel[i]:GetValue()
+local function GetPanelValues(panel, targetTable, cloneTable)
+    for index in pairs(targetTable) do
+        if panel[index] then
+            targetTable[index] = panel[index]:GetValue()
+            cloneTable[index] = targetTable[index]
         end
     end
 end
@@ -53,9 +44,8 @@ end
 
 local function ListToTable(...)
     local t = {}
-    local index, line
     for index = 1, select("#", ...) do
-        line = select(index, ...)
+        local line = select(index, ...)
         if line ~= "" then
             t[index] = line
         end
@@ -68,7 +58,7 @@ local function ConvertStringToTable(source, target)
     target = wipe(target)
 
     for index = 1, #source do
-        local str = temp[index]
+        local str = source[index]
         if str then
             target[str] = true
         end
@@ -85,12 +75,10 @@ local function ConvertDebuffListTable(source, target, order)
     for index = 1, #temp do
         local str = temp[index]
         local item
-        local _, prefix, suffix
-        _, _, prefix, suffix = string.find(str, "(%w+)[%s%p]*(.*)")
+        local _, _, prefix, suffix = string.find(str, "(%w+)[%s%p]*(.*)")
         if prefix then
             if PrefixList[prefix] then
                 item = suffix
-                -- CONVERT
                 target[item] = PrefixList[prefix]
             else -- If no prefix is listed, assume 1
                 if suffix and suffix ~= "" then
@@ -98,7 +86,6 @@ local function ConvertDebuffListTable(source, target, order)
                 else
                     item = prefix
                 end
-                -- CONVERT
                 target[item] = 1
             end
             if order then

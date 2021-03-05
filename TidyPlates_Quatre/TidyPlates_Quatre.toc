@@ -1,6 +1,6 @@
 ## Interface: 30300
 ## Title: Tidy Plates: Quatre Theme
-## Notes: It's the 4th!
+## Notes: It's #4!
 ## Author: Binny (Kader Backport)
 ## Dependencies: TidyPlates, TidyPlatesHub
 

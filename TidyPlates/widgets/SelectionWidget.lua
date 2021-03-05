@@ -1,5 +1,3 @@
-local TidyPlatesWidgets = _G.TidyPlatesWidgets
-
 ---------------
 -- Target Widget
 ---------------

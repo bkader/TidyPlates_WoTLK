@@ -1,28 +1,29 @@
-local TidyPlates = _G.TidyPlates
-
 local _
 local RaidTargetReference = {
-    ["STAR"] = 0x00100000,
-    ["CIRCLE"] = 0x00200000,
-    ["DIAMOND"] = 0x00400000,
-    ["TRIANGLE"] = 0x00800000,
-    ["MOON"] = 0x01000000,
-    ["SQUARE"] = 0x02000000,
-    ["CROSS"] = 0x04000000,
-    ["SKULL"] = 0x08000000
+    STAR = 0x00100000,
+    CIRCLE = 0x00200000,
+    DIAMOND = 0x00400000,
+    TRIANGLE = 0x00800000,
+    MOON = 0x01000000,
+    SQUARE = 0x02000000,
+    CROSS = 0x04000000,
+    SKULL = 0x08000000
 }
 
 -------------------------------------------------------------------------
 -- Spell Cast Event Watcher.
 -------------------------------------------------------------------------
-local CombatCastEventWatcher = CreateFrame("Frame", nil)
+local CombatCastEventWatcher
 local CombatEventHandlers = {}
-local StartCastAnimationOnNameplate = TidyPlates.StartCastAnimationOnNameplate -- If you don't define a local reference, the Tidy Plates table will get passed to the function.
+
+-- If you don't define a local reference,
+-- the Tidy Plates table will get passed to the function.
+local StartCastAnimationOnNameplate = TidyPlates.StartCastAnimationOnNameplate
 
 local function SearchNameplateByGUID(SearchFor)
     for VisiblePlate in pairs(TidyPlates.NameplatesByVisible) do
         local UnitGUID = VisiblePlate.extended.unit.guid
-        if UnitGUID and UnitGUID == SearchFor then -- BY GUID
+        if UnitGUID and UnitGUID == SearchFor then
             return VisiblePlate
         end
     end
@@ -31,7 +32,7 @@ end
 local function SearchNameplateByName(NameString)
     local SearchFor = strsplit("-", NameString)
     for VisiblePlate in pairs(TidyPlates.NameplatesByVisible) do
-        if VisiblePlate.extended.unit.name == SearchFor then -- BY NAME
+        if VisiblePlate.extended.unit.name == SearchFor then
             return VisiblePlate
         end
     end
@@ -62,7 +63,8 @@ local function OnSpellCast(...)
     local FoundPlate = nil
 
     -- Gather Spell Info
-    local spell, _, icon, _, _, _, castTime, _, _ = GetSpellInfo(spellid)
+    local spell, _, icon, castTime
+    spell, _, icon, _, _, _, castTime, _, _ = GetSpellInfo(spellid)
     if not (castTime > 0) then
         return
     end
@@ -93,11 +95,10 @@ local function OnSpellCast(...)
         end
 
         castTime = (castTime / 1000) -- Convert to seconds
-        StartCastAnimationOnNameplate(FoundPlate, spell, spell, icon, currentTime, currentTime + castTime, false, false)
+        StartCastAnimationOnNameplate(FoundPlate, spell, spellid, icon, currentTime, currentTime + castTime, false, false)
     end
 end
 
--- SPELL_CAST_START -- Non-channeled spells
 function CombatEventHandlers.SPELL_CAST_START(...)
     OnSpellCast(...)
 end
@@ -106,13 +107,13 @@ end
 -- Watch Combat Log Events
 --------------------------------------
 
-local GetCombatEventResults = function(...)
-	local timestamp, combatevent, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, spellid, spellname = ...
-	return combatevent, sourceGUID, sourceName, sourceFlags, sourceFlags, spellid, spellname
+local function GetCombatEventResults(...)
+    local _, combatevent, sourceGUID, sourceName, sourceFlags, _, _, _, spellid, spellname = ...
+    return combatevent, sourceGUID, sourceName, sourceFlags, sourceFlags, spellid, spellname
 end
 
 local function OnCombatEvent(self, event, ...)
-    local _, combatevent, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, spellid, spellname = ...
+    local combatevent, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, spellid, spellname = GetCombatEventResults(...)
     if CombatEventHandlers[combatevent] and sourceGUID ~= UnitGUID("target") then
         CombatEventHandlers[combatevent](sourceGUID, sourceName, sourceFlags, sourceRaidFlags, spellid, spellname)
     end
@@ -141,17 +142,20 @@ end
 TidyPlates.StartSpellCastWatcher = StartSpellCastWatcher
 TidyPlates.StopSpellCastWatcher = StopSpellCastWatcher
 
-_G.TestTidyPlatesCastBar = function(SearchFor, SpellID, Shielded, ForceChanneled)
+-- The spell ID number of Fireball is 133
+-- To test spell cast: /run TestTidyPlatesCastBar("Boognish", 133, true)
+function TestTidyPlatesCastBar(SearchFor, SpellID, Shielded, ForceChanneled)
     local FoundPlate
     local currentTime = GetTime()
-
     local spell, _, icon, _, _, _, castTime, _, _ = GetSpellInfo(SpellID)
+    local channel
 
     print("Testing Spell Cast on", SearchFor)
     -- Search for the nameplate, by name (you could also search by GUID)
     for VisiblePlate in pairs(TidyPlates.NameplatesByVisible) do
         if VisiblePlate.extended.unit.name == SearchFor then
             FoundPlate = VisiblePlate
+            break
         end
     end
 

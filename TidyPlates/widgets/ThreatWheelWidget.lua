@@ -1,7 +1,4 @@
-local TidyPlatesUtility = _G.TidyPlatesUtility
-local TidyPlatesWidgets = _G.TidyPlatesWidgets
-
-local threatfont = "FONTS\\arialn.ttf"
+local threatfont = "FONTS\\ARIALN.ttf"
 ---------------
 -- General Functions
 ---------------
@@ -51,7 +48,7 @@ local GetRelativeThreat = TidyPlatesUtility.GetRelativeThreat
 do
     local function UpdateRoster()
         if UnitInRaid("player") then
-            local size = TidyPlatesUtility.GetNumRaidMembers() - 1
+            local size = GetNumRaidMembers() - 1
             for index = 1, size do
                 local raidid = "raid" .. tostring(index)
                 local isAssigned = GetPartyAssignment("MAINTANK", raidid)
@@ -79,7 +76,7 @@ end
 -- Threat Circle Widget
 ---------------
 do
-    local threatSpinnerWidgetArt = "Interface\\Addons\\TidyPlatesWidgets\\ThreatSpinner\\SpinnerArt"
+    local threatSpinnerWidgetArt = "Interface\\Addons\\TidyPlates\\widgets\\ThreatSpinner\\SpinnerArt"
 
     local THREATWIDGET_SEGMENT_COORD = {
         HIGHTANK = {.75, 1, .5, 1},
@@ -92,7 +89,6 @@ do
     }
 
     local function UpdateThreatWheelWidget(frame, unit)
-        -- [[ Normal Mode
         local unitid
         if unit.reaction == "FRIENDLY" or (not InCombatLockdown()) then
             frame:Hide()
@@ -110,7 +106,6 @@ do
             if threatsegment then
                 -- Set Indicator
                 frame:Show()
-                --frame.ThreatIcon:SetTexture(THREATWIDGET_SEGMENT_ART[threatsegment])
                 frame.ThreatIcon:SetTexCoord(unpack(THREATWIDGET_SEGMENT_COORD[threatsegment]))
                 frame.ThreatText:SetText(floor(threat))
                 if topholder then
@@ -128,14 +123,6 @@ do
         elseif (GetTime() > frame.FadeTime) then
             frame:Hide()
         end
-        --]]
-
-        --[[Test Mode:
-		frame.ThreatIcon:SetTexCoord(unpack(THREATWIDGET_SEGMENT_COORD["MEDIUMTANK"]))
-		frame.ThreatText:SetText(120)
-		frame.TargetText:SetText("Dog")
-		frame:Show()
-		--]]
     end
 
     local function CreateThreatWheelWidget(parent)

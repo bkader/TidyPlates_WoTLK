@@ -1,20 +1,26 @@
 local TidyPlates = _G.TidyPlates
 local TidyPlatesUtility = _G.TidyPlatesUtility
-local TidyPlatesThemeList = _G.TidyPlatesThemeList or {}
-_G.TidyPlatesThemeList = TidyPlatesThemeList
+TidyPlatesThemeList = TidyPlatesThemeList or {}
 
 -------------------------------------------------------------------------------------
 -- Template
 -------------------------------------------------------------------------------------
 
 local theme = {}
-local defaultArtPath = "Interface\\Addons\\TidyPlates\\Media\\"
-local font = NAMEPLATE_FONT
-local EMPTY_TEXTURE = defaultArtPath .. "Empty"
+local defaultArtPath = "Interface\\Addons\\TidyPlates\\media"
+local font = "FONTS\\arialn.ttf"
+local EMPTY_TEXTURE = defaultArtPath .. "\\Empty"
 
-theme.hitbox = {width = 149, height = 40}
+theme.hitbox = {
+    width = 149,
+    height = 40
+}
 
-theme.highlight = {texture = EMPTY_TEXTURE, width = 128, height = 64}
+theme.highlight = {
+    texture = EMPTY_TEXTURE,
+    width = 128,
+    height = 64
+}
 
 theme.healthborder = {
     texture = EMPTY_TEXTURE,
@@ -23,11 +29,7 @@ theme.healthborder = {
     x = 0,
     y = -5,
     anchor = "CENTER",
-    show = true,
-    left = 0,
-    right = 1,
-    top = 0,
-    bottom = 1
+    show = true
 }
 
 theme.eliteicon = {
@@ -104,12 +106,16 @@ theme.healthbar = {
     texture = EMPTY_TEXTURE,
     backdrop = EMPTY_TEXTURE,
     height = 12,
-    --width = 101,
     width = 0,
     x = 0,
     y = 10,
     anchor = "CENTER",
-    orientation = "HORIZONTAL"
+    orientation = "HORIZONTAL",
+    texcoord = {left = 0, right = 1, top = 0, bottom = 1},
+    linkwidth = false,
+    edgeFile = EMPTY_TEXTURE,
+    edgeSize = 1,
+    edgeInset = {left = 0, right = 0, top = 0, bottom = 0}
 }
 
 theme.castbar = {
@@ -121,7 +127,11 @@ theme.castbar = {
     y = -19,
     anchor = "CENTER",
     orientation = "HORIZONTAL",
-    linkwidth = false
+    texcoord = {left = 0, right = 1, top = 0, bottom = 1},
+    linkwidth = false,
+    edgeFile = EMPTY_TEXTURE,
+    edgeSize = 1,
+    edgeInset = {left = 0, right = 0, top = 0, bottom = 0}
 }
 
 theme.spelltext = {
@@ -216,7 +226,8 @@ theme.threatcolor = {
 }
 
 TidyPlates.Template = theme
-TidyPlates:ActivateTheme(theme) -- Activates the template as a holder theme, until the user preference is loaded
+-- Activates the template as a holder theme, until the user preference is loaded
+TidyPlates:ActivateTheme(theme)
 
 ------------
 -- "Name Only" Theme
@@ -253,5 +264,4 @@ local function TextDelegate(unit)
 end
 
 NameOnlyTheme.SetCustomText = TextDelegate
-
-TidyPlatesThemeList["No Theme"] = NameOnlyTheme
+TidyPlatesThemeList["None"] = NameOnlyTheme

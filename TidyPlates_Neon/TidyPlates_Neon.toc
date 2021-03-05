@@ -3,5 +3,6 @@
 ## Notes: It toasts your Eggo waffles, and butters your bread.
 ## Author: Binny (Kader Backport)
 ## Dependencies: TidyPlates, TidyPlatesHub
+## SavedVariablesPerCharacter: TidyPlatesNeonTankSavedVariables, TidyPlatesNeonDPSSavedVariables
 
 Neon.lua

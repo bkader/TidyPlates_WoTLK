@@ -1,1 +1,1 @@
-# TidyPlates v6.7.1 Backported for WoTLK
+# TidyPlates v6.4.8 Backported for WoTLK
