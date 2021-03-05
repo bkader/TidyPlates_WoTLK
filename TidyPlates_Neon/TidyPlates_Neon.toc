@@ -2,7 +2,6 @@
 ## Title: Tidy Plates: Neon Theme
 ## Notes: It toasts your Eggo waffles, and butters your bread.
 ## Author: Binny (Kader Backport)
-## Dependencies: TidyPlates, TidyPlatesHub
+## Dependencies: TidyPlates
 ## SavedVariablesPerCharacter: TidyPlatesNeonTankSavedVariables, TidyPlatesNeonDPSSavedVariables
-
 Neon.lua

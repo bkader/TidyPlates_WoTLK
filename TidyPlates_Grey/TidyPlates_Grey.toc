@@ -2,6 +2,5 @@
 ## Title: Tidy Plates: Grey Theme
 ## Notes: Use apostrophes wisely.
 ## Author: Binny (Kader Backport)
-## Dependencies: TidyPlates, TidyPlatesHub
-
+## Dependencies: TidyPlates
 Grey.lua

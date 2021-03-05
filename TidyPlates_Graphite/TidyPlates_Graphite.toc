@@ -2,6 +2,5 @@
 ## Title: Tidy Plates: Graphite
 ## Notes: Minimalisty
 ## Author: Binny (Kader Backport)
-## Dependencies: TidyPlates, TidyPlatesHub
-
+## Dependencies: TidyPlates
 Graphite.lua
