@@ -9,9 +9,7 @@ local EmptyTexture = "Interface\\Addons\\TidyPlates\\media\\Empty"
 
 -- Non-Latin Font Bypass
 local NonLatinLocales = {["ruRU"] = true, ["koKR"] = true, ["zhCN"] = true, ["zhTW"] = true}
-if NonLatinLocales[GetLocale()] == true then
-    font = NAMEPLATE_FONT
-end
+if NonLatinLocales[GetLocale()] == true then font = NAMEPLATE_FONT end
 
 local VerticalAdjustment = -12
 local castbarVertical = VerticalAdjustment - 15

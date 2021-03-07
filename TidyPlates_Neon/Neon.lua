@@ -9,6 +9,10 @@ local NameTextVerticalAdjustment = -10
 local EmptyTexture = ArtworkPath .. "Neon_Empty"
 local CastBarVerticalAdjustment = -24
 
+-- Non-Latin Font Bypass
+local NonLatinLocales = {ruRU = true, koKR = true, zhCN = true, zhTW = true}
+if NonLatinLocales[GetLocale()] then font = NAMEPLATE_FONT end
+
 ---------------------------------------------
 -- Default Style
 ---------------------------------------------

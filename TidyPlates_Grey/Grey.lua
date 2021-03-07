@@ -11,6 +11,10 @@ local blizzfont = NAMEPLATE_FONT
 local nameplate_verticalOffset = -5
 local castBar_verticalOffset = -6
 
+-- Non-Latin Font Bypass
+local NonLatinLocales = {ruRU = true, koKR = true, zhCN = true, zhTW = true}
+if NonLatinLocales[GetLocale()] then font = NAMEPLATE_FONT end
+
 local StyleDefault = {}
 
 StyleDefault.hitbox = {width = 140, height = 35}
