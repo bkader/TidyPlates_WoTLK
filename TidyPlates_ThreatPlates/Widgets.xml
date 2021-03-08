@@ -1,0 +1,14 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+<Script file="Widgets\Widgets.lua" />
+<Script file="Widgets\EliteArtWidget.lua" />
+<Script file="Widgets\EliteArtOverlayWidget.lua" />
+<Script file="Widgets\ClassIconWidget.lua" />
+<Script file="Widgets\ComboPointWidget.lua" />
+<Script file="Widgets\SocialWidget.lua" />
+<Script file="Widgets\TargetArtWidget.lua" />
+<Script file="Widgets\ThreatWidget.lua" />
+<Script file="Widgets\TotemIconWidget.lua" />
+<Script file="Widgets\UniqueIconWidget.lua" />
+</Ui>

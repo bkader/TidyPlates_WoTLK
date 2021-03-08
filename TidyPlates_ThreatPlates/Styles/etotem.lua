@@ -1,6 +1,6 @@
-﻿local Media = LibStub("LibSharedMedia-3.0")
+local Media = LibStub("LibSharedMedia-3.0")
 local config = {}
-local path = "Interface\\Addons\\TidyPlates_ThreatPlates\\Artwork\\"
+local path = "Interface\\Addons\\TidyPlates_ThreatPlates\\Media\\Artwork\\"
 local f = CreateFrame("Frame")
 local function CreateStyle(self,event,...)
 	local arg1 = ...
@@ -167,22 +167,22 @@ config.raidicon = {
 --[[OPTIONS]]--
 local threat = db.totem.threatcolor
 config.threatcolor = {
-	LOW = { 
-		r = threat.LOW.r, 
-		g = threat.LOW.g, 
-		b = threat.LOW.b, 
-		a = threat.LOW.a 
+	LOW = {
+		r = threat.LOW.r,
+		g = threat.LOW.g,
+		b = threat.LOW.b,
+		a = threat.LOW.a
 	},
-	MEDIUM = { 
-		r = threat.MEDIUM.r, 
-		g = threat.MEDIUM.g, 
-		b = threat.MEDIUM.b, 
+	MEDIUM = {
+		r = threat.MEDIUM.r,
+		g = threat.MEDIUM.g,
+		b = threat.MEDIUM.b,
 		a = threat.MEDIUM.a
 	},
-	HIGH = { 
+	HIGH = {
 		r = threat.HIGH.r,
-		g = threat.HIGH.g, 
-		b = threat.HIGH.b, 
+		g = threat.HIGH.g,
+		b = threat.HIGH.b,
 		a = threat.HIGH.a
 	},
 }
@@ -190,7 +190,7 @@ TidyPlatesThemeList["Threat Plates"]["etotem"] = {}
 TidyPlatesThemeList["Threat Plates"]["etotem"] = config
 	end
 end
-f:SetScript("OnEvent", function(self,event,...) 
+f:SetScript("OnEvent", function(self,event,...)
 	CreateStyle(self,event,...)
 end)
 f:RegisterEvent("ADDON_LOADED")

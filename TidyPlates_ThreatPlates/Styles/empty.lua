@@ -1,6 +1,6 @@
 local Media = LibStub("LibSharedMedia-3.0")
 local config = {}
-local path = "Interface\\Addons\\TidyPlates_ThreatPlates\\Artwork\\"
+local path = "Interface\\Addons\\TidyPlates_ThreatPlates\\Media\\Artwork\\"
 local f = CreateFrame("Frame")
 local function CreateStyle(self,event,...)
 	local arg1 = ...
@@ -171,6 +171,6 @@ TidyPlatesThemeList["Threat Plates"]["empty"] = config
 	end
 end
 f:RegisterEvent("ADDON_LOADED")
-f:SetScript("OnEvent", function(self,event,...) 
+f:SetScript("OnEvent", function(self,event,...)
 	CreateStyle(self,event,...)
 end)

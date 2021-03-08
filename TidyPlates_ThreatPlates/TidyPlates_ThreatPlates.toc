@@ -1,4 +1,4 @@
-﻿## Interface: 30300
+## Interface: 30300
 ## Title: Tidy Plates: |cff89F559Threat Plates|r
 ## Notes: Revolutionary |cff89F559threat reactive nameplates|r by |cff3079ffSuicidal Katt|r.
 ## Notes-zhTW:創新的|cff89F559仇恨響應姓名板|r by|cff3079ffSuicidal Katt|r 漢化by|cff3079ffSamonyoge@狂熱之刃|r。
@@ -7,42 +7,13 @@
 ## RequiredDeps: TidyPlates
 ## SavedVariables: ThreatPlatesDB
 ## Version: 5.5
-## OptionalDeps: Ace3, LibSharedMedia-3.0
+## OptionalDeps: LibSharedMedia-3.0
 
-embeds.xml
-
+Libs\embeds.xml
 Locales\locales.xml
-
-TidyPlatesThreat.lua
-
-commands.lua
-
-Functions\alpha.lua
-Functions\scale.lua
-Functions\healthtext.lua
-Functions\castbarcolor.lua
-Functions\healthbarcolor.lua
-Functions\nametextcolor.lua
-Functions\threatcolor.lua
-Functions\shapeshifts.lua
-
-Widgets\Widgets.lua
-Widgets\EliteArtWidget.lua
-Widgets\EliteArtOverlayWidget.lua
-Widgets\ClassIconWidget.lua
-Widgets\ComboPointWidget.lua
-Widgets\SocialWidget.lua
-Widgets\TargetArtWidget.lua
-Widgets\ThreatWidget.lua
-Widgets\TotemIconWidget.lua
-Widgets\UniqueIconWidget.lua
-
-options.lua
-
-Styles\empty.lua
-Styles\normal.lua
-Styles\etotem.lua
-Styles\totem.lua
-Styles\unique.lua
-Styles\tank.lua
-Styles\dps.lua
+Core.lua
+Commands.lua
+Functions.lua
+Widgets.xml
+Options.lua
+Styles.xml

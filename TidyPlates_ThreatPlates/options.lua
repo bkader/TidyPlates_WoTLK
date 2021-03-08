@@ -2,7 +2,7 @@ local TidyPlatesThreat = LibStub("AceAddon-3.0"):GetAddon("TidyPlatesThreat");
 local L = LibStub("AceLocale-3.0"):GetLocale("TidyPlatesThreat")
 local class = select(2, UnitClass("Player"))
 
-local path = "Interface\\Addons\\TidyPlates_ThreatPlates\\Artwork\\"
+local path = "Interface\\Addons\\TidyPlates_ThreatPlates\\Media\\Artwork\\"
 local db;
 
 -- Reference Tables
@@ -178,8 +178,8 @@ StaticPopupDialogs["TPTP Discord"] = {
 -- Shared Media Configs
 local Media = LibStub("LibSharedMedia-3.0")
 local mediaWidgets = Media and LibStub("AceGUISharedMediaWidgets-1.0", true)
-Media:Register("statusbar", "ThreatPlatesBar", [[Interface\Addons\TidyPlates_ThreatPlates\Artwork\TP_BarTexture.tga]])
-Media:Register("font", "Accidental Presidency",[[Interface\Addons\TidyPlates_ThreatPlates\Fonts\Accidental Presidency.ttf]])
+Media:Register("statusbar", "ThreatPlatesBar", [[Interface\Addons\TidyPlates_ThreatPlates\Media\Artwork\TP_BarTexture.tga]])
+Media:Register("font", "Accidental Presidency",[[Interface\Addons\TidyPlates_ThreatPlates\Media\Fonts\Accidental Presidency.ttf]])
 
 -- Functions
 local function GetSpellName(number)

@@ -1,5 +1,7 @@
+local L = TidyPlates.L
+
 local Panel
-local font = "Interface\\Addons\\TidyPlates\\media\\DefaultFont.ttf"
+local font = "Fonts\\FRIZQT__.TTF"
 local CopyTable = TidyPlatesUtility.copyTable
 local PanelHelpers = TidyPlatesUtility.PanelHelpers
 
@@ -368,84 +370,84 @@ end
 local function CreateInterfacePanel(panelName, panelTitle, heading, parentTitle)
     local StyleModes = {
         -- Nameplate Style
-        {text = "Default", notCheckable = 1},
-        {text = "Text Only", notCheckable = 1},
-        {text = "Bars during Combat", notCheckable = 1},
-        {text = "Bars on Active/Damaged Units", notCheckable = 1},
-        {text = "Bars on Elite Units", notCheckable = 1},
-        {text = "Bars on Marked Units", notCheckable = 1},
-        {text = "Bars on Players", notCheckable = 1}
+        {text = L["Default"], notCheckable = 1},
+        {text = L["Text Only"], notCheckable = 1},
+        {text = L["Bars during Combat"], notCheckable = 1},
+        {text = L["Bars on Active/Damaged Units"], notCheckable = 1},
+        {text = L["Bars on Elite Units"], notCheckable = 1},
+        {text = L["Bars on Marked Units"], notCheckable = 1},
+        {text = L["Bars on Players"], notCheckable = 1}
     }
 
     local TextModes = {
-        {text = "None", notCheckable = 1},
-        {text = "Percent Health", notCheckable = 1},
-        {text = "Exact health", notCheckable = 1},
-        {text = "Health Deficit", notCheckable = 1},
-        {text = "Health Total & Percent", notCheckable = 1},
-        {text = "Target Of", notCheckable = 1},
-        {text = "Approximate Health", notCheckable = 1}
+        {text = L["None"], notCheckable = 1},
+        {text = L["Percent Health"], notCheckable = 1},
+        {text = L["Exact health"], notCheckable = 1},
+        {text = L["Health Deficit"], notCheckable = 1},
+        {text = L["Health Total & Percent"], notCheckable = 1},
+        {text = L["Target Of"], notCheckable = 1},
+        {text = L["Approximate Health"], notCheckable = 1}
     }
 
     local RangeModes = {
-        {text = "9 yards"},
-        {text = "15 yards"},
-        {text = "28 yards"},
-        {text = "40 yards"}
+        {text = L["9 yards"]},
+        {text = L["15 yards"]},
+        {text = L["28 yards"]},
+        {text = L["40 yards"]}
     }
 
     local DebuffModes = {
-        {text = "Show All Debuffs", notCheckable = 1},
-        {text = "Show Specific Debuffs... ", notCheckable = 1},
-        {text = "Show All My Debuffs ", notCheckable = 1},
-        {text = "Show My Specific Debuffs... ", notCheckable = 1},
-        {text = "By Prefix...", notCheckable = 1}
+        {text = L["Show All Debuffs"], notCheckable = 1},
+        {text = L["Show Specific Debuffs... "], notCheckable = 1},
+        {text = L["Show All My Debuffs "], notCheckable = 1},
+        {text = L["Show My Specific Debuffs... "], notCheckable = 1},
+        {text = L["By Prefix..."], notCheckable = 1}
     }
 
     local OpacityModes = {
-        {text = "None", notCheckable = 1},
-        {text = "By High Threat", notCheckable = 1},
-        {text = "By Mouseover", notCheckable = 1},
-        {text = "By Debuff Widget", notCheckable = 1},
-        {text = "By Enemy", notCheckable = 1},
-        {text = "By NPC", notCheckable = 1},
-        {text = "By Raid Icon", notCheckable = 1},
-        {text = "By Active/Damaged", notCheckable = 1}
+        {text = L["None"], notCheckable = 1},
+        {text = L["By High Threat"], notCheckable = 1},
+        {text = L["By Mouseover"], notCheckable = 1},
+        {text = L["By Debuff Widget"], notCheckable = 1},
+        {text = L["By Enemy"], notCheckable = 1},
+        {text = L["By NPC"], notCheckable = 1},
+        {text = L["By Raid Icon"], notCheckable = 1},
+        {text = L["By Active/Damaged"], notCheckable = 1}
     }
 
     local ScaleModes = {
-        {text = "None", notCheckable = 1},
-        {text = "By Elite", notCheckable = 1},
-        {text = "By Target", notCheckable = 1},
-        {text = "By High Threat", notCheckable = 1},
-        {text = "By Debuff Widget", notCheckable = 1},
-        {text = "By Enemy", notCheckable = 1},
-        {text = "By NPC", notCheckable = 1},
-        {text = "By Raid Icon", notCheckable = 1}
+        {text = L["None"], notCheckable = 1},
+        {text = L["By Elite"], notCheckable = 1},
+        {text = L["By Target"], notCheckable = 1},
+        {text = L["By High Threat"], notCheckable = 1},
+        {text = L["By Debuff Widget"], notCheckable = 1},
+        {text = L["By Enemy"], notCheckable = 1},
+        {text = L["By NPC"], notCheckable = 1},
+        {text = L["By Raid Icon"], notCheckable = 1}
     }
 
     local HealthColorModes = {
-        {text = "Default", notCheckable = 1},
-        {text = "By Class", notCheckable = 1},
-        {text = "By Threat", notCheckable = 1},
-        {text = "By Reaction", notCheckable = 1}
+        {text = L["Default"], notCheckable = 1},
+        {text = L["By Class"], notCheckable = 1},
+        {text = L["By Threat"], notCheckable = 1},
+        {text = L["By Reaction"], notCheckable = 1}
     }
 
     local NameColorModes = {
-        {text = "Default", notCheckable = 1},
-        {text = "By Class", notCheckable = 1},
-        {text = "By Threat", notCheckable = 1},
-        {text = "By Reaction", notCheckable = 1}
+        {text = L["Default"], notCheckable = 1},
+        {text = L["By Class"], notCheckable = 1},
+        {text = L["By Threat"], notCheckable = 1},
+        {text = L["By Reaction"], notCheckable = 1}
     }
 
     local WarningGlowModes = {
-        {text = "None", notCheckable = 1},
-        {text = "By High Threat", notCheckable = 1}
+        {text = L["None"], notCheckable = 1},
+        {text = L["By High Threat"], notCheckable = 1}
     }
 
     local ThreatModes = {
-        {text = "Tug-o-Threat", notCheckable = 1},
-        {text = "Threat Wheel", notCheckable = 1}
+        {text = L["Tug-o-Threat"], notCheckable = 1},
+        {text = L["Threat Wheel"], notCheckable = 1}
     }
 
     local panel = CreateFrame("Frame", panelName .. "_InterfaceOptionsPanel", UIParent)
@@ -499,86 +501,82 @@ local function CreateInterfacePanel(panelName, panelTitle, heading, parentTitle)
 
     -- Style
     ------------------------------
-    panel.StyleLabel = CreateQuickHeadingLabel(nil, "Style", AlignmentColumn, nil, 0, 4)
-    panel.StyleEnemyMode = CreateQuickDropdown(panelName .. "StyleEnemyMode", "Enemy Nameplates:", StyleModes, 1, AlignmentColumn, panel.StyleLabel)
-    panel.StyleFriendlyMode = CreateQuickDropdown(panelName .. "StyleFriendlyMode", "Friendly Nameplates:", StyleModes, 1, AlignmentColumn, panel.StyleEnemyMode)
+    panel.StyleLabel = CreateQuickHeadingLabel(nil, L["Style"], AlignmentColumn, nil, 0, 4)
+    panel.StyleEnemyMode = CreateQuickDropdown(panelName .. "StyleEnemyMode", L["Enemy Nameplates:"], StyleModes, 1, AlignmentColumn, panel.StyleLabel)
+    panel.StyleFriendlyMode = CreateQuickDropdown(panelName .. "StyleFriendlyMode", L["Friendly Nameplates:"], StyleModes, 1, AlignmentColumn, panel.StyleEnemyMode)
 
     --Opacity
     ------------------------------
-    panel.OpacityLabel = CreateQuickHeadingLabel(nil, "Opacity", AlignmentColumn, panel.StyleFriendlyMode, 0, 4)
+    panel.OpacityLabel = CreateQuickHeadingLabel(nil, L["Opacity"], AlignmentColumn, panel.StyleFriendlyMode, 0, 4)
     --panel.OpacityLabel = CreateQuickHeadingLabel(nil, "Opacity", AlignmentColumn, nil, 0, 4)
-    panel.OpacityTarget = CreateQuickSlider(panelName .. "OpacityTarget", "Current Target Opacity:", AlignmentColumn, panel.OpacityLabel, 0, 2)
-    panel.OpacityNonTarget = CreateQuickSlider(panelName .. "OpacityNonTarget", "Non-Target Opacity:", AlignmentColumn, panel.OpacityTarget, 0, 2)
-    panel.OpacitySpotlightMode = CreateQuickDropdown(panelName .. "OpacitySpotlightMode", "Opacity Spotlight Mode:", OpacityModes, 1, AlignmentColumn, panel.OpacityNonTarget)
-    panel.OpacitySpotlight = CreateQuickSlider(panelName .. "OpacitySpotlight", "Spotlight Opacity:", AlignmentColumn, panel.OpacitySpotlightMode, 0, 2)
-    panel.OpacityFullSpell = CreateQuickCheckbutton(panelName .. "OpacityFullSpell", "Bring Casting Units to Target Opacity", AlignmentColumn, panel.OpacitySpotlight, 16)
-    panel.OpacityFullNoTarget = CreateQuickCheckbutton(panelName .. "OpacityFullNoTarget", "Use Target Opacity When No Target Exists", AlignmentColumn, panel.OpacityFullSpell, 16)
-    panel.OpacityFiltered = CreateQuickSlider(panelName .. "OpacityFiltered", "Filtered Unit Opacity:", AlignmentColumn, panel.OpacityFullNoTarget, 0, 2)
-    panel.OpacityFilterNeutralUnits = CreateQuickCheckbutton(panelName .. "OpacityFilterNeutralUnits", "Filter Neutral Units", AlignmentColumn, panel.OpacityFiltered, 16)
-    panel.OpacityFilterNonElite = CreateQuickCheckbutton(panelName .. "OpacityFilterNonElite", "Filter Non-Elite", AlignmentColumn, panel.OpacityFilterNeutralUnits, 16)
-    panel.OpacityFilterInactive = CreateQuickCheckbutton(panelName .. "OpacityFilterInactive", "Filter Inactive", AlignmentColumn, panel.OpacityFilterNonElite, 16)
-    panel.OpacityCustomFilterLabel = CreateQuickItemLabel(nil, "Filter By Unit Name:", AlignmentColumn, panel.OpacityFilterInactive, 16)
+    panel.OpacityTarget = CreateQuickSlider(panelName .. "OpacityTarget", L["Current Target Opacity:"], AlignmentColumn, panel.OpacityLabel, 0, 2)
+    panel.OpacityNonTarget = CreateQuickSlider(panelName .. "OpacityNonTarget", L["Non-Target Opacity:"], AlignmentColumn, panel.OpacityTarget, 0, 2)
+    panel.OpacitySpotlightMode = CreateQuickDropdown(panelName .. "OpacitySpotlightMode", L["Opacity Spotlight Mode:"], OpacityModes, 1, AlignmentColumn, panel.OpacityNonTarget)
+    panel.OpacitySpotlight = CreateQuickSlider(panelName .. "OpacitySpotlight", L["Spotlight Opacity:"], AlignmentColumn, panel.OpacitySpotlightMode, 0, 2)
+    panel.OpacityFullSpell = CreateQuickCheckbutton(panelName .. "OpacityFullSpell", L["Bring Casting Units to Target Opacity"], AlignmentColumn, panel.OpacitySpotlight, 16)
+    panel.OpacityFullNoTarget = CreateQuickCheckbutton(panelName .. "OpacityFullNoTarget", L["Use Target Opacity When No Target Exists"], AlignmentColumn, panel.OpacityFullSpell, 16)
+    panel.OpacityFiltered = CreateQuickSlider(panelName .. "OpacityFiltered", L["Filtered Unit Opacity:"], AlignmentColumn, panel.OpacityFullNoTarget, 0, 2)
+    panel.OpacityFilterNeutralUnits = CreateQuickCheckbutton(panelName .. "OpacityFilterNeutralUnits", L["Filter Neutral Units"], AlignmentColumn, panel.OpacityFiltered, 16)
+    panel.OpacityFilterNonElite = CreateQuickCheckbutton(panelName .. "OpacityFilterNonElite", L["Filter Non-Elite"], AlignmentColumn, panel.OpacityFilterNeutralUnits, 16)
+    panel.OpacityFilterInactive = CreateQuickCheckbutton(panelName .. "OpacityFilterInactive", L["Filter Inactive"], AlignmentColumn, panel.OpacityFilterNonElite, 16)
+    panel.OpacityCustomFilterLabel = CreateQuickItemLabel(nil, L["Filter By Unit Name:"], AlignmentColumn, panel.OpacityFilterInactive, 16)
     panel.OpacityFilterList = CreateQuickEditbox(panelName .. "OpacityFilterList", AlignmentColumn, panel.OpacityCustomFilterLabel, 16)
 
     --Scale
     ------------------------------
-    panel.ScaleLabel = CreateQuickHeadingLabel(nil, "Scale", AlignmentColumn, panel.OpacityFilterList, 0, 4)
-    panel.ScaleStandard = CreateQuickSlider(panelName .. "ScaleStandard", "Normal Scale:", AlignmentColumn, panel.ScaleLabel, 0, 2)
-    panel.ScaleSpotlightMode = CreateQuickDropdown(panelName .. "ScaleSpotlightMode", "Scale Spotlight Mode:", ScaleModes, 1, AlignmentColumn, panel.ScaleStandard)
-    panel.ScaleSpotlight = CreateQuickSlider(panelName .. "ScaleSpotlight", "Spotlight Scale:", AlignmentColumn, panel.ScaleSpotlightMode, 0, 2)
-    panel.ScaleIgnoreNeutralUnits = CreateQuickCheckbutton(panelName .. "ScaleIgnoreNeutralUnits", "Ignore Neutral Units", AlignmentColumn, panel.ScaleSpotlight, 16)
-    panel.ScaleIgnoreNonEliteUnits = CreateQuickCheckbutton(panelName .. "ScaleIgnoreNonEliteUnits", "Ignore Non-Elite Units", AlignmentColumn, panel.ScaleIgnoreNeutralUnits, 16)
-    panel.ScaleIgnoreInactive = CreateQuickCheckbutton(panelName .. "ScaleIgnoreInactive", "Ignore Inactive Units", AlignmentColumn, panel.ScaleIgnoreNonEliteUnits, 16)
+    panel.ScaleLabel = CreateQuickHeadingLabel(nil, L["Scale"], AlignmentColumn, panel.OpacityFilterList, 0, 4)
+    panel.ScaleStandard = CreateQuickSlider(panelName .. "ScaleStandard", L["Normal Scale:"], AlignmentColumn, panel.ScaleLabel, 0, 2)
+    panel.ScaleSpotlightMode = CreateQuickDropdown(panelName .. "ScaleSpotlightMode", L["Scale Spotlight Mode:"], ScaleModes, 1, AlignmentColumn, panel.ScaleStandard)
+    panel.ScaleSpotlight = CreateQuickSlider(panelName .. "ScaleSpotlight", L["Spotlight Scale:"], AlignmentColumn, panel.ScaleSpotlightMode, 0, 2)
+    panel.ScaleIgnoreNeutralUnits = CreateQuickCheckbutton(panelName .. "ScaleIgnoreNeutralUnits", L["Ignore Neutral Units"], AlignmentColumn, panel.ScaleSpotlight, 16)
+    panel.ScaleIgnoreNonEliteUnits = CreateQuickCheckbutton(panelName .. "ScaleIgnoreNonEliteUnits", L["Ignore Non-Elite Units"], AlignmentColumn, panel.ScaleIgnoreNeutralUnits, 16)
+    panel.ScaleIgnoreInactive = CreateQuickCheckbutton(panelName .. "ScaleIgnoreInactive", L["Ignore Inactive Units"], AlignmentColumn, panel.ScaleIgnoreNonEliteUnits, 16)
 
     --Text
     ------------------------------
-    panel.TextLabel = CreateQuickHeadingLabel(nil, "Text", AlignmentColumn, panel.ScaleIgnoreInactive, 0, 4)
-    panel.TextNameColorMode = CreateQuickDropdown(panelName .. "TextNameColorMode", "Name Text Color Mode:", NameColorModes, 1, AlignmentColumn, panel.TextLabel)
-    panel.TextHealthTextMode = CreateQuickDropdown(panelName .. "TextHealthTextMode", "Health Text:", TextModes, 1, AlignmentColumn, panel.TextNameColorMode)
-    panel.TextShowLevel = CreateQuickCheckbutton(panelName .. "TextShowLevel", "Show Level Text", AlignmentColumn, panel.TextHealthTextMode)
-    panel.TextUseBlizzardFont = CreateQuickCheckbutton(panelName .. "TextUseBlizzardFont", "Use Default Blizzard Font", AlignmentColumn, panel.TextShowLevel)
+    panel.TextLabel = CreateQuickHeadingLabel(nil, L["Text"], AlignmentColumn, panel.ScaleIgnoreInactive, 0, 4)
+    panel.TextNameColorMode = CreateQuickDropdown(panelName .. "TextNameColorMode", L["Name Text Color Mode:"], NameColorModes, 1, AlignmentColumn, panel.TextLabel)
+    panel.TextHealthTextMode = CreateQuickDropdown(panelName .. "TextHealthTextMode", L["Health Text:"], TextModes, 1, AlignmentColumn, panel.TextNameColorMode)
+    panel.TextShowLevel = CreateQuickCheckbutton(panelName .. "TextShowLevel", L["Show Level Text"], AlignmentColumn, panel.TextHealthTextMode)
+    panel.TextUseBlizzardFont = CreateQuickCheckbutton(panelName .. "TextUseBlizzardFont", L["Use Default Blizzard Font"], AlignmentColumn, panel.TextShowLevel)
     --Color
     ------------------------------
-    panel.ColorLabel = CreateQuickHeadingLabel(nil, "Color", AlignmentColumn, panel.TextUseBlizzardFont, 0, 4)
-    panel.ColorHealthBarMode = CreateQuickDropdown(panelName .. "ColorHealthBarMode", "Health Bar Color Mode:", HealthColorModes, 1, AlignmentColumn, panel.ColorLabel)
-    panel.ColorDangerGlowMode = CreateQuickDropdown(panelName .. "ColorDangerGlowMode", "Warning Glow/Border Mode:", WarningGlowModes, 1, AlignmentColumn, panel.ColorHealthBarMode)
-    panel.ColorThreatColorLabels = CreateQuickItemLabel(nil, "Threat Colors:", AlignmentColumn, panel.ColorDangerGlowMode, 0)
-    panel.ColorAttackingMe = CreateQuickColorbox(panelName .. "ColorAttackingMe", "Attacking Me", AlignmentColumn, panel.ColorThreatColorLabels, 16)
-    panel.ColorAggroTransition = CreateQuickColorbox(panelName .. "ColorAggroTransition", "Gaining Aggro", AlignmentColumn, panel.ColorAttackingMe, 16)
-    panel.ColorAttackingOthers = CreateQuickColorbox(panelName .. "ColorAttackingOthers", "Attacking Others", AlignmentColumn, panel.ColorAggroTransition, 16)
-    panel.ColorDangerGlowOnParty = CreateQuickCheckbutton(panelName .. "ColorDangerGlowOnParty", "Show Warning on Group Members with Aggro", AlignmentColumn, panel.ColorAttackingOthers)
-    panel.ClassColorPartyMembers = CreateQuickCheckbutton(panelName .. "ClassColorPartyMembers", "Show Class Color for Party and Raid Members", AlignmentColumn, panel.ColorDangerGlowOnParty)
+    panel.ColorLabel = CreateQuickHeadingLabel(nil, L["Color"], AlignmentColumn, panel.TextUseBlizzardFont, 0, 4)
+    panel.ColorHealthBarMode = CreateQuickDropdown(panelName .. "ColorHealthBarMode", L["Health Bar Color Mode:"], HealthColorModes, 1, AlignmentColumn, panel.ColorLabel)
+    panel.ColorDangerGlowMode = CreateQuickDropdown(panelName .. "ColorDangerGlowMode", L["Warning Glow/Border Mode:"], WarningGlowModes, 1, AlignmentColumn, panel.ColorHealthBarMode)
+    panel.ColorThreatColorLabels = CreateQuickItemLabel(nil, L["Threat Colors:"], AlignmentColumn, panel.ColorDangerGlowMode, 0)
+    panel.ColorAttackingMe = CreateQuickColorbox(panelName .. "ColorAttackingMe", L["Attacking Me"], AlignmentColumn, panel.ColorThreatColorLabels, 16)
+    panel.ColorAggroTransition = CreateQuickColorbox(panelName .. "ColorAggroTransition", L["Gaining Aggro"], AlignmentColumn, panel.ColorAttackingMe, 16)
+    panel.ColorAttackingOthers = CreateQuickColorbox(panelName .. "ColorAttackingOthers", L["Attacking Others"], AlignmentColumn, panel.ColorAggroTransition, 16)
+    panel.ColorDangerGlowOnParty = CreateQuickCheckbutton(panelName .. "ColorDangerGlowOnParty", L["Show Warning on Group Members with Aggro"], AlignmentColumn, panel.ColorAttackingOthers)
+    panel.ClassColorPartyMembers = CreateQuickCheckbutton(panelName .. "ClassColorPartyMembers", L["Show Class Color for Party and Raid Members"], AlignmentColumn, panel.ColorDangerGlowOnParty)
     --Widgets
     ------------------------------
-    panel.WidgetsLabel = CreateQuickHeadingLabel(nil, "Widgets", AlignmentColumn, panel.ClassColorPartyMembers, 0, 4)
-    panel.WidgetTargetHighlight = CreateQuickCheckbutton(panelName .. "WidgetTargetHighlight", "Show Highlight on Current Target", AlignmentColumn, panel.WidgetsLabel)
-    panel.WidgetEliteIndicator = CreateQuickCheckbutton(panelName .. "WidgetEliteIndicator", "Show Elite Indicator", AlignmentColumn, panel.WidgetTargetHighlight)
-    panel.ClassEnemyIcon = CreateQuickCheckbutton(panelName .. "ClassEnemyIcon", "Show Enemy Class Icons", AlignmentColumn, panel.WidgetEliteIndicator)
-    panel.ClassPartyIcon = CreateQuickCheckbutton(panelName .. "ClassPartyIcon", "Show Party Member Class Icons", AlignmentColumn, panel.ClassEnemyIcon)
-    panel.WidgetsTotemIcon = CreateQuickCheckbutton(panelName .. "WidgetsTotemIcon", "Show Totem Icons", AlignmentColumn, panel.ClassPartyIcon)
-    panel.WidgetsComboPoints = CreateQuickCheckbutton(panelName .. "WidgetsComboPoints", "Show Combo Points", AlignmentColumn, panel.WidgetsTotemIcon)
-    panel.WidgetsThreatIndicator = CreateQuickCheckbutton(panelName .. "WidgetsThreatIndicator", "Show Threat Indicator", AlignmentColumn, panel.WidgetsComboPoints)
-    panel.WidgetsThreatIndicatorMode = CreateQuickDropdown(panelName .. "WidgetsThreatIndicatorMode", "Threat Indicator:", ThreatModes, 1, AlignmentColumn, panel.WidgetsThreatIndicator, 16)
-    panel.WidgetsRangeIndicator = CreateQuickCheckbutton(panelName .. "WidgetsRangeIndicator", "Show Party Range Warning", AlignmentColumn, panel.WidgetsThreatIndicatorMode)
-    panel.WidgetsRangeMode = CreateQuickDropdown(panelName .. "WidgetsRangeMode", "Range:", RangeModes, 1, AlignmentColumn, panel.WidgetsRangeIndicator, 16)
-    panel.WidgetsDebuff = CreateQuickCheckbutton(panelName .. "WidgetsDebuff", "Show My Debuff Timers", AlignmentColumn, panel.WidgetsRangeMode)
-    panel.WidgetsDebuffMode = CreateQuickDropdown(panelName .. "WidgetsDebuffMode", "Debuff Filter:", DebuffModes, 1, AlignmentColumn, panel.WidgetsDebuff, 16)
-    panel.WidgetsDebuffListLabel = CreateQuickItemLabel(nil, "Debuff Names:", AlignmentColumn, panel.WidgetsDebuffMode, 16)
+    panel.WidgetsLabel = CreateQuickHeadingLabel(nil, L["Widgets"], AlignmentColumn, panel.ClassColorPartyMembers, 0, 4)
+    panel.WidgetTargetHighlight = CreateQuickCheckbutton(panelName .. "WidgetTargetHighlight", L["Show Highlight on Current Target"], AlignmentColumn, panel.WidgetsLabel)
+    panel.WidgetEliteIndicator = CreateQuickCheckbutton(panelName .. "WidgetEliteIndicator", L["Show Elite Indicator"], AlignmentColumn, panel.WidgetTargetHighlight)
+    panel.ClassEnemyIcon = CreateQuickCheckbutton(panelName .. "ClassEnemyIcon", L["Show Enemy Class Icons"], AlignmentColumn, panel.WidgetEliteIndicator)
+    panel.ClassPartyIcon = CreateQuickCheckbutton(panelName .. "ClassPartyIcon", L["Show Party Member Class Icons"], AlignmentColumn, panel.ClassEnemyIcon)
+    panel.WidgetsTotemIcon = CreateQuickCheckbutton(panelName .. "WidgetsTotemIcon", L["Show Totem Icons"], AlignmentColumn, panel.ClassPartyIcon)
+    panel.WidgetsComboPoints = CreateQuickCheckbutton(panelName .. "WidgetsComboPoints", L["Show Combo Points"], AlignmentColumn, panel.WidgetsTotemIcon)
+    panel.WidgetsThreatIndicator = CreateQuickCheckbutton(panelName .. "WidgetsThreatIndicator", L["Show Threat Indicator"], AlignmentColumn, panel.WidgetsComboPoints)
+    panel.WidgetsThreatIndicatorMode = CreateQuickDropdown(panelName .. "WidgetsThreatIndicatorMode", L["Threat Indicator:"], ThreatModes, 1, AlignmentColumn, panel.WidgetsThreatIndicator, 16)
+    panel.WidgetsRangeIndicator = CreateQuickCheckbutton(panelName .. "WidgetsRangeIndicator", L["Show Party Range Warning"], AlignmentColumn, panel.WidgetsThreatIndicatorMode)
+    panel.WidgetsRangeMode = CreateQuickDropdown(panelName .. "WidgetsRangeMode", L["Range:"], RangeModes, 1, AlignmentColumn, panel.WidgetsRangeIndicator, 16)
+    panel.WidgetsDebuff = CreateQuickCheckbutton(panelName .. "WidgetsDebuff", L["Show My Debuff Timers"], AlignmentColumn, panel.WidgetsRangeMode)
+    panel.WidgetsDebuffMode = CreateQuickDropdown(panelName .. "WidgetsDebuffMode", L["Debuff Filter:"], DebuffModes, 1, AlignmentColumn, panel.WidgetsDebuff, 16)
+    panel.WidgetsDebuffListLabel = CreateQuickItemLabel(nil, L["Debuff Names:"], AlignmentColumn, panel.WidgetsDebuffMode, 16)
     panel.WidgetsDebuffTrackList = CreateQuickEditbox(panelName .. "WidgetsDebuffTrackList", AlignmentColumn, panel.WidgetsDebuffListLabel, 16)
     -- TIP
-    panel.WidgetsDebuffTrackListDescription = CreateQuickItemLabel(nil, [[
-Tip: |cffCCCCCCDebuffs should be listed with the exact name, or a spell ID number.
-You can use the prefixes, 'My' or 'All', to distinguish personal damage spells from global crowd control spells.
-Auras at the top of the list will get displayed before lower ones.|r
-    ]], AlignmentColumn, panel.WidgetsDebuffListLabel, 210)
+    panel.WidgetsDebuffTrackListDescription = CreateQuickItemLabel(nil, L["WidgetsDebuffTrackList_Description"], AlignmentColumn, panel.WidgetsDebuffListLabel, 210)
     panel.WidgetsDebuffTrackListDescription:SetHeight(128)
     panel.WidgetsDebuffTrackListDescription:SetWidth(200)
     panel.WidgetsDebuffTrackListDescription.Text:SetJustifyV("TOP")
 
     --Frame
     ------------------------------
-    panel.FrameLabel = CreateQuickHeadingLabel(nil, "Frame", AlignmentColumn, panel.WidgetsDebuffTrackList, 0, 4)
-    panel.FrameVerticalPosition = CreateQuickSlider(panelName .. "FrameVerticalPosition", "Vertical Position of Artwork:", AlignmentColumn, panel.FrameLabel, 0, 2)
+    panel.FrameLabel = CreateQuickHeadingLabel(nil, L["Frame"], AlignmentColumn, panel.WidgetsDebuffTrackList, 0, 4)
+    panel.FrameVerticalPosition = CreateQuickSlider(panelName .. "FrameVerticalPosition", L["Vertical Position of Artwork:"], AlignmentColumn, panel.FrameLabel, 0, 2)
 
     -- Slider Ranges
     SetSliderMechanics(panel.OpacityTarget, 1, 0, 1, .01)
@@ -593,19 +591,19 @@ Auras at the top of the list will get displayed before lower ones.|r
     PasteThemeDataButton:SetPoint("TOPRIGHT", -6, -20)
     PasteThemeDataButton:SetWidth(60)
     PasteThemeDataButton:SetScale(.85)
-    PasteThemeDataButton:SetText("Paste")
+    PasteThemeDataButton:SetText(L["Paste"])
 
     CopyThemeDataButton = CreateFrame("Button", panelName .. "CopyThemeDataButton", panel, "UIPanelButtonTemplate2")
     CopyThemeDataButton:SetPoint("TOPRIGHT", PasteThemeDataButton, "TOPLEFT", -4, 0)
     CopyThemeDataButton:SetWidth(60)
     CopyThemeDataButton:SetScale(.85)
-    CopyThemeDataButton:SetText("Copy")
+    CopyThemeDataButton:SetText(L["Copy"])
 
     ReloadThemeDataButton = CreateFrame("Button", panelName .. "ReloadThemeDataButton", panel, "UIPanelButtonTemplate2")
     ReloadThemeDataButton:SetPoint("TOPRIGHT", CopyThemeDataButton, "TOPLEFT", -4, 0)
     ReloadThemeDataButton:SetWidth(60)
     ReloadThemeDataButton:SetScale(.85)
-    ReloadThemeDataButton:SetText("Reset")
+    ReloadThemeDataButton:SetText(L["Reset"])
 
     local yellow, blue, red, orange = "|cffffff00", "|cFF3782D1", "|cFFFF1100", "|cFFFF6906"
     --frame.Text:SetTextColor(255/255, 105/255, 6/255)
@@ -616,19 +614,19 @@ Auras at the top of the list will get displayed before lower ones.|r
         else
             SetPanelValues(panel, TidyPlatesHubDamageDefaults)
             OnPanelItemChange()
-            print(yellow .. "Resetting " .. orange .. "Tidy Plates Hub: " .. red .. "Damage" .. yellow .. " Configuration to Default")
-            print(yellow .. "Holding down " .. blue .. "Shift" .. yellow .. " while clicking " .. red .. "Reset" .. yellow .. " will clear all saved settings, and reload the user interface.")
+            print(L:F("commonResetPanel", yellow, orange, red, L.Damage, yellow))
+            print(L:F("resetTidyPlanelShift", yellow, blue, yellow, red, yellow))
         end
     end)
 
     PasteThemeDataButton:SetScript("OnClick", function()
-        print(yellow .. "Pasted " .. orange .. "Tidy Plates Hub: " .. red .. "Damage" .. yellow .. " Theme Values from Cache")
+    	print(L:F("commonPastePanel", yellow, orange, red, L.Damage, yellow))
         SetPanelValues(panel, TidyPlatesHubDamageCache)
         OnPanelItemChange()
     end)
 
     CopyThemeDataButton:SetScript("OnClick", function()
-        print(yellow .. "Copied " .. orange .. "Tidy Plates Hub: " .. red .. "Damage" .. yellow .. " Theme Values to Cache")
+    	print(L:F("commonCopyPanel", yellow, orange, red, L.Damage, yellow))
         GetPanelValues(panel, TidyPlatesHubDamageCache, TidyPlatesHubDamageSavedVariables)
     end)
 

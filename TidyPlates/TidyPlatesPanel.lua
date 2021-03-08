@@ -1,3 +1,5 @@
+local L = TidyPlates.L
+
 local CallIn = TidyPlatesUtility.CallIn
 local copytable = TidyPlatesUtility.copyTable
 local mergetable = TidyPlatesUtility.mergeTable
@@ -10,10 +12,6 @@ local useAutohide = false
 
 local defaultPrimaryTheme = "Neon/|cFFFF4400Damage"
 local defaultSecondaryTheme = "Neon/|cFF3782D1Tank"
-
-local NO_AUTOMATION = "No Automation"
-local DURING_COMBAT = "Show during Combat, Hide when Combat ends"
-local OUT_OF_COMBAT = "Hide when Combat starts, Show when Combat ends"
 
 local function SetAutoHide(option)
     useAutoHide = option
@@ -45,8 +43,8 @@ end
 TidyPlatesOptions = {
     primary = defaultPrimaryTheme,
     secondary = defaultSecondaryTheme,
-    FriendlyAutomation = NO_AUTOMATION,
-    EnemyAutomation = NO_AUTOMATION,
+    FriendlyAutomation = L["No Automation"],
+    EnemyAutomation = L["No Automation"],
     EnableCastWatcher = false,
     WelcomeShown = false,
     EnableMinimapButton = false
@@ -132,9 +130,9 @@ local titleString = addonString .. " " .. versionString
 local firstShow = true
 
 local AutomationDropdownItems = {
-    {text = NO_AUTOMATION, notCheckable = 1},
-    {text = DURING_COMBAT, notCheckable = 1},
-    {text = OUT_OF_COMBAT, notCheckable = 1}
+    {text = L["No Automation"], notCheckable = 1},
+    {text = L["Show during Combat, Hide when Combat ends"], notCheckable = 1},
+    {text = L["Hide when Combat starts, Show when Combat ends"], notCheckable = 1}
 }
 
 local panel = PanelHelpers:CreatePanelFrame("TidyPlatesInterfaceOptions", "Tidy Plates", titleString)
@@ -204,7 +202,7 @@ local function ActivateInterfacePanel()
     panel.PrimaryLabel:SetPoint("BOTTOMLEFT", panel.PrimarySpecTheme, "TOPLEFT", 20, 5)
     panel.PrimaryLabel:SetWidth(170)
     panel.PrimaryLabel:SetJustifyH("LEFT")
-    panel.PrimaryLabel:SetText("Primary Theme:")
+    panel.PrimaryLabel:SetText(L["Primary Theme:"])
 
     ----------------------
     -- Secondary Spec
@@ -228,14 +226,14 @@ local function ActivateInterfacePanel()
     panel.SecondaryLabel:SetPoint("BOTTOMLEFT", panel.SecondarySpecTheme, "TOPLEFT", 20, 5)
     panel.SecondaryLabel:SetWidth(170)
     panel.SecondaryLabel:SetJustifyH("LEFT")
-    panel.SecondaryLabel:SetText("Secondary Theme:")
+    panel.SecondaryLabel:SetText(L["Secondary Theme:"])
     ---- Note
     panel.ThemeChooserDescription = panel:CreateFontString(nil, "ARTWORK") --, 'GameFontLarge'
     panel.ThemeChooserDescription:SetFont("Fonts\\FRIZQT__.TTF", 10, nil)
     panel.ThemeChooserDescription:SetPoint("BOTTOMLEFT", panel.PrimarySpecTheme, "TOPLEFT", 20, 28)
     panel.ThemeChooserDescription:SetWidth(340)
     panel.ThemeChooserDescription:SetJustifyH("LEFT")
-    panel.ThemeChooserDescription:SetText([[Please choose a theme for your Primary and Secondary Specializations. The appropriate theme will be automatically activated when you switch specs.]])
+    panel.ThemeChooserDescription:SetText(L["Please choose a theme for your Primary and Secondary Specializations. The appropriate theme will be automatically activated when you switch specs."])
     panel.ThemeChooserDescription:SetTextColor(1, 1, 1, 1)
 
     ----------------------
@@ -243,24 +241,24 @@ local function ActivateInterfacePanel()
     ----------------------
 
     -- Enemy Visibility
-    panel.AutoShowEnemy = PanelHelpers:CreateDropdownFrame("TidyPlatesAutoShowEnemy", panel, AutomationDropdownItems, NO_AUTOMATION, nil, true)
+    panel.AutoShowEnemy = PanelHelpers:CreateDropdownFrame("TidyPlatesAutoShowEnemy", panel, AutomationDropdownItems, L["No Automation"], nil, true)
     panel.AutoShowEnemy:SetPoint("TOPLEFT", panel.PrimarySpecTheme, "TOPLEFT", 0, -80)
     -- Label
     panel.AutoShowEnemyLabel = panel:CreateFontString(nil, "ARTWORK", "GameFontNormal")
     panel.AutoShowEnemyLabel:SetPoint("BOTTOMLEFT", panel.AutoShowEnemy, "TOPLEFT", 20, 5)
     panel.AutoShowEnemyLabel:SetWidth(170)
     panel.AutoShowEnemyLabel:SetJustifyH("LEFT")
-    panel.AutoShowEnemyLabel:SetText("Enemy Nameplates:")
+    panel.AutoShowEnemyLabel:SetText(L["Enemy Nameplates:"])
 
     -- Friendly Visibility
-    panel.AutoShowFriendly = PanelHelpers:CreateDropdownFrame("TidyPlatesAutoShowFriendly", panel, AutomationDropdownItems, NO_AUTOMATION, nil, true)
+    panel.AutoShowFriendly = PanelHelpers:CreateDropdownFrame("TidyPlatesAutoShowFriendly", panel, AutomationDropdownItems, L["No Automation"], nil, true)
     panel.AutoShowFriendly:SetPoint("TOPLEFT", panel.AutoShowEnemy, "TOPRIGHT", 45, 0)
     -- Label
     panel.AutoShowFriendlyLabel = panel:CreateFontString(nil, "ARTWORK", "GameFontNormal")
     panel.AutoShowFriendlyLabel:SetPoint("BOTTOMLEFT", panel.AutoShowFriendly, "TOPLEFT", 20, 5)
     panel.AutoShowFriendlyLabel:SetWidth(170)
     panel.AutoShowFriendlyLabel:SetJustifyH("LEFT")
-    panel.AutoShowFriendlyLabel:SetText("Friendly Nameplates:")
+    panel.AutoShowFriendlyLabel:SetText(L["Friendly Nameplates:"])
 
     -- Automation helppanel
 	panel.AutomationDescription = panel:CreateFontString(nil, "ARTWORK")
@@ -269,22 +267,22 @@ local function ActivateInterfacePanel()
 	panel.AutomationDescription:SetWidth(340)
 	panel.AutomationDescription:SetHeight(50)
 	panel.AutomationDescription:SetJustifyH("LEFT")
-	panel.AutomationDescription:SetText("Automation can automatically turn on or off Friendly and Enemy nameplates.")
+	panel.AutomationDescription:SetText(L["Automation can automatically turn on or off Friendly and Enemy nameplates."])
 	panel.AutomationDescription:SetTextColor(1,1,1,1)
 
     -- Blizz Button
     BlizzOptionsButton = CreateFrame("Button", "TidyPlatesOptions_BlizzOptionsButton", panel, "UIPanelButtonTemplate2")
     BlizzOptionsButton:SetPoint("TOPLEFT", panel.AutoShowEnemy, "TOPLEFT", 16, -55)
     BlizzOptionsButton:SetWidth(300)
-    BlizzOptionsButton:SetText("Blizzard Nameplate Motion & Visibility")
+    BlizzOptionsButton:SetText(L["Blizzard Nameplate Motion & Visibility"])
 
     -- Cast Watcher
-    panel.EnableCastWatcher = PanelHelpers:CreateCheckButton("TidyPlatesOptions_EnableCastWatcher", panel, "Show Non-Target Casting Bars (When Possible)")
+    panel.EnableCastWatcher = PanelHelpers:CreateCheckButton("TidyPlatesOptions_EnableCastWatcher", panel, L["Show Non-Target Casting Bars (When Possible)"])
     panel.EnableCastWatcher:SetPoint("TOPLEFT", BlizzOptionsButton, "TOPLEFT", 0, -35)
     panel.EnableCastWatcher:SetScript("OnClick", function(self) SetSpellCastWatcher(self:GetChecked()) end)
 
     -- Minimap Button
-    panel.EnableMinimapButton = PanelHelpers:CreateCheckButton("TidyPlatesOptions_EnableMinimapButton", panel, "Enable Minimap Icon")
+    panel.EnableMinimapButton = PanelHelpers:CreateCheckButton("TidyPlatesOptions_EnableMinimapButton", panel, L["Enable Minimap Icon"])
     panel.EnableMinimapButton:SetPoint("TOPLEFT", panel.EnableCastWatcher, "TOPLEFT", 0, -35)
     panel.EnableMinimapButton:SetScript("OnClick", function(self) ShowMinimapButton(self:GetChecked()) end)
 
@@ -292,7 +290,7 @@ local function ActivateInterfacePanel()
     ResetButton = CreateFrame("Button", "TidyPlatesOptions_ResetButton", panel, "UIPanelButtonTemplate2")
     ResetButton:SetPoint("BOTTOMRIGHT", -16, 8)
     ResetButton:SetWidth(155)
-    ResetButton:SetText("Reset Configuration")
+    ResetButton:SetText(L["Reset Configuration"])
 
     -- Update Functions
     panel.okay = ApplyPanelSettings
@@ -347,8 +345,8 @@ local function ActivateInterfacePanel()
             end
             RefreshPanel()
             ApplyPanelSettings()
-            print(yellow .. "Resetting " .. orange .. "Tidy Plates" .. yellow .. " Theme Selection to Default")
-            print(yellow .. "Holding down " .. blue .. "Shift" .. yellow .. " while clicking " .. red .. "Reset Configuration" .. yellow .. " will clear your saved settings, AND reload the user interface.")
+            print(L:F("resetTidyPlanel", yellow, orange, yellow))
+            print(L:F("resetTidyPlanelShift", yellow, blue, yellow, red, yellow))
         end
     end)
 
@@ -428,15 +426,15 @@ local function ShowWarnings()
     if TidyPlatesWidgets then
         if not (TidyPlatesWidgets.DebuffWidgetBuild and TidyPlatesWidgets.DebuffWidgetBuild > 1) then
             print(
-                "|cFFFF6600Tidy Plates: |cFFFFFFFFWidget file versions do not match.  This may be caused by an issue with auto-updater software.",
-                "Please uninstall Tidy Plates, and then re-install.  You do NOT need to clear your variables."
+                L["|cFFFF6600Tidy Plates: |cFFFFFFFFWidget file versions do not match. This may be caused by an issue with auto-updater software."],
+                L["Please uninstall Tidy Plates, and then re-install. You do NOT need to clear your variables."]
             )
         end
     end
 
     -- Warn user if no theme is selected
     if currentThemeName == "None" and not warned[activespec] then
-        print("|cFFFF6600Tidy Plates: |cFFFF9900No Theme is Selected. |cFF77FF00Use |cFFFFFF00/tidyplates|cFF77FF00 to bring up the Theme Selection Window.")
+        print(L["|cFFFF6600Tidy Plates: |cFFFF9900No Theme is Selected. |cFF77FF00Use |cFFFFFF00/tidyplates|cFF77FF00 to bring up the Theme Selection Window."])
         warned[activespec] = true
     end
 end
@@ -462,13 +460,13 @@ function panelevents:PLAYER_ENTERING_WORLD()
 end
 
 local function SetCVarCombatCondition(cvar, mode, combat)
-    if mode == DURING_COMBAT then
+    if mode == L["Show during Combat, Hide when Combat ends"] then
         if combat then
             SetCVar(cvar, 1)
         else
             SetCVar(cvar, 0)
         end
-    elseif mode == OUT_OF_COMBAT then
+    elseif mode == L["Hide when Combat starts, Show when Combat ends"] then
         if combat then
             SetCVar(cvar, 0)
         else
