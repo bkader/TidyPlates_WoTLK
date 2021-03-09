@@ -375,7 +375,7 @@ L["This widget will display a small bar that will display your current threat re
 
 ----
 L["Tanked Targets"] = "Tanked Targets"
-L["This widget will display a small shield or dagger that will indicate if the nameplate is currently being tanked.|cffff00ffRequires tanking role.|r"] = "This widget will display a small shield or dagger that will indicate if the nameplate is currently being tanked.|cffff00ffRequires tanking role.|r"
+L["This widget will display a small shield or dagger that will indicate if the nameplate is currently being tanked. |cffff00ffRequires tanking role.|r"] = "This widget will display a small shield or dagger that will indicate if the nameplate is currently being tanked.|cffff00ffRequires tanking role.|r"
 
 ----
 L["Target Highlight"] = "Target Highlight"

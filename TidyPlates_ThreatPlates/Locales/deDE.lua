@@ -1,4 +1,4 @@
-﻿local L = LibStub("AceLocale-3.0"):NewLocale("TidyPlatesThreat", "deDE", false)
+local L = LibStub("AceLocale-3.0"):NewLocale("TidyPlatesThreat", "deDE", false)
 if not L then return end
 
 ----------------------
@@ -375,7 +375,7 @@ L["This widget will display a small bar that will display your current threat re
 
 ----
 L["Tanked Targets"] = "Getankte Ziele"
-L["This widget will display a small shield or dagger that will indicate if the nameplate is currently being tanked.|cffff00ffRequires tanking role.|r"] = "Ermöglicht die Anzeige eines kleinen Schilds oder Dolches an der Namensplakette zur Anzeige, ob das Ziel derzeit getankt wird. |cffff00ffBenötigt Tank-Rolle.|r"
+L["This widget will display a small shield or dagger that will indicate if the nameplate is currently being tanked. |cffff00ffRequires tanking role.|r"] = "Ermöglicht die Anzeige eines kleinen Schilds oder Dolches an der Namensplakette zur Anzeige, ob das Ziel derzeit getankt wird. |cffff00ffBenötigt Tank-Rolle.|r"
 
 ----
 L["Target Highlight"] = "Ziel-Highlight"

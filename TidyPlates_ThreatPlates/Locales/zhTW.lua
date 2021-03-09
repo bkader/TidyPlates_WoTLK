@@ -1,4 +1,4 @@
-﻿local L = LibStub("AceLocale-3.0"):NewLocale("TidyPlatesThreat", "zhTW", false)
+local L = LibStub("AceLocale-3.0"):NewLocale("TidyPlatesThreat", "zhTW", false)
 if not L then return end
 
 ----------------------
@@ -375,7 +375,7 @@ L["This widget will display a small bar that will display your current threat re
 
 ----
 L["Tanked Targets"] = "坦克組件"
-L["This widget will display a small shield or dagger that will indicate if the nameplate is currently being tanked.|cffff00ffRequires tanking role.|r"] = "這個組件將顯示一個用來指示單位當前是否被坦住的盾或匕首。|cffff00ff需要坦克角色。|r"
+L["This widget will display a small shield or dagger that will indicate if the nameplate is currently being tanked. |cffff00ffRequires tanking role.|r"] = "這個組件將顯示一個用來指示單位當前是否被坦住的盾或匕首。|cffff00ff需要坦克角色。|r"
 
 ----
 L["Target Highlight"] = "目標高亮"
