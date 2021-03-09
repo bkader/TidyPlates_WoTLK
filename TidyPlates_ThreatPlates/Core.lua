@@ -1190,7 +1190,7 @@ function TidyPlatesThreat:StartUp()
                 end
             end
             for i = 1, GetNumTalentGroups() do
-                z = self.db.char.specInfo[i]
+                local z = self.db.char.specInfo[i]
                 if z[3] > z[2] and z[3] > z[1] then -- Detects protection spec
                     TidyPlatesThreat:setSpecTank(i)
                 else
@@ -1208,8 +1208,8 @@ function TidyPlatesThreat:StartUp()
                 end
             end
             for i = 1, GetNumTalentGroups() do
-                z = self.db.char.specInfo[i]
-                if z[2] > z[1] and z[2] > z[3] then -- Detects protection spec
+                local z = self.db.char.specInfo[i]
+                if z and z[2] > z[1] and z[2] > z[3] then -- Detects protection spec
                     TidyPlatesThreat:setSpecTank(i)
                 else
                     TidyPlatesThreat:setSpecDPS(i)
@@ -1226,8 +1226,8 @@ function TidyPlatesThreat:StartUp()
                 end
             end
             for i = 1, GetNumTalentGroups() do
-                z = self.db.char.specInfo[i]
-                if z[2] > z[1] and z[2] > z[3] then -- Detects feral spec
+                local z = self.db.char.specInfo[i]
+                if z and z[2] > z[1] and z[2] > z[3] then -- Detects feral spec
                     TidyPlatesThreat:setSpecTank(i)
                 else
                     TidyPlatesThreat:setSpecDPS(i)
