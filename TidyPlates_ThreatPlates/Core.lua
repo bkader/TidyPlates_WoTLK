@@ -1306,7 +1306,6 @@ local function EventHandler(self, event, ...)
         self:UnregisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
     elseif event == "ACTIVE_TALENT_GROUP_CHANGED" then
         local t = CharDB.specInfo[Active()]
-        print("here", t)
         CharDB.threat.tanking = TidyPlatesThreat:currentRoleBool(Active())
         if ((TidyPlatesOptions.primary == "Threat Plates") or (TidyPlatesOptions.secondary == "Threat Plates")) and DB.verbose then
             print(L["|cff89F559Threat Plates|r: Player spec change detected: |cff"] .. HEX_CLASS_COLOR[PlayerClass] .. TidyPlatesThreat:specName() .. ": (" .. t[1] .. "/" .. t[2] .. "/" .. t[3] .. L[")|r, you are now in your |cff89F559"] .. TidyPlatesThreat:dualSpec() .. L["|r spec and are now in your "] .. TidyPlatesThreat:roleText() .. L[" role."])
