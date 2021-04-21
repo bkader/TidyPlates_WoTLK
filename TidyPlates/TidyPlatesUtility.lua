@@ -410,12 +410,7 @@ local function StartMovement(frame)
     local OriginalAnchor = frame.OriginalAnchor
 
     if not OriginalAnchor.point then
-        OriginalAnchor.point,
-            OriginalAnchor.relativeTo,
-            OriginalAnchor.relativePoint,
-            OriginalAnchor.xOfs,
-            OriginalAnchor.yOfs = frame:GetPoint(1)
-        print("Starting Movement from, ", OriginalAnchor.xOfs, OriginalAnchor.yOfs)
+        OriginalAnchor.point, OriginalAnchor.relativeTo, OriginalAnchor.relativePoint, OriginalAnchor.xOfs, OriginalAnchor.yOfs = frame:GetPoint(1)
     end
 end
 
@@ -424,7 +419,6 @@ local function FinishMovement(frame)
     local NewAnchor = frame.NewAnchor
     local OriginalAnchor = frame.OriginalAnchor
     NewAnchor.point, NewAnchor.relativeTo, NewAnchor.relativePoint, NewAnchor.xOfs, NewAnchor.yOfs = frame:GetPoint(1)
-    print(frame:GetName(), " has been moved, ", NewAnchor.xOfs - OriginalAnchor.xOfs, " , ", NewAnchor.yOfs - OriginalAnchor.yOfs)
     frame:StopMovingOrSizing()
 end
 
