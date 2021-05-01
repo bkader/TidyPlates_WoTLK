@@ -59,7 +59,7 @@ end
 -- Sends cast event to an available nameplate
 --------------------------------------
 local function OnSpellCast(...)
-    local sourceGUID, sourceName, sourceFlags, sourceRaidFlags, spellid, spellname = ...
+    local sourceGUID, sourceName, sourceFlags, spellid, spellname = ...
     local FoundPlate = nil
 
     -- Gather Spell Info
@@ -77,7 +77,7 @@ local function OnSpellCast(...)
             --	destination plate, by GUID
             FoundPlate = SearchNameplateByGUID(sourceGUID)
             if not FoundPlate then
-                FoundPlate = SearchNameplateByIcon(sourceRaidFlags)
+                FoundPlate = SearchNameplateByIcon(sourceFlags)
             end
         else
             return
@@ -113,9 +113,9 @@ local function GetCombatEventResults(...)
 end
 
 local function OnCombatEvent(self, event, ...)
-    local combatevent, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, spellid, spellname = GetCombatEventResults(...)
-    if CombatEventHandlers[combatevent] and sourceGUID ~= UnitGUID("target") then
-        CombatEventHandlers[combatevent](sourceGUID, sourceName, sourceFlags, sourceRaidFlags, spellid, spellname)
+	local _, combatevent, sourceGUID, sourceName, sourceFlags, _, _, _, spellid, spellname = ...
+    if CombatEventHandlers[combatevent] and sourceGUID ~= UnitGUID("target") and spellid then
+        CombatEventHandlers[combatevent](sourceGUID, sourceName, sourceFlags, spellid, spellname)
     end
 end
 
