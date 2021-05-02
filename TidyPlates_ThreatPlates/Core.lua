@@ -973,6 +973,7 @@ function TidyPlatesThreat:OnInitialize()
                     ["Boss"] = 1.1,
                     ["Elite"] = 1.04,
                     ["Normal"] = 1,
+                    ["Target"] = 1,
                     ["Neutral"] = 0.9,
                     ["Marked"] = 1
                 },
