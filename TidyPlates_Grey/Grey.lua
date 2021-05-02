@@ -13,190 +13,192 @@ local castBar_verticalOffset = -6
 
 -- Non-Latin Font Bypass
 local NonLatinLocales = {ruRU = true, koKR = true, zhCN = true, zhTW = true}
-if NonLatinLocales[GetLocale()] then font = NAMEPLATE_FONT end
+if NonLatinLocales[GetLocale()] then
+	font = NAMEPLATE_FONT
+end
 
 local StyleDefault = {}
 
 StyleDefault.hitbox = {width = 140, height = 35}
 
 StyleDefault.highlight = {
-    texture = defaultArtPath .. "Highlight"
+	texture = defaultArtPath .. "Highlight"
 }
 
 StyleDefault.healthborder = {
-    texture = defaultArtPath .. "RegularBorder",
-    glowtexture = defaultArtPath .. "Highlight",
-    width = 128,
-    height = 64,
-    x = 0,
-    y = nameplate_verticalOffset,
-    anchor = "CENTER"
+	texture = defaultArtPath .. "RegularBorder",
+	glowtexture = defaultArtPath .. "Highlight",
+	width = 128,
+	height = 64,
+	x = 0,
+	y = nameplate_verticalOffset,
+	anchor = "CENTER"
 }
 
 StyleDefault.eliteicon = {
-    texture = defaultArtPath .. "EliteIcon",
-    width = 14,
-    height = 14,
-    x = -51,
-    y = 17,
-    anchor = "CENTER",
-    show = true
+	texture = defaultArtPath .. "EliteIcon",
+	width = 14,
+	height = 14,
+	x = -51,
+	y = 17,
+	anchor = "CENTER",
+	show = true
 }
 
 StyleDefault.target = {
-    texture = defaultArtPath .. "TargetBox",
-    width = 128,
-    height = 64,
-    x = 0,
-    y = nameplate_verticalOffset,
-    anchor = "CENTER",
-    show = true
+	texture = defaultArtPath .. "TargetBox",
+	width = 128,
+	height = 64,
+	x = 0,
+	y = nameplate_verticalOffset,
+	anchor = "CENTER",
+	show = true
 }
 
 StyleDefault.threatborder = {
-    texture = defaultArtPath .. "RegularThreat",
-    elitetexture = defaultArtPath .. "EliteThreat",
-    width = 128,
-    height = 64,
-    x = 0,
-    y = nameplate_verticalOffset,
-    anchor = "CENTER"
+	texture = defaultArtPath .. "RegularThreat",
+	elitetexture = defaultArtPath .. "EliteThreat",
+	width = 128,
+	height = 64,
+	x = 0,
+	y = nameplate_verticalOffset,
+	anchor = "CENTER"
 }
 
 StyleDefault.castborder = {
-    texture = defaultArtPath .. "CastStoppable",
-    width = 128,
-    height = 64,
-    x = 0,
-    y = 0 + castBar_verticalOffset + nameplate_verticalOffset,
-    anchor = "CENTER"
+	texture = defaultArtPath .. "CastStoppable",
+	width = 128,
+	height = 64,
+	x = 0,
+	y = 0 + castBar_verticalOffset + nameplate_verticalOffset,
+	anchor = "CENTER"
 }
 
 StyleDefault.castnostop = {
-    texture = defaultArtPath .. "CastNotStoppable",
-    width = 128,
-    height = 64,
-    x = 0,
-    y = 0 + castBar_verticalOffset + nameplate_verticalOffset,
-    anchor = "CENTER"
+	texture = defaultArtPath .. "CastNotStoppable",
+	width = 128,
+	height = 64,
+	x = 0,
+	y = 0 + castBar_verticalOffset + nameplate_verticalOffset,
+	anchor = "CENTER"
 }
 
 StyleDefault.name = {
-    typeface = font,
-    size = 9,
-    width = 100,
-    height = 10,
-    x = 0,
-    y = 6 + nameplate_verticalOffset,
-    align = "LEFT",
-    anchor = "LEFT",
-    vertical = "BOTTOM",
-    shadow = true,
-    flags = "NONE"
+	typeface = font,
+	size = 9,
+	width = 100,
+	height = 10,
+	x = 0,
+	y = 6 + nameplate_verticalOffset,
+	align = "LEFT",
+	anchor = "LEFT",
+	vertical = "BOTTOM",
+	shadow = true,
+	flags = "NONE"
 }
 
 StyleDefault.level = {
-    typeface = font,
-    size = 9,
-    width = 25,
-    height = 10,
-    x = 36,
-    y = 6 + nameplate_verticalOffset,
-    align = "RIGHT",
-    anchor = "CENTER",
-    vertical = "BOTTOM",
-    shadow = true,
-    flags = "NONE"
+	typeface = font,
+	size = 9,
+	width = 25,
+	height = 10,
+	x = 36,
+	y = 6 + nameplate_verticalOffset,
+	align = "RIGHT",
+	anchor = "CENTER",
+	vertical = "BOTTOM",
+	shadow = true,
+	flags = "NONE"
 }
 
 StyleDefault.healthbar = {
-    texture = defaultArtPath .. "Statusbar",
-    backdrop = defaultArtPath .. "Empty",
-    height = 12,
-    width = 101,
-    x = 0,
-    y = 15 + nameplate_verticalOffset,
-    anchor = "CENTER",
-    orientation = "HORIZONTAL"
+	texture = defaultArtPath .. "Statusbar",
+	backdrop = defaultArtPath .. "Empty",
+	height = 12,
+	width = 101,
+	x = 0,
+	y = 15 + nameplate_verticalOffset,
+	anchor = "CENTER",
+	orientation = "HORIZONTAL"
 }
 
 StyleDefault.castbar = {
-    texture = defaultArtPath .. "Statusbar",
-    backdrop = defaultArtPath .. "Empty",
-    height = 12,
-    width = 99,
-    x = 0,
-    y = -8 + castBar_verticalOffset + nameplate_verticalOffset,
-    anchor = "CENTER",
-    orientation = "HORIZONTAL"
+	texture = defaultArtPath .. "Statusbar",
+	backdrop = defaultArtPath .. "Empty",
+	height = 12,
+	width = 99,
+	x = 0,
+	y = -8 + castBar_verticalOffset + nameplate_verticalOffset,
+	anchor = "CENTER",
+	orientation = "HORIZONTAL"
 }
 
 StyleDefault.customtext = {
-    typeface = font,
-    size = 9,
-    width = 93,
-    height = 10,
-    x = 0,
-    y = 16 + nameplate_verticalOffset,
-    align = "RIGHT",
-    anchor = "CENTER",
-    vertical = "BOTTOM",
-    shadow = true,
-    flags = "NONE",
-    show = true
+	typeface = font,
+	size = 9,
+	width = 93,
+	height = 10,
+	x = 0,
+	y = 16 + nameplate_verticalOffset,
+	align = "RIGHT",
+	anchor = "CENTER",
+	vertical = "BOTTOM",
+	shadow = true,
+	flags = "NONE",
+	show = true
 }
 
 StyleDefault.spelltext = {
-    typeface = font,
-    size = 8,
-    width = 100,
-    height = 10,
-    x = 1,
-    y = castBar_verticalOffset - 8 + nameplate_verticalOffset,
-    align = "LEFT",
-    anchor = "CENTER",
-    vertical = "BOTTOM",
-    shadow = true,
-    flags = "NONE",
-    show = true
+	typeface = font,
+	size = 8,
+	width = 100,
+	height = 10,
+	x = 1,
+	y = castBar_verticalOffset - 8 + nameplate_verticalOffset,
+	align = "LEFT",
+	anchor = "CENTER",
+	vertical = "BOTTOM",
+	shadow = true,
+	flags = "NONE",
+	show = true
 }
 
 StyleDefault.spellicon = {
-    width = 18,
-    height = 18,
-    x = 62,
-    y = -8 + castBar_verticalOffset + nameplate_verticalOffset,
-    anchor = "CENTER"
+	width = 18,
+	height = 18,
+	x = 62,
+	y = -8 + castBar_verticalOffset + nameplate_verticalOffset,
+	anchor = "CENTER"
 }
 
 StyleDefault.raidicon = {
-    width = 20,
-    height = 20,
-    x = -35,
-    y = 12 + nameplate_verticalOffset,
-    anchor = "TOP"
+	width = 20,
+	height = 20,
+	x = -35,
+	y = 12 + nameplate_verticalOffset,
+	anchor = "TOP"
 }
 
 StyleDefault.skullicon = {
-    width = 14,
-    height = 14,
-    x = 44,
-    y = 8 + nameplate_verticalOffset,
-    anchor = "CENTER"
+	width = 14,
+	height = 14,
+	x = 44,
+	y = 8 + nameplate_verticalOffset,
+	anchor = "CENTER"
 }
 
 StyleDefault.frame = {
-    width = 101,
-    height = 45,
-    x = 0,
-    y = 0 + nameplate_verticalOffset,
-    anchor = "CENTER"
+	width = 101,
+	height = 45,
+	x = 0,
+	y = 0 + nameplate_verticalOffset,
+	anchor = "CENTER"
 }
 
 StyleDefault.threatcolor = {
-    LOW = {r = .6, g = 1, b = 0, a = 1},
-    MEDIUM = {r = .6, g = 1, b = 0, a = 1},
-    HIGH = {r = 1, g = 0, b = 0, a = 1}
+	LOW = {r = .6, g = 1, b = 0, a = 1},
+	MEDIUM = {r = .6, g = 1, b = 0, a = 1},
+	HIGH = {r = 1, g = 0, b = 0, a = 1}
 }
 
 -- No-Bar Style   (6.2)
@@ -246,7 +248,9 @@ SlashCmdList["GREYDPS"] = ShowTidyPlatesHubDamagePanel
 Theme["Default"] = StyleDefault
 Theme["NameOnly"] = StyleTextOnly
 
-local function StyleDelegate(unit) return "Default" end
+local function StyleDelegate(unit)
+	return "Default"
+end
 
 Theme.SetStyle = StyleDelegate
 
@@ -254,44 +258,44 @@ TidyPlatesThemeList[DamageThemeName] = Theme
 local LocalVars = TidyPlatesHubDamageVariables
 
 local function ApplyFontCustomization(style)
-    local currentFont = font
-    if LocalVars.TextUseBlizzardFont then
-        currentFont = blizzfont
-    end
-    style.name.typeface = currentFont
-    style.level.typeface = currentFont
-    style.customtext.typeface = currentFont
-    style.spelltext.typeface = currentFont
+	local currentFont = font
+	if LocalVars.TextUseBlizzardFont then
+		currentFont = blizzfont
+	end
+	style.name.typeface = currentFont
+	style.level.typeface = currentFont
+	style.customtext.typeface = currentFont
+	style.spelltext.typeface = currentFont
 
-    style.frame.y = ((LocalVars.FrameVerticalPosition - .5) * 50) - 5
+	style.frame.y = ((LocalVars.FrameVerticalPosition - .5) * 50) - 5
 end
 
 local function OnApplyStyleCustomization(style)
-    style.level.show = (LocalVars.TextShowLevel == true)
-    style.target.show = (LocalVars.WidgetTargetHighlight == true)
-    style.eliteicon.show = (LocalVars.WidgetEliteIndicator == true)
-    ApplyFontCustomization(style)
+	style.level.show = (LocalVars.TextShowLevel == true)
+	style.target.show = (LocalVars.WidgetTargetHighlight == true)
+	style.eliteicon.show = (LocalVars.WidgetEliteIndicator == true)
+	ApplyFontCustomization(style)
 end
 
 local function OnApplyThemeCustomization(theme)
-    OnApplyStyleCustomization(theme["Default"])
-    ApplyFontCustomization(theme["NameOnly"])
-    TidyPlates:ForceUpdate()
+	OnApplyStyleCustomization(theme["Default"])
+	ApplyFontCustomization(theme["NameOnly"])
+	TidyPlates:ForceUpdate()
 end
 
 local function OnApplyDamageCustomization()
-    OnApplyThemeCustomization(Theme)
+	OnApplyThemeCustomization(Theme)
 end
 
 local function OnInitialize(plate)
-    TidyPlatesHubFunctions.OnInitializeWidgets(plate, WidgetConfig)
+	TidyPlatesHubFunctions.OnInitializeWidgets(plate, WidgetConfig)
 end
 
 local function OnActivateTheme(themeTable)
-    if Theme == themeTable then
-        LocalVars = TidyPlatesHubFunctions:UseDamageVariables()
-        OnApplyDamageCustomization()
-    end
+	if Theme == themeTable then
+		LocalVars = TidyPlatesHubFunctions:UseDamageVariables()
+		OnApplyDamageCustomization()
+	end
 end
 
 Theme.SetNameColor = TidyPlatesHubFunctions.SetNameColor
@@ -310,64 +314,64 @@ Theme.OnActivateTheme = OnActivateTheme
 Theme.OnApplyThemeCustomization = OnApplyDamageCustomization
 
 local function GetLevelDescription(unit)
-    local description
-    if unit.reaction ~= "FRIENDLY" then
-        description = "Level " .. unit.level
-        if unit.isElite then
-            description = description .. " (Elite)"
-        end
-        return description
-    end
+	local description
+	if unit.reaction ~= "FRIENDLY" then
+		description = "Level " .. unit.level
+		if unit.isElite then
+			description = description .. " (Elite)"
+		end
+		return description
+	end
 end
 
 local HubCustomText = TidyPlatesHubFunctions.SetCustomText
 local function CustomText(unit)
-    if unit.style == "NameOnly" then
-        local description, elite
-        if TidyPlatesData.UnitDescriptions and unit.type == "NPC" then
-            return (TidyPlatesData.UnitDescriptions[unit.name] or GetLevelDescription(unit) or "")
-        end
-    end
-    return HubCustomText(unit)
+	if unit.style == "NameOnly" then
+		local description, elite
+		if TidyPlatesData.UnitDescriptions and unit.type == "NPC" then
+			return (TidyPlatesData.UnitDescriptions[unit.name] or GetLevelDescription(unit) or "")
+		end
+	end
+	return HubCustomText(unit)
 end
 Theme.SetCustomText = CustomText
 
 local StyleIndex = {"Default", "NameOnly"}
 local function SetStyleDelegate(unit)
-    return StyleIndex[TidyPlatesHubFunctions.SetMultistyle(unit)] or "Default"
+	return StyleIndex[TidyPlatesHubFunctions.SetMultistyle(unit)] or "Default"
 end
 
 Theme.SetStyle = SetStyleDelegate -- (6.2)
 
 local GreyColor = {r = 98 / 255, g = 98 / 255, b = 98 / 255}
 local function NameColorDelegate(unit)
-    local class = TidyPlatesData.UnitClass[unit.name]
-    local color
-    if class then
-        color = RAID_CLASS_COLORS[class]
-    end
-    if color then
-        return color.r, color.g, color.b
-    end
-    return TidyPlatesHubFunctions.SetNameColor(unit)
+	local class = TidyPlatesData.UnitClass[unit.name]
+	local color
+	if class then
+		color = RAID_CLASS_COLORS[class]
+	end
+	if color then
+		return color.r, color.g, color.b
+	end
+	return TidyPlatesHubFunctions.SetNameColor(unit)
 end
 
 do
-    local TankTheme = CopyTable(Theme)
-    TidyPlatesThemeList[TankThemeName] = TankTheme
+	local TankTheme = CopyTable(Theme)
+	TidyPlatesThemeList[TankThemeName] = TankTheme
 
-    local function OnApplyTankCustomization()
-        OnApplyThemeCustomization(TankTheme)
-    end
+	local function OnApplyTankCustomization()
+		OnApplyThemeCustomization(TankTheme)
+	end
 
-    local function OnActivateTankTheme(themeTable)
-        if TankTheme == themeTable then
-            LocalVars = TidyPlatesHubFunctions:UseTankVariables()
-            OnApplyTankCustomization()
-        end
-    end
+	local function OnActivateTankTheme(themeTable)
+		if TankTheme == themeTable then
+			LocalVars = TidyPlatesHubFunctions:UseTankVariables()
+			OnApplyTankCustomization()
+		end
+	end
 
-    TankTheme.OnActivateTheme = OnActivateTankTheme
-    TankTheme.OnApplyThemeCustomization = OnApplyTankCustomization
-    TankTheme.ShowConfigPanel = ShowTidyPlatesHubTankPanel
+	TankTheme.OnActivateTheme = OnActivateTankTheme
+	TankTheme.OnApplyThemeCustomization = OnApplyTankCustomization
+	TankTheme.ShowConfigPanel = ShowTidyPlatesHubTankPanel
 end
