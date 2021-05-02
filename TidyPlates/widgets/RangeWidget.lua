@@ -15,69 +15,69 @@ local currentTime = 0
 local updateFreq = .5
 
 local function GetRange(unitid)
-    local estRange = nil
-    if UnitInRange(unitid) then
-        estRange = 40
-    end
-    if CheckInteractDistance(unitid, 4) then
-        estRange = 28
-        if IsItemInRange(6450, unitid) == 1 then
-            estRange = 15
-            if CheckInteractDistance(unitid, 2) then
-                estRange = 9
-            end
-        end
-    end
-    return estRange
+	local estRange = nil
+	if UnitInRange(unitid) then
+		estRange = 40
+	end
+	if CheckInteractDistance(unitid, 4) then
+		estRange = 28
+		if IsItemInRange(6450, unitid) == 1 then
+			estRange = 15
+			if CheckInteractDistance(unitid, 2) then
+				estRange = 9
+			end
+		end
+	end
+	return estRange
 end
 
 local function CheckRanges(self)
-    currentTime = GetTime()
-    if currentTime < nextRangeCheckup then
-        return
-    end
-    nextRangeCheckup = currentTime + updateFreq
-    local group, size, inRange
-    local estRange = nil
+	currentTime = GetTime()
+	if currentTime < nextRangeCheckup then
+		return
+	end
+	nextRangeCheckup = currentTime + updateFreq
+	local group, size, inRange
+	local estRange = nil
 
-    -- Check Group Type
-    if UnitInRaid("player") then
-        group = "raid"
-        size = GetNumRaidMembers() - 1
-    elseif UnitInParty("player") then
-        group = "party"
-        size = GetNumPartyMembers()
-    else
-        group = nil
-    end
+	-- Check Group Type
+	if UnitInRaid("player") then
+		group = "raid"
+		size = GetNumRaidMembers() - 1
+	elseif UnitInParty("player") then
+		group = "party"
+		size = GetNumPartyMembers()
+	else
+		group = nil
+	end
 
-    -- Cycle through Group
-    if group then
-        for index = 1, size do
-            local unitid = group .. index
-            Ranges[UnitName(unitid)] = GetRange(unitid)
-        end
-    end
+	-- Cycle through Group
+	if group then
+		for index = 1, size do
+			local unitid = group .. index
+			Ranges[UnitName(unitid)] = GetRange(unitid)
+		end
+	end
 
-    -- Check Cache
-    for name, range in pairs(Ranges) do
-        if range ~= RangesCache[name] then
-            RangesCache[name] = range
-            TidyPlates:Update()
-        end
-    end
+	-- Check Cache
+	for name, range in pairs(Ranges) do
+		if range ~= RangesCache[name] then
+			RangesCache[name] = range
+			TidyPlates:Update()
+		end
+	end
 end
 
 local usingRangeWidget = false
 local function ActivateRangeWidget()
-    if usingRangeWidget then
-        wipe(Ranges)
-        if UnitInRaid("player") or UnitInParty("player") then
-            RangeWatcher:SetScript("OnUpdate", CheckRanges)
-        else
-            RangeWatcher:SetScript("OnUpdate", nil)
-        end
-    end
+	if usingRangeWidget then
+		wipe(Ranges)
+		if UnitInRaid("player") or UnitInParty("player") then
+			RangeWatcher:SetScript("OnUpdate", CheckRanges)
+		else
+			RangeWatcher:SetScript("OnUpdate", nil)
+		end
+	end
 end
 
 RangeWatcher:SetScript("OnEvent", ActivateRangeWidget)
@@ -92,41 +92,41 @@ RangeWatcher:RegisterEvent("PARTY_CONVERTED_TO_RAID")
 local art = "Interface\\Addons\\TidyPlates\\widgets\\RangeWidget\\RangeWidget"
 
 local function UpdateRangeWidget(self, unit, range)
-    local unitrange, saferange
-    saferange = range or self.Range
-    if unit.reaction == "FRIENDLY" then
-        unitrange = Ranges[unit.name] or 100
-        if unitrange <= saferange then
-            self.Texture:Show()
-            self.Texture:SetVertexColor(1, .25, 0, .50) -- Red
-        else
-            self.Texture:Hide()
-        end
-        self:Show()
-    else
-        self:Hide()
-    end
+	local unitrange, saferange
+	saferange = range or self.Range
+	if unit.reaction == "FRIENDLY" then
+		unitrange = Ranges[unit.name] or 100
+		if unitrange <= saferange then
+			self.Texture:Show()
+			self.Texture:SetVertexColor(1, .25, 0, .50) -- Red
+		else
+			self.Texture:Hide()
+		end
+		self:Show()
+	else
+		self:Hide()
+	end
 end
 
 local function CreateRangeWidget(parent)
-    if not usingRangeWidget then
-        usingRangeWidget = true
-        ActivateRangeWidget()
-    end
-    local frame = CreateFrame("Frame", nil, parent)
-    frame:SetWidth(16)
-    frame:SetHeight(16)
-    -- Image
-    frame.Texture = frame:CreateTexture(nil, "OVERLAY")
-    frame.Texture:SetTexture(art)
-    frame.Texture:SetPoint("CENTER")
-    frame.Texture:SetWidth(128)
-    frame.Texture:SetHeight(128)
-    -- Vars and Mech
-    frame.Range = 15
-    frame:Hide()
-    frame.Update = UpdateRangeWidget
-    return frame
+	if not usingRangeWidget then
+		usingRangeWidget = true
+		ActivateRangeWidget()
+	end
+	local frame = CreateFrame("Frame", nil, parent)
+	frame:SetWidth(16)
+	frame:SetHeight(16)
+	-- Image
+	frame.Texture = frame:CreateTexture(nil, "OVERLAY")
+	frame.Texture:SetTexture(art)
+	frame.Texture:SetPoint("CENTER")
+	frame.Texture:SetWidth(128)
+	frame.Texture:SetHeight(128)
+	-- Vars and Mech
+	frame.Range = 15
+	frame:Hide()
+	frame.Update = UpdateRangeWidget
+	return frame
 end
 
 TidyPlatesWidgets.CreateRangeWidget = CreateRangeWidget
