@@ -3,7 +3,6 @@ local L = LibStub("AceLocale-3.0"):GetLocale("TidyPlatesThreat")
 local class = select(2, UnitClass("Player"))
 
 TidyPlatesThreat.title = GetAddOnMetadata("TidyPlates_ThreatPlates", "title") .. " v" .. GetAddOnMetadata("TidyPlates_ThreatPlates", "version")
-
 local path = "Interface\\Addons\\TidyPlates_ThreatPlates\\Media\\Artwork\\"
 local db
 
@@ -505,29 +504,45 @@ local function GetOptions()
 													name = L["Show Friends"],
 													type = "toggle",
 													order = 1,
-													get = function() return (GetCVar("nameplateShowFriends") == "1") end,
-													set = function() SetCVar("nameplateShowFriends", abs(GetCVar("nameplateShowFriends") - 1)) end
+													get = function()
+														return (GetCVar("nameplateShowFriends") == "1")
+													end,
+													set = function()
+														SetCVar("nameplateShowFriends", abs(GetCVar("nameplateShowFriends") - 1))
+													end
 												},
 												nameplateShowFriendlyTotems = {
 													name = L["Show Friendly Totems"],
 													type = "toggle",
 													order = 2,
-													get = function() return (GetCVar("nameplateShowFriendlyTotems") == "1") end,
-													set = function() SetCVar("nameplateShowFriendlyTotems", abs(GetCVar("nameplateShowFriendlyTotems") - 1)) end
+													get = function()
+														return (GetCVar("nameplateShowFriendlyTotems") == "1")
+													end,
+													set = function()
+														SetCVar("nameplateShowFriendlyTotems", abs(GetCVar("nameplateShowFriendlyTotems") - 1))
+													end
 												},
 												nameplateShowFriendlyPets = {
 													name = L["Show Friendly Pets"],
 													type = "toggle",
 													order = 3,
-													get = function() return (GetCVar("nameplateShowFriendlyPets") == "1") end,
-													set = function() SetCVar("nameplateShowFriendlyPets", abs(GetCVar("nameplateShowFriendlyPets") - 1)) end
+													get = function()
+														return (GetCVar("nameplateShowFriendlyPets") == "1")
+													end,
+													set = function()
+														SetCVar("nameplateShowFriendlyPets", abs(GetCVar("nameplateShowFriendlyPets") - 1))
+													end
 												},
 												nameplateShowFriendlyGuardians = {
 													name = L["Show Friendly Guardians"],
 													type = "toggle",
 													order = 4,
-													get = function() return (GetCVar("nameplateShowFriendlyGuardians") == "1") end,
-													set = function() SetCVar("nameplateShowFriendlyGuardians", abs(GetCVar("nameplateShowFriendlyGuardians") - 1)) end
+													get = function()
+														return (GetCVar("nameplateShowFriendlyGuardians") == "1")
+													end,
+													set = function()
+														SetCVar("nameplateShowFriendlyGuardians", abs(GetCVar("nameplateShowFriendlyGuardians") - 1))
+													end
 												}
 											}
 										},
@@ -541,29 +556,45 @@ local function GetOptions()
 													name = L["Show Enemies"],
 													type = "toggle",
 													order = 1,
-													get = function() return (GetCVar("nameplateShowEnemies") == "1") end,
-													set = function() SetCVar("nameplateShowEnemies", abs(GetCVar("nameplateShowEnemies") - 1)) end
+													get = function()
+														return (GetCVar("nameplateShowEnemies") == "1")
+													end,
+													set = function()
+														SetCVar("nameplateShowEnemies", abs(GetCVar("nameplateShowEnemies") - 1))
+													end
 												},
 												nameplateShowEnemyTotems = {
 													name = L["Show Enemy Totems"],
 													type = "toggle",
 													order = 2,
-													get = function() return (GetCVar("nameplateShowEnemyTotems") == "1") end,
-													set = function() SetCVar("nameplateShowEnemyTotems", abs(GetCVar("nameplateShowEnemyTotems") - 1)) end
+													get = function()
+														return (GetCVar("nameplateShowEnemyTotems") == "1")
+													end,
+													set = function()
+														SetCVar("nameplateShowEnemyTotems", abs(GetCVar("nameplateShowEnemyTotems") - 1))
+													end
 												},
 												nameplateShowEnemyPets = {
 													name = L["Show Enemy Pets"],
 													type = "toggle",
 													order = 3,
-													get = function() return (GetCVar("nameplateShowEnemyPets") == "1") end,
-													set = function() SetCVar("nameplateShowEnemyPets", abs(GetCVar("nameplateShowEnemyPets") - 1)) end
+													get = function()
+														return (GetCVar("nameplateShowEnemyPets") == "1")
+													end,
+													set = function()
+														SetCVar("nameplateShowEnemyPets", abs(GetCVar("nameplateShowEnemyPets") - 1))
+													end
 												},
 												nameplateShowEnemyGuardians = {
 													name = L["Show Enemy Guardians"],
 													type = "toggle",
 													order = 4,
-													get = function() return (GetCVar("nameplateShowEnemyGuardians") == "1") end,
-													set = function() SetCVar("nameplateShowEnemyGuardians", abs(GetCVar("nameplateShowEnemyGuardians") - 1)) end
+													get = function()
+														return (GetCVar("nameplateShowEnemyGuardians") == "1")
+													end,
+													set = function()
+														SetCVar("nameplateShowEnemyGuardians", abs(GetCVar("nameplateShowEnemyGuardians") - 1))
+													end
 												}
 											}
 										}
@@ -615,7 +646,9 @@ local function GetOptions()
 											name = L["Normal Border"],
 											get = GetValue,
 											set = SetThemeValueArt,
-											disabled = function() return not db.settings.healthborder.show end,
+											disabled = function()
+												return not db.settings.healthborder.show
+											end,
 											values = {TP_HealthBarOverlay = "Default", TP_HealthBarOverlayThin = "Thin"},
 											arg = {"settings", "healthborder", "texture"}
 										},
@@ -640,7 +673,9 @@ local function GetOptions()
 											name = L["Elite Border"],
 											get = GetValue,
 											set = SetValue,
-											disabled = function() return not db.settings.elitehealthborder.show end,
+											disabled = function()
+												return not db.settings.elitehealthborder.show
+											end,
 											values = {
 												TP_HealthBarEliteOverlay = "Default",
 												TP_HealthBarEliteOverlayThin = "Thin"
@@ -673,7 +708,9 @@ local function GetOptions()
 										Warning = {
 											type = "description",
 											order = 1,
-											name = L["Changing these settings will alter the placement of the nameplates, however the mouseover area does not follow. |cffff0000Use with caution!|r"]
+											name = L[
+												"Changing these settings will alter the placement of the nameplates, however the mouseover area does not follow. |cffff0000Use with caution!|r"
+											]
 										},
 										OffsetX = {
 											name = L["Offset X"],
@@ -708,7 +745,9 @@ local function GetOptions()
 										ColorByHPLevel = {
 											name = L["Color HP by amount"],
 											type = "toggle",
-											desc = L["Changes the HP color depending on the amount of HP the nameplate shows."],
+											desc = L[
+												"Changes the HP color depending on the amount of HP the nameplate shows."
+											],
 											descStyle = "inline",
 											width = "full",
 											order = 0,
@@ -727,7 +766,9 @@ local function GetOptions()
 													type = "group",
 													inline = true,
 													order = 1,
-													disabled = function() return db.healthColorChange end,
+													disabled = function()
+														return db.healthColorChange
+													end,
 													args = {
 														Enable = {
 															name = L["Enable Enemy Class colors"],
@@ -745,12 +786,16 @@ local function GetOptions()
 													type = "group",
 													inline = true,
 													order = 2,
-													disabled = function() return db.healthColorChange end,
+													disabled = function()
+														return db.healthColorChange
+													end,
 													args = {
 														FriendlyClass = {
 															name = L["Enable Friendly Class Colors"],
 															type = "toggle",
-															desc = L["Enable the showing of friendly player class color on hp bars."],
+															desc = L[
+																"Enable the showing of friendly player class color on hp bars."
+															],
 															descStyle = "inline",
 															width = "full",
 															get = GetValue,
@@ -760,10 +805,14 @@ local function GetOptions()
 														FriendlyCaching = {
 															name = L["Friendly Caching"],
 															type = "toggle",
-															desc = L["This allows you to save friendly player class information between play sessions or nameplates going off the screen.|cffff0000(Uses more memory)"],
+															desc = L[
+																"This allows you to save friendly player class information between play sessions or nameplates going off the screen.|cffff0000(Uses more memory)"
+															],
 															descStyle = "inline",
 															width = "full",
-															disabled = function() return (not db.friendlyClass or db.healthColorChange) end,
+															disabled = function()
+																return (not db.friendlyClass or db.healthColorChange)
+															end,
 															get = GetValue,
 															set = SetValue,
 															arg = {"cacheClass"}
@@ -792,7 +841,9 @@ local function GetOptions()
 													type = "group",
 													inline = true,
 													order = 2,
-													disabled = function() return not db.customColor end,
+													disabled = function()
+														return not db.customColor
+													end,
 													args = {
 														FriendlyColor = {
 															name = L["Friendly Color"],
@@ -842,7 +893,9 @@ local function GetOptions()
 													type = "group",
 													inline = true,
 													order = 2,
-													disabled = function() return not db.settings.raidicon.hpColor end,
+													disabled = function()
+														return not db.settings.raidicon.hpColor
+													end,
 													get = GetColor,
 													set = SetColor,
 													args = {
@@ -966,7 +1019,9 @@ local function GetOptions()
 											name = L["Enable"],
 											type = "toggle",
 											order = 1,
-											get = function() return (GetCVar("ShowVKeyCastbar") == "1") end,
+											get = function()
+												return (GetCVar("ShowVKeyCastbar") == "1")
+											end,
 											set = function(info, val)
 												SetCVar("ShowVKeyCastbar", abs(GetCVar("ShowVKeyCastbar") - 1))
 												Update()
@@ -981,12 +1036,18 @@ local function GetOptions()
 										SmartCastbarsToggle = {
 											name = L["Enable"],
 											type = "toggle",
-											desc = L["This allows the castbar to attempt to create a castbar on nameplates of players or creatures you have recently moused over."],
+											desc = L[
+												"This allows the castbar to attempt to create a castbar on nameplates of players or creatures you have recently moused over."
+											],
 											descStyle = "inline",
 											width = "full",
 											order = 4,
-											disabled = function() return (GetCVar("ShowVKeyCastbar") ~= "1") end,
-											get = function(info) return TidyPlatesOptions.EnableCastWatcher end,
+											disabled = function()
+												return (GetCVar("ShowVKeyCastbar") ~= "1")
+											end,
+											get = function(info)
+												return TidyPlatesOptions.EnableCastWatcher
+											end,
 											set = function(info, val)
 												TidyPlatesOptions.EnableCastWatcher =
 													not TidyPlatesOptions.EnableCastWatcher
@@ -1004,7 +1065,9 @@ local function GetOptions()
 									type = "group",
 									inline = true,
 									order = 1,
-									disabled = function() return (GetCVar("ShowVKeyCastbar") ~= "1") end,
+									disabled = function()
+										return (GetCVar("ShowVKeyCastbar") ~= "1")
+									end,
 									args = {
 										CastBarTexture = {
 											name = L["Castbar"],
@@ -1024,7 +1087,9 @@ local function GetOptions()
 									type = "group",
 									inline = true,
 									order = 20,
-									disabled = function() return (GetCVar("ShowVKeyCastbar") ~= "1") end,
+									disabled = function()
+										return (GetCVar("ShowVKeyCastbar") ~= "1")
+									end,
 									args = {
 										PlacementX = {
 											name = L["X"],
@@ -1078,7 +1143,9 @@ local function GetOptions()
 											order = 1,
 											set = SetValue,
 											get = GetValue,
-											disabled = function() return (GetCVar("ShowVKeyCastbar") ~= "1") end,
+											disabled = function()
+												return (GetCVar("ShowVKeyCastbar") ~= "1")
+											end,
 											arg = {"castbarColor", "toggle"}
 										},
 										Interruptable = {
@@ -1087,7 +1154,9 @@ local function GetOptions()
 											order = 2,
 											get = GetColorAlpha,
 											set = SetColorAlpha,
-											disabled = function() return (not db.castbarColor.toggle or GetCVar("ShowVKeyCastbar") ~= "1") end,
+											disabled = function()
+												return (not db.castbarColor.toggle or GetCVar("ShowVKeyCastbar") ~= "1")
+											end,
 											arg = {"castbarColor"}
 										},
 										Header1 = {
@@ -1101,7 +1170,9 @@ local function GetOptions()
 											order = 4,
 											set = SetValue,
 											get = GetValue,
-											disabled = function() return (not db.castbarColor.toggle or GetCVar("ShowVKeyCastbar") ~= "1") end,
+											disabled = function()
+												return (not db.castbarColor.toggle or GetCVar("ShowVKeyCastbar") ~= "1")
+											end,
 											arg = {"castbarColorShield", "toggle"}
 										},
 										Shielded = {
@@ -1110,7 +1181,10 @@ local function GetOptions()
 											order = 5,
 											get = GetColorAlpha,
 											set = SetColorAlpha,
-											disabled = function() return (GetCVar("ShowVKeyCastbar") ~= "1" or not db.castbarColor.toggle or not db.castbarColorShield.toggle) end,
+											disabled = function()
+												return (GetCVar("ShowVKeyCastbar") ~= "1" or not db.castbarColor.toggle or
+													not db.castbarColorShield.toggle)
+											end,
 											arg = {"castbarColorShield"}
 										}
 									}
@@ -1133,7 +1207,9 @@ local function GetOptions()
 										Enable = {
 											name = L["Enable Blizzard 'On-Target' Fading"],
 											type = "toggle",
-											desc = L["Enabling this will allow you to set the alpha adjustment for non-target nameplates."],
+											desc = L[
+												"Enabling this will allow you to set the alpha adjustment for non-target nameplates."
+											],
 											descStyle = "inline",
 											order = 1,
 											get = GetValue,
@@ -1146,7 +1222,9 @@ local function GetOptions()
 											type = "range",
 											order = 2,
 											width = "full",
-											disabled = function() return not db.blizzFade.toggle end,
+											disabled = function()
+												return not db.blizzFade.toggle
+											end,
 											min = -1,
 											max = 0,
 											step = 0.01,
@@ -1312,7 +1390,9 @@ local function GetOptions()
 									type = "group",
 									order = 2,
 									inline = true,
-									disabled = function() return not db.settings.name.show end,
+									disabled = function()
+										return not db.settings.name.show
+									end,
 									args = {
 										FontLooks = {
 											name = L["Font"],
@@ -1393,7 +1473,9 @@ local function GetOptions()
 														Description = {
 															type = "description",
 															order = 1,
-															name = L["These settings will define the space that text can be placed on the nameplate.\nHaving too large a font and not enough height will cause the text to be not visible."],
+															name = L[
+																"These settings will define the space that text can be placed on the nameplate.\nHaving too large a font and not enough height will cause the text to be not visible."
+															],
 															width = "full"
 														},
 														Width = {
@@ -1567,14 +1649,18 @@ local function GetOptions()
 													inline = true,
 													get = GetValue,
 													set = SetValue,
-													disabled = function() return not (db.text.amount and db.settings.customtext.show) end,
+													disabled = function()
+														return not (db.text.amount and db.settings.customtext.show)
+													end,
 													args = {
 														Truncate = {
 															name = L["Truncate Text"],
 															type = "toggle",
 															order = 1,
 															width = "full",
-															desc = L["This will format text to a simpler format using M or K for millions and thousands. Disabling this will show exact HP amounts."],
+															desc = L[
+																"This will format text to a simpler format using M or K for millions and thousands. Disabling this will show exact HP amounts."
+															],
 															descStyle = "inline",
 															arg = {"text", "truncate"}
 														},
@@ -1583,7 +1669,9 @@ local function GetOptions()
 															type = "toggle",
 															order = 2,
 															width = "full",
-															desc = L["This will format text to show both the maximum hp and current hp."],
+															desc = L[
+																"This will format text to show both the maximum hp and current hp."
+															],
 															descStyle = "inline",
 															arg = {"text", "max"}
 														},
@@ -1592,7 +1680,9 @@ local function GetOptions()
 															type = "toggle",
 															order = 3,
 															width = "full",
-															desc = L["This will format text to show hp as a value the target is missing."],
+															desc = L[
+																"This will format text to show hp as a value the target is missing."
+															],
 															descStyle = "inline",
 															arg = {"text", "deficit"}
 														}
@@ -1664,7 +1754,9 @@ local function GetOptions()
 														Description = {
 															type = "description",
 															order = 1,
-															name = L["These settings will define the space that text can be placed on the nameplate.\nHaving too large a font and not enough height will cause the text to be not visible."],
+															name = L[
+																"These settings will define the space that text can be placed on the nameplate.\nHaving too large a font and not enough height will cause the text to be not visible."
+															],
 															width = "full"
 														},
 														Width = {
@@ -1784,7 +1876,9 @@ local function GetOptions()
 									type = "group",
 									order = 2,
 									inline = true,
-									disabled = function() return not db.settings.spelltext.show end,
+									disabled = function()
+										return not db.settings.spelltext.show
+									end,
 									args = {
 										FontLooks = {
 											name = L["Font"],
@@ -1850,7 +1944,9 @@ local function GetOptions()
 														Description = {
 															type = "description",
 															order = 1,
-															name = L["These settings will define the space that text can be placed on the nameplate.\nHaving too large a font and not enough height will cause the text to be not visible."],
+															name = L[
+																"These settings will define the space that text can be placed on the nameplate.\nHaving too large a font and not enough height will cause the text to be not visible."
+															],
 															width = "full"
 														},
 														Width = {
@@ -1970,7 +2066,9 @@ local function GetOptions()
 									type = "group",
 									order = 2,
 									inline = true,
-									disabled = function() return not db.settings.level.show end,
+									disabled = function()
+										return not db.settings.level.show
+									end,
 									args = {
 										FontLooks = {
 											name = L["Font"],
@@ -2036,7 +2134,9 @@ local function GetOptions()
 														Description = {
 															type = "description",
 															order = 1,
-															name = L["These settings will define the space that text can be placed on the nameplate.\nHaving too large a font and not enough height will cause the text to be not visible."],
+															name = L[
+																"These settings will define the space that text can be placed on the nameplate.\nHaving too large a font and not enough height will cause the text to be not visible."
+															],
 															width = "full"
 														},
 														Width = {
@@ -2156,7 +2256,9 @@ local function GetOptions()
 									type = "group",
 									order = 2,
 									inline = true,
-									disabled = function() return not db.settings.eliteicon.show end,
+									disabled = function()
+										return not db.settings.eliteicon.show
+									end,
 									args = {
 										Texture = {
 											name = L["Texture"],
@@ -2188,9 +2290,15 @@ local function GetOptions()
 															info.arg[4]
 														db[a][b][c] = val
 														for i = 1, 5 do
-															TidyPlatesThemeList["Threat Plates"][themeList[i]][b]["texture"] = "Interface\\AddOns\\TidyPlates_ThreatPlates\\Widgets\\EliteArtWidget\\" .. val
+															TidyPlatesThemeList["Threat Plates"][themeList[i]][b][
+																	"texture"
+																] =
+																"Interface\\AddOns\\TidyPlates_ThreatPlates\\Widgets\\EliteArtWidget\\" ..
+																val
 														end
-														options.args.NameplateSettings.args.EliteIcon.args.Options.args.Texture.args.Preview.image = "Interface\\AddOns\\TidyPlates_ThreatPlates\\Widgets\\EliteArtWidget\\" .. val
+														options.args.NameplateSettings.args.EliteIcon.args.Options.args.Texture.args.Preview.image =
+															"Interface\\AddOns\\TidyPlates_ThreatPlates\\Widgets\\EliteArtWidget\\" ..
+															val
 														Update()
 													end,
 													arg = {"settings", "eliteicon", "theme"}
@@ -2214,8 +2322,12 @@ local function GetOptions()
 															info.arg[4]
 														db[a][b][c] = val
 														for i = 1, 5 do
-															TidyPlatesThemeList["Threat Plates"][themeList[i]]["eliteicon"]["width"] = val
-															TidyPlatesThemeList["Threat Plates"][themeList[i]]["eliteicon"]["height"] = val
+															TidyPlatesThemeList["Threat Plates"][themeList[i]][
+																	"eliteicon"
+																]["width"] = val
+															TidyPlatesThemeList["Threat Plates"][themeList[i]][
+																	"eliteicon"
+																]["height"] = val
 														end
 														Update()
 													end,
@@ -2304,7 +2416,9 @@ local function GetOptions()
 									type = "group",
 									order = 2,
 									inline = true,
-									disabled = function() return not db.settings.skullicon.show end,
+									disabled = function()
+										return not db.settings.skullicon.show
+									end,
 									args = {
 										Texture = {
 											name = L["Texture"],
@@ -2326,8 +2440,12 @@ local function GetOptions()
 															info.arg[4]
 														db[a][b][c] = val
 														for i = 1, 5 do
-															TidyPlatesThemeList["Threat Plates"][themeList[i]]["skullicon"]["width"] = val
-															TidyPlatesThemeList["Threat Plates"][themeList[i]]["skullicon"]["height"] = val
+															TidyPlatesThemeList["Threat Plates"][themeList[i]][
+																	"skullicon"
+																]["width"] = val
+															TidyPlatesThemeList["Threat Plates"][themeList[i]][
+																	"skullicon"
+																]["height"] = val
 														end
 														Update()
 													end,
@@ -2416,7 +2534,9 @@ local function GetOptions()
 									type = "group",
 									order = 2,
 									inline = true,
-									disabled = function() return not db.settings.spellicon.show end,
+									disabled = function()
+										return not db.settings.spellicon.show
+									end,
 									args = {
 										Texture = {
 											name = L["Texture"],
@@ -2438,8 +2558,12 @@ local function GetOptions()
 															info.arg[4]
 														db[a][b][c] = val
 														for i = 1, 5 do
-															TidyPlatesThemeList["Threat Plates"][themeList[i]]["spellicon"]["width"] = val
-															TidyPlatesThemeList["Threat Plates"][themeList[i]]["spellicon"]["height"] = val
+															TidyPlatesThemeList["Threat Plates"][themeList[i]][
+																	"spellicon"
+																]["width"] = val
+															TidyPlatesThemeList["Threat Plates"][themeList[i]][
+																	"spellicon"
+																]["height"] = val
 														end
 														Update()
 													end,
@@ -2528,7 +2652,9 @@ local function GetOptions()
 									type = "group",
 									order = 2,
 									inline = true,
-									disabled = function() return not db.settings.raidicon.show end,
+									disabled = function()
+										return not db.settings.raidicon.show
+									end,
 									args = {
 										Texture = {
 											name = L["Texture"],
@@ -2550,8 +2676,12 @@ local function GetOptions()
 															info.arg[4]
 														db[a][b][c] = val
 														for i = 1, 5 do
-															TidyPlatesThemeList["Threat Plates"][themeList[i]]["raidicon"]["width"] = val
-															TidyPlatesThemeList["Threat Plates"][themeList[i]]["raidicon"]["height"] = val
+															TidyPlatesThemeList["Threat Plates"][themeList[i]][
+																	"raidicon"
+																]["width"] = val
+															TidyPlatesThemeList["Threat Plates"][themeList[i]][
+																	"raidicon"
+																]["height"] = val
 														end
 														Update()
 													end,
@@ -2649,7 +2779,9 @@ local function GetOptions()
 											name = L["Ignore Non-Combat Threat"],
 											order = 1,
 											width = "full",
-											desc = L["Disables threat feedback from mobs you're currently not in combat with."],
+											desc = L[
+												"Disables threat feedback from mobs you're currently not in combat with."
+											],
 											descStyle = "inline",
 											set = SetValue,
 											get = GetValue,
@@ -2660,7 +2792,9 @@ local function GetOptions()
 											name = L["Show Neutral Threat"],
 											order = 2,
 											width = "full",
-											desc = L["Disables threat feedback from neutral mobs regardless of boss or elite levels."],
+											desc = L[
+												"Disables threat feedback from neutral mobs regardless of boss or elite levels."
+											],
 											descStyle = "inline",
 											set = SetValue,
 											get = GetValue,
@@ -2721,7 +2855,9 @@ local function GetOptions()
 										Enable = {
 											type = "toggle",
 											name = L["Enable"],
-											desc = L["Enable nameplates to change alpha depending on the levels you set below."],
+											desc = L[
+												"Enable nameplates to change alpha depending on the levels you set below."
+											],
 											width = "full",
 											descStyle = "inline",
 											order = 2,
@@ -2734,7 +2870,9 @@ local function GetOptions()
 									type = "group",
 									inline = true,
 									order = 1,
-									disabled = function() return not db.threat.useAlpha end,
+									disabled = function()
+										return not db.threat.useAlpha
+									end,
 									args = {
 										Low = {
 											name = L["|cffff0000Low threat|r"],
@@ -2773,7 +2911,9 @@ local function GetOptions()
 									type = "group",
 									inline = true,
 									order = 2,
-									disabled = function() return not db.threat.useAlpha end,
+									disabled = function()
+										return not db.threat.useAlpha
+									end,
 									args = {
 										Low = {
 											name = L["|cff00ff00Low threat|r"],
@@ -2812,14 +2952,18 @@ local function GetOptions()
 									type = "group",
 									inline = true,
 									order = 3,
-									disabled = function() return not db.threat.useAlpha end,
+									disabled = function()
+										return not db.threat.useAlpha
+									end,
 									args = {
 										Toggle = {
 											name = L["Ignore Marked Targets"],
 											type = "toggle",
 											order = 2,
 											width = "full",
-											desc = L["This will allow you to disabled threat alpha changes on marked targets."],
+											desc = L[
+												"This will allow you to disabled threat alpha changes on marked targets."
+											],
 											descStyle = "inline",
 											arg = {"threat", "marked", "alpha"}
 										},
@@ -2827,7 +2971,9 @@ local function GetOptions()
 											name = L["Ignored Alpha"],
 											order = 3,
 											type = "range",
-											disabled = function() return not (db.threat.marked.alpha and db.threat.useAlpha) end,
+											disabled = function()
+												return not (db.threat.marked.alpha and db.threat.useAlpha)
+											end,
 											step = 0.05,
 											min = 0,
 											max = 1,
@@ -2856,7 +3002,9 @@ local function GetOptions()
 										Enable = {
 											type = "toggle",
 											name = L["Enable"],
-											desc = L["Enable nameplates to change scale depending on the levels you set below."],
+											desc = L[
+												"Enable nameplates to change scale depending on the levels you set below."
+											],
 											descStyle = "inline",
 											width = "full",
 											order = 2,
@@ -2869,7 +3017,9 @@ local function GetOptions()
 									type = "group",
 									inline = true,
 									order = 1,
-									disabled = function() return not db.threat.useScale end,
+									disabled = function()
+										return not db.threat.useScale
+									end,
 									args = {
 										Low = {
 											name = L["|cffff0000Low threat|r"],
@@ -2908,7 +3058,9 @@ local function GetOptions()
 									type = "group",
 									inline = true,
 									order = 2,
-									disabled = function() return not db.threat.useScale end,
+									disabled = function()
+										return not db.threat.useScale
+									end,
 									args = {
 										Low = {
 											name = L["|cff00ff00Low threat|r"],
@@ -2947,14 +3099,18 @@ local function GetOptions()
 									type = "group",
 									inline = true,
 									order = 3,
-									disabled = function() return not db.threat.useScale end,
+									disabled = function()
+										return not db.threat.useScale
+									end,
 									args = {
 										Toggle = {
 											name = L["Ignore Marked Targets"],
 											type = "toggle",
 											order = 2,
 											width = "full",
-											desc = L["This will allow you to disabled threat scale changes on marked targets."],
+											desc = L[
+												"This will allow you to disabled threat scale changes on marked targets."
+											],
 											descStyle = "inline",
 											arg = {"threat", "marked", "scale"}
 										},
@@ -2962,7 +3118,9 @@ local function GetOptions()
 											name = L["Ignored Scaling"],
 											type = "range",
 											order = 3,
-											disabled = function() return not (db.threat.marked.scale and db.threat.useScale) end,
+											disabled = function()
+												return not (db.threat.marked.scale and db.threat.useScale)
+											end,
 											step = 0.05,
 											min = 0.3,
 											max = 2,
@@ -2976,14 +3134,18 @@ local function GetOptions()
 									type = "group",
 									inline = true,
 									order = 4,
-									disabled = function() return not db.threat.useScale end,
+									disabled = function()
+										return not db.threat.useScale
+									end,
 									args = {
 										Toggle = {
 											name = L["Enable Adjustments"],
 											order = 1,
 											type = "toggle",
 											width = "full",
-											desc = L["This will allow you to add additional scaling changes to specific mob types."],
+											desc = L[
+												"This will allow you to add additional scaling changes to specific mob types."
+											],
 											descStyle = "inline",
 											arg = {"threat", "useType"}
 										},
@@ -2992,7 +3154,9 @@ local function GetOptions()
 											type = "group",
 											order = 3,
 											inline = true,
-											disabled = function() return not (db.threat.useType and db.threat.useScale) end,
+											disabled = function()
+												return not (db.threat.useType and db.threat.useScale)
+											end,
 											args = {
 												NormalNeutral = {
 													name = PLAYER_DIFFICULTY1 ..
@@ -3050,7 +3214,9 @@ local function GetOptions()
 											name = L["Color HP by Threat"],
 											type = "toggle",
 											order = 1,
-											desc = L["This allows HP color to be the same as the threat colors you set below."],
+											desc = L[
+												"This allows HP color to be the same as the threat colors you set below."
+											],
 											descStyle = "inline",
 											get = GetValue,
 											set = SetValue,
@@ -3066,7 +3232,9 @@ local function GetOptions()
 									get = GetColorAlpha,
 									set = SetColorAlpha,
 									order = 2,
-									disabled = function() return not db.threat.useHPColor end,
+									disabled = function()
+										return not db.threat.useHPColor
+									end,
 									args = {
 										Low = {
 											name = L["|cffff0000Low threat|r"],
@@ -3098,7 +3266,9 @@ local function GetOptions()
 									get = GetColorAlpha,
 									set = SetColorAlpha,
 									order = 3,
-									disabled = function() return not db.threat.useHPColor end,
+									disabled = function()
+										return not db.threat.useHPColor
+									end,
 									args = {
 										Low = {
 											name = L["|cff00ff00Low threat|r"],
@@ -3142,7 +3312,9 @@ local function GetOptions()
 											name = L["Enable"],
 											type = "toggle",
 											order = 1,
-											desc = L["These options are for the textures shown on nameplates at various threat levels."],
+											desc = L[
+												"These options are for the textures shown on nameplates at various threat levels."
+											],
 											descStyle = "inline",
 											width = "full",
 											get = GetValue,
@@ -3156,7 +3328,9 @@ local function GetOptions()
 									type = "group",
 									order = 2,
 									inline = true,
-									disabled = function() return not db.threat.art.ON end,
+									disabled = function()
+										return not db.threat.art.ON
+									end,
 									get = GetValue,
 									set = SetValue,
 									args = {
@@ -3165,7 +3339,8 @@ local function GetOptions()
 											type = "execute",
 											order = 1,
 											width = "full",
-											image = "Interface\\AddOns\\TidyPlates_ThreatPlates\\Widgets\\ThreatWidget\\" .. db.threat.art.theme .. "\\" .. "HIGH",
+											image = "Interface\\AddOns\\TidyPlates_ThreatPlates\\Widgets\\ThreatWidget\\" ..
+												db.threat.art.theme .. "\\" .. "HIGH",
 											imageWidth = 256,
 											imageHeight = 64
 										},
@@ -3174,7 +3349,8 @@ local function GetOptions()
 											type = "execute",
 											order = 2,
 											width = "full",
-											image = "Interface\\AddOns\\TidyPlates_ThreatPlates\\Widgets\\ThreatWidget\\" .. db.threat.art.theme .. "\\" .. "MEDIUM",
+											image = "Interface\\AddOns\\TidyPlates_ThreatPlates\\Widgets\\ThreatWidget\\" ..
+												db.threat.art.theme .. "\\" .. "MEDIUM",
 											imageWidth = 256,
 											imageHeight = 64
 										},
@@ -3183,7 +3359,8 @@ local function GetOptions()
 											type = "execute",
 											order = 3,
 											width = "full",
-											image = "Interface\\AddOns\\TidyPlates_ThreatPlates\\Widgets\\ThreatWidget\\" .. db.threat.art.theme .. "\\" .. "LOW",
+											image = "Interface\\AddOns\\TidyPlates_ThreatPlates\\Widgets\\ThreatWidget\\" ..
+												db.threat.art.theme .. "\\" .. "LOW",
 											imageWidth = 256,
 											imageHeight = 64
 										},
@@ -3199,8 +3376,10 @@ local function GetOptions()
 													order = 1,
 													set = function(info, val)
 														SetValue(info, val)
-														local i = options.args.ThreatOptions.args.Textures.args.Options.args
-														local p = "Interface\\AddOns\\TidyPlates_ThreatPlates\\Widgets\\ThreatWidget\\"
+														local i =
+															options.args.ThreatOptions.args.Textures.args.Options.args
+														local p =
+															"Interface\\AddOns\\TidyPlates_ThreatPlates\\Widgets\\ThreatWidget\\"
 														i.PrevLow.image = p .. db.threat.art.theme .. "\\" .. "HIGH"
 														i.PrevMed.image = p .. db.threat.art.theme .. "\\" .. "MEDIUM"
 														i.PrevHigh.image = p .. db.threat.art.theme .. "\\" .. "LOW"
@@ -3220,7 +3399,9 @@ local function GetOptions()
 													name = L["Ignore Marked Targets"],
 													order = 2,
 													type = "toggle",
-													desc = L["This will allow you to disabled threat art on marked targets."],
+													desc = L[
+														"This will allow you to disabled threat art on marked targets."
+													],
 													descStyle = "inline",
 													width = "full",
 													arg = {"threat", "marked", "art"}
@@ -3342,7 +3523,9 @@ local function GetOptions()
 											name = L["Enable"],
 											type = "toggle",
 											order = 1,
-											desc = L["This widget will display class icons on nameplate with the settings you set below."],
+											desc = L[
+												"This widget will display class icons on nameplate with the settings you set below."
+											],
 											descStyle = "inline",
 											width = "full",
 											set = SetValue,
@@ -3356,7 +3539,9 @@ local function GetOptions()
 									type = "group",
 									inline = true,
 									order = 20,
-									disabled = function() return not db.classWidget.ON end,
+									disabled = function()
+										return not db.classWidget.ON
+									end,
 									args = {
 										FriendlyClass = {
 											name = L["Enable Friendly Icons"],
@@ -3371,10 +3556,14 @@ local function GetOptions()
 										FriendlyCaching = {
 											name = L["Friendly Caching"],
 											type = "toggle",
-											desc = L["This allows you to save friendly player class information between play sessions or nameplates going off the screen.|cffff0000(Uses more memory)"],
+											desc = L[
+												"This allows you to save friendly player class information between play sessions or nameplates going off the screen.|cffff0000(Uses more memory)"
+											],
 											descStyle = "inline",
 											width = "full",
-											disabled = function() return not (db.friendlyClassIcon and db.classWidget.ON) end,
+											disabled = function()
+												return not (db.friendlyClassIcon and db.classWidget.ON)
+											end,
 											get = GetValue,
 											set = SetValue,
 											arg = {"cacheClass"}
@@ -3386,7 +3575,9 @@ local function GetOptions()
 									type = "group",
 									inline = true,
 									order = 30,
-									disabled = function() return not db.classWidget.ON end,
+									disabled = function()
+										return not db.classWidget.ON
+									end,
 									args = {}
 								},
 								Sizing = {
@@ -3394,7 +3585,9 @@ local function GetOptions()
 									type = "group",
 									inline = true,
 									order = 40,
-									disabled = function() return not db.classWidget.ON end,
+									disabled = function()
+										return not db.classWidget.ON
+									end,
 									args = {
 										ScaleSlider = {
 											name = "",
@@ -3410,7 +3603,9 @@ local function GetOptions()
 									type = "group",
 									inline = true,
 									order = 50,
-									disabled = function() return not db.classWidget.ON end,
+									disabled = function()
+										return not db.classWidget.ON
+									end,
 									args = {
 										X = {
 											name = L["X"],
@@ -3467,7 +3662,9 @@ local function GetOptions()
 									type = "group",
 									inline = true,
 									order = 20,
-									disabled = function()return not db.comboWidget.ON end,
+									disabled = function()
+										return not db.comboWidget.ON
+									end,
 									args = {
 										X = {
 											name = L["X"],
@@ -3512,7 +3709,9 @@ local function GetOptions()
 											name = L["Enable"],
 											type = "toggle",
 											order = 1,
-											desc = L["This widget will display debuffs that match your filtering on your target nameplate and others you recently moused over."],
+											desc = L[
+												"This widget will display debuffs that match your filtering on your target nameplate and others you recently moused over."
+											],
 											descStyle = "inline",
 											width = "full",
 											arg = {"debuffWidget", "ON"}
@@ -3524,7 +3723,9 @@ local function GetOptions()
 									type = "group",
 									order = 15,
 									inline = true,
-									disabled = function() return not db.debuffWidget.ON end,
+									disabled = function()
+										return not db.debuffWidget.ON
+									end,
 									args = {
 										Scale = {
 											name = L["Scale"],
@@ -3544,7 +3745,9 @@ local function GetOptions()
 									type = "group",
 									inline = true,
 									order = 20,
-									disabled = function() return not db.debuffWidget.ON end,
+									disabled = function()
+										return not db.debuffWidget.ON
+									end,
 									args = {
 										X = {
 											name = L["X"],
@@ -3578,7 +3781,9 @@ local function GetOptions()
 									order = 30,
 									type = "group",
 									inline = true,
-									disabled = function() return not db.debuffWidget.ON end,
+									disabled = function()
+										return not db.debuffWidget.ON
+									end,
 									args = {
 										Mode = {
 											name = L["Mode"],
@@ -3623,7 +3828,9 @@ local function GetOptions()
 										Toggle = {
 											name = L["Enable"],
 											type = "toggle",
-											desc = L["Enables the showing if indicator icons for friends, guildmates, and BNET Friends"],
+											desc = L[
+												"Enables the showing if indicator icons for friends, guildmates, and BNET Friends"
+											],
 											descStyle = "inline",
 											width = "full",
 											order = 1,
@@ -3636,7 +3843,9 @@ local function GetOptions()
 									type = "group",
 									inline = true,
 									order = 20,
-									disabled = function() return not db.socialWidget.ON end,
+									disabled = function()
+										return not db.socialWidget.ON
+									end,
 									args = {
 										ScaleSlider = {
 											name = "",
@@ -3650,7 +3859,9 @@ local function GetOptions()
 									type = "group",
 									inline = true,
 									order = 30,
-									disabled = function() return not db.socialWidget.ON end,
+									disabled = function()
+										return not db.socialWidget.ON
+									end,
 									args = {
 										X = {
 											name = L["X"],
@@ -3691,7 +3902,9 @@ local function GetOptions()
 											name = L["Enable"],
 											type = "toggle",
 											order = 1,
-											desc = L["This widget will display a small bar that will display your current threat relative to other players on your target nameplate or recently mousedover namplates."],
+											desc = L[
+												"This widget will display a small bar that will display your current threat relative to other players on your target nameplate or recently mousedover namplates."
+											],
 											descStyle = "inline",
 											width = "full",
 											arg = {"threatWidget", "ON"}
@@ -3703,7 +3916,9 @@ local function GetOptions()
 									type = "group",
 									inline = true,
 									order = 20,
-									disabled = function() return not db.threatWidget.ON end,
+									disabled = function()
+										return not db.threatWidget.ON
+									end,
 									args = {
 										X = {
 											name = L["X"],
@@ -3762,14 +3977,17 @@ local function GetOptions()
 									name = L["Texture"],
 									type = "group",
 									inline = true,
-									disabled = function() return not db.targetWidget.ON end,
+									disabled = function()
+										return not db.targetWidget.ON
+									end,
 									args = {
 										Preview = {
 											name = L["Preview"],
 											order = 0,
 											width = "full",
 											type = "execute",
-											image = "Interface\\AddOns\\TidyPlates_ThreatPlates\\Widgets\\TargetArtWidget\\" .. db.targetWidget.theme,
+											image = "Interface\\AddOns\\TidyPlates_ThreatPlates\\Widgets\\TargetArtWidget\\" ..
+												db.targetWidget.theme,
 											imageWidth = 256,
 											imageHeight = 64
 										},
@@ -3791,7 +4009,9 @@ local function GetOptions()
 											get = GetValue,
 											set = function(info, val)
 												SetValue(info, val)
-												options.args.Widgets.args.TargetArtWidget.args.Texture.args.Preview.image = "Interface\\AddOns\\TidyPlates_ThreatPlates\\Widgets\\TargetArtWidget\\" .. db.targetWidget.theme
+												options.args.Widgets.args.TargetArtWidget.args.Texture.args.Preview.image =
+													"Interface\\AddOns\\TidyPlates_ThreatPlates\\Widgets\\TargetArtWidget\\" ..
+													db.targetWidget.theme
 											end,
 											values = {
 												default = "Default",
@@ -3842,7 +4062,9 @@ local function GetOptions()
 							type = "description",
 							order = 2,
 							width = "full",
-							name = L["Clear and easy to use nameplate theme for use with TidyPlates.\n\nFeel free to email me at |cff00ff00Shamtasticle@gmail.com|r\n\n--Suicidal Katt"]
+							name = L[
+								"Clear and easy to use nameplate theme for use with TidyPlates.\n\nFeel free to email me at |cff00ff00Shamtasticle@gmail.com|r\n\n--Suicidal Katt"
+							]
 						},
 						Header1 = {
 							order = 3,
@@ -3984,7 +4206,9 @@ local function GetOptions()
 							name = L["Show Enemy Totems"],
 							type = "toggle",
 							order = 3,
-							get = function() return (GetCVar("nameplateShowEnemyTotems") == "1") end,
+							get = function()
+								return (GetCVar("nameplateShowEnemyTotems") == "1")
+							end,
 							set = function()
 								SetCVar("nameplateShowEnemyTotems", abs(GetCVar("nameplateShowEnemyTotems") - 1))
 							end
@@ -3993,7 +4217,9 @@ local function GetOptions()
 							name = L["Show Friendly Totems"],
 							type = "toggle",
 							order = 4,
-							get = function() return (GetCVar("nameplateShowFriendlyTotems") == "1") end,
+							get = function()
+								return (GetCVar("nameplateShowFriendlyTotems") == "1")
+							end,
 							set = function()
 								SetCVar("nameplateShowFriendlyTotems", abs(GetCVar("nameplateShowFriendlyTotems") - 1))
 							end
@@ -4019,7 +4245,9 @@ local function GetOptions()
 							type = "group",
 							inline = true,
 							order = 2,
-							disabled = function() return not db.totemWidget.ON end,
+							disabled = function()
+								return not db.totemWidget.ON
+							end,
 							set = SetValue,
 							get = GetValue,
 							args = {
@@ -4149,7 +4377,9 @@ local function GetOptions()
 					type = "group",
 					order = 2,
 					inline = true,
-					disabled = function() return not db.totemSettings[totemID[k_c][2]][1] end,
+					disabled = function()
+						return not db.totemSettings[totemID[k_c][2]][1]
+					end,
 					args = {
 						Enable = {
 							name = L["Enable Custom Colors"],
@@ -4165,7 +4395,10 @@ local function GetOptions()
 							order = 2,
 							get = GetColor,
 							set = SetColor,
-							disabled = function() return not (db.totemSettings[totemID[k_c][2]][1] and db.totemSettings[totemID[k_c][2]][2]) end,
+							disabled = function()
+								return not (db.totemSettings[totemID[k_c][2]][1] and
+									db.totemSettings[totemID[k_c][2]][2])
+							end,
 							arg = {"totemSettings", totemID[k_c][2], "color"}
 						}
 					}
@@ -4175,14 +4408,17 @@ local function GetOptions()
 					type = "group",
 					order = 3,
 					inline = true,
-					disabled = function() return not db.totemSettings[totemID[k_c][2]][1] end,
+					disabled = function()
+						return not db.totemSettings[totemID[k_c][2]][1]
+					end,
 					args = {
 						Icon = {
 							name = "",
 							type = "execute",
 							width = "full",
 							order = 0,
-							image = "Interface\\Addons\\TidyPlates_ThreatPlates\\Widgets\\TotemIconWidget\\" .. db.totemSettings[totemID[k_c][2]][7] .. "\\" .. totemID[k_c][2]
+							image = "Interface\\Addons\\TidyPlates_ThreatPlates\\Widgets\\TotemIconWidget\\" ..
+								db.totemSettings[totemID[k_c][2]][7] .. "\\" .. totemID[k_c][2]
 						},
 						Style = {
 							name = "",
@@ -4192,7 +4428,9 @@ local function GetOptions()
 							get = GetValue,
 							set = function(info, val)
 								SetValue(info, val)
-								options.args.Totems.args[GetSpellName(totemID[k_c][1])].args.Textures.args.Icon.image = "Interface\\Addons\\TidyPlates_ThreatPlates\\Widgets\\TotemIconWidget\\" .. db.totemSettings[totemID[k_c][2]][7] .. "\\" .. totemID[k_c][2]
+								options.args.Totems.args[GetSpellName(totemID[k_c][1])].args.Textures.args.Icon.image =
+									"Interface\\Addons\\TidyPlates_ThreatPlates\\Widgets\\TotemIconWidget\\" ..
+									db.totemSettings[totemID[k_c][2]][7] .. "\\" .. totemID[k_c][2]
 							end,
 							values = {normal = "Normal", special = "Special"},
 							arg = {"totemSettings", totemID[k_c][2], 7}
@@ -4220,7 +4458,9 @@ local function GetOptions()
 						Enable = {
 							name = L["Enable"],
 							type = "toggle",
-							desc = L["Disabling this will turn off any all icons without harming custom settings per nameplate."],
+							desc = L[
+								"Disabling this will turn off any all icons without harming custom settings per nameplate."
+							],
 							descStyle = "inline",
 							width = "full",
 							order = 1,
@@ -4233,7 +4473,9 @@ local function GetOptions()
 							type = "group",
 							inline = true,
 							order = 2,
-							disabled = function() return not db.uniqueWidget.ON end,
+							disabled = function()
+								return not db.uniqueWidget.ON
+							end,
 							set = SetValue,
 							get = GetValue,
 							args = {
@@ -4337,7 +4579,10 @@ local function GetOptions()
 									UpdateSpecial()
 								else
 									if db.verbose then
-										print(GetAddOnMetadata("TidyPlates_ThreatPlates", "Title") .. ": " .. L["No target found."])
+										print(
+											GetAddOnMetadata("TidyPlates_ThreatPlates", "Title") ..
+												": " .. L["No target found."]
+										)
 									end
 								end
 							end
@@ -4379,24 +4624,33 @@ local function GetOptions()
 								if type(clipboard) == "table" then
 									db.uniqueSettings[k_c] = clipboard
 									if db.verbose then
-										print(GetAddOnMetadata("TidyPlates_ThreatPlates", "Title") .. ": " .. L["Pasted!"])
+										print(
+											GetAddOnMetadata("TidyPlates_ThreatPlates", "Title") .. ": " .. L["Pasted!"]
+										)
 									end
 								else
 									if db.verbose then
-										print(GetAddOnMetadata("TidyPlates_ThreatPlates", "Title") .. ": " .. L["Nothing to paste!"])
+										print(
+											GetAddOnMetadata("TidyPlates_ThreatPlates", "Title") ..
+												": " .. L["Nothing to paste!"]
+										)
 									end
 								end
-								options.args.Custom.args["#" .. k_c].name = "#" .. k_c .. ". " .. db.uniqueSettings[k_c].name
+								options.args.Custom.args["#" .. k_c].name =
+									"#" .. k_c .. ". " .. db.uniqueSettings[k_c].name
 								options.args.Custom.args["#" .. k_c].args.Header.name = db.uniqueSettings[k_c].name
-								options.args.Custom.args["#" .. k_c].args.Name.args.SetName.name = db.uniqueSettings[k_c].name
+								options.args.Custom.args["#" .. k_c].args.Name.args.SetName.name =
+									db.uniqueSettings[k_c].name
 								if tonumber(db.uniqueSettings[k_c].icon) == nil then
-									options.args.Custom.args["#" .. k_c].args.Icon.args.Icon.image = db.uniqueSettings[k_c].icon
+									options.args.Custom.args["#" .. k_c].args.Icon.args.Icon.image =
+										db.uniqueSettings[k_c].icon
 								else
 									local icon = select(3, GetSpellInfo(tonumber(db.uniqueSettings[k_c].icon)))
 									if icon then
 										options.args.Custom.args["#" .. k_c].args.Icon.args.Icon.image = icon
 									else
-										options.args.Custom.args["#" .. k_c].args.Icon.args.Icon.image = "Interface\\Icons\\Temp"
+										options.args.Custom.args["#" .. k_c].args.Icon.args.Icon.image =
+											"Interface\\Icons\\Temp"
 									end
 								end
 								UpdateSpecial()
@@ -4463,7 +4717,9 @@ local function GetOptions()
 						Namplate = {
 							name = L["Show Nameplate"],
 							type = "toggle",
-							disabled = function() return not db.uniqueSettings[k_c].useStyle end,
+							disabled = function()
+								return not db.uniqueSettings[k_c].useStyle
+							end,
 							order = 3,
 							set = SetValue,
 							get = GetValue,
@@ -4474,7 +4730,9 @@ local function GetOptions()
 							type = "group",
 							inline = true,
 							order = 4,
-							disabled = function() return (not db.uniqueSettings[k_c].useStyle or not db.uniqueSettings[k_c].showNameplate) end,
+							disabled = function()
+								return (not db.uniqueSettings[k_c].useStyle or not db.uniqueSettings[k_c].showNameplate)
+							end,
 							args = {
 								AlphaSettings = {
 									name = L["Alpha"],
@@ -4487,7 +4745,9 @@ local function GetOptions()
 										DisableOverride = {
 											name = L["Disable Custom Alpha"],
 											type = "toggle",
-											desc = L["Disables the custom alpha setting for this nameplate and instead uses your normal alpha settings."],
+											desc = L[
+												"Disables the custom alpha setting for this nameplate and instead uses your normal alpha settings."
+											],
 											descStyle = "inline",
 											width = "full",
 											order = 1,
@@ -4497,7 +4757,11 @@ local function GetOptions()
 											name = L["Custom Alpha"],
 											type = "range",
 											order = 2,
-											disabled = function() return (db.uniqueSettings[k_c].overrideAlpha or not db.uniqueSettings[k_c].useStyle or not db.uniqueSettings[k_c].showNameplate) end,
+											disabled = function()
+												return (db.uniqueSettings[k_c].overrideAlpha or
+													not db.uniqueSettings[k_c].useStyle or
+													not db.uniqueSettings[k_c].showNameplate)
+											end,
 											min = 0,
 											max = 1,
 											step = 0.05,
@@ -4517,7 +4781,9 @@ local function GetOptions()
 										DisableOverride = {
 											name = L["Disable Custom Scale"],
 											type = "toggle",
-											desc = L["Disables the custom scale setting for this nameplate and instead uses your normal scale settings."],
+											desc = L[
+												"Disables the custom scale setting for this nameplate and instead uses your normal scale settings."
+											],
 											descStyle = "inline",
 											width = "full",
 											order = 1,
@@ -4527,7 +4793,11 @@ local function GetOptions()
 											name = L["Custom Scale"],
 											type = "range",
 											order = 2,
-											disabled = function() return (db.uniqueSettings[k_c].overrideScale or not db.uniqueSettings[k_c].useStyle or not db.uniqueSettings[k_c].showNameplate) end,
+											disabled = function()
+												return (db.uniqueSettings[k_c].overrideScale or
+													not db.uniqueSettings[k_c].useStyle or
+													not db.uniqueSettings[k_c].showNameplate)
+											end,
 											min = 0,
 											max = 1.4,
 											step = 0.05,
@@ -4545,7 +4815,9 @@ local function GetOptions()
 										UseRaidMarked = {
 											name = L["Allow Marked HP Coloring"],
 											type = "toggle",
-											desc = L["Allow raid marked hp color settings instead of a custom hp setting if the nameplate has a raid mark."],
+											desc = L[
+												"Allow raid marked hp color settings instead of a custom hp setting if the nameplate has a raid mark."
+											],
 											descStyle = "inline",
 											width = "full",
 											order = 1,
@@ -4568,7 +4840,11 @@ local function GetOptions()
 											order = 3,
 											get = GetColor,
 											set = SetColor,
-											disabled = function() return (not db.uniqueSettings[k_c].useColor or not db.uniqueSettings[k_c].useStyle or not db.uniqueSettings[k_c].showNameplate) end,
+											disabled = function()
+												return (not db.uniqueSettings[k_c].useColor or
+													not db.uniqueSettings[k_c].useStyle or
+													not db.uniqueSettings[k_c].showNameplate)
+											end,
 											arg = {"uniqueSettings", k_c, "color"}
 										}
 									}
@@ -4582,7 +4858,9 @@ local function GetOptions()
 					type = "group",
 					order = 3,
 					inline = true,
-					disabled = function() return (not db.uniqueWidget.ON or not db.uniqueSettings[k_c].showNameplate) end,
+					disabled = function()
+						return (not db.uniqueWidget.ON or not db.uniqueSettings[k_c].showNameplate)
+					end,
 					args = {
 						Enable = {
 							name = L["Enable"],
@@ -4599,13 +4877,17 @@ local function GetOptions()
 							name = L["Preview"],
 							type = "execute",
 							width = "full",
-							disabled = function() return (not db.uniqueSettings[k_c].showIcon or not db.uniqueWidget.ON or not db.uniqueSettings[k_c].showNameplate) end,
+							disabled = function()
+								return (not db.uniqueSettings[k_c].showIcon or not db.uniqueWidget.ON or
+									not db.uniqueSettings[k_c].showNameplate)
+							end,
 							order = 2,
 							image = function()
 								if tonumber(db.uniqueSettings[k_c].icon) == nil then
 									return db.uniqueSettings[k_c].icon
 								else
-									return select(3, GetSpellInfo(tonumber(db.uniqueSettings[k_c].icon))) or "Interface\\Icons\\Temp"
+									return select(3, GetSpellInfo(tonumber(db.uniqueSettings[k_c].icon))) or
+										"Interface\\Icons\\Temp"
 								end
 							end,
 							imageWidth = 64,
@@ -4614,14 +4896,19 @@ local function GetOptions()
 						Description = {
 							type = "description",
 							order = 3,
-							name = L["Type direct icon texture path using '\\' to separate directory folders, or use a spellid."],
+							name = L[
+								"Type direct icon texture path using '\\' to separate directory folders, or use a spellid."
+							],
 							width = "full"
 						},
 						SetIcon = {
 							name = L["Set Icon"],
 							type = "input",
 							order = 4,
-							disabled = function() return (not db.uniqueSettings[k_c].showIcon or not db.uniqueWidget.ON or not db.uniqueSettings[k_c].showNameplate) end,
+							disabled = function()
+								return (not db.uniqueSettings[k_c].showIcon or not db.uniqueWidget.ON or
+									not db.uniqueSettings[k_c].showNameplate)
+							end,
 							width = "full",
 							get = GetValue,
 							set = function(info, val)
@@ -4629,7 +4916,9 @@ local function GetOptions()
 								if tonumber(val) == nil then
 									options.args.Custom.args["#" .. k_c].args.Icon.args.Icon.image = val
 								else
-									local icon = select(3, GetSpellInfo(tonumber(db.uniqueSettings[k_c].icon))) or "Interface\\Icons\\Temp"
+									local icon =
+										select(3, GetSpellInfo(tonumber(db.uniqueSettings[k_c].icon))) or
+										"Interface\\Icons\\Temp"
 									options.args.Custom.args["#" .. k_c].args.Icon.args.Icon.image = icon
 								end
 								UpdateSpecial()
@@ -4666,7 +4955,9 @@ local function GetIntOptions()
 					width = "full",
 					imageWidth = 256,
 					imageHeight = 32,
-					func = function() TidyPlatesThreat:OpenOptions() end,
+					func = function()
+						TidyPlatesThreat:OpenOptions()
+					end,
 					order = 20
 				}
 			}
@@ -4762,7 +5053,9 @@ function TidyPlatesThreat:AddOptions(class)
 				type = "group",
 				order = 2,
 				inline = false,
-				disabled = function() return not (_db.ON and TidyPlatesThreat.db.profile.threat.ON) end,
+				disabled = function()
+					return not (_db.ON and TidyPlatesThreat.db.profile.threat.ON)
+				end,
 				name = L["Options"],
 				args = {}
 			}
@@ -4780,7 +5073,9 @@ function TidyPlatesThreat:AddOptions(class)
 					type = "toggle",
 					order = 1,
 					name = L["|cff00ff00Tank|r"],
-					get = function(info) return _db[k_c] end,
+					get = function(info)
+						return _db[k_c]
+					end,
 					set = function(info, val)
 						_db[k_c] = true
 						TidyPlatesThreat.ShapeshiftUpdate()
@@ -4790,7 +5085,9 @@ function TidyPlatesThreat:AddOptions(class)
 					type = "toggle",
 					order = 2,
 					name = L["|cffff0000DPS/Healing|r"],
-					get = function(info) return not _db[k_c] end,
+					get = function(info)
+						return not _db[k_c]
+					end,
 					set = function(info, val)
 						_db[k_c] = false
 						TidyPlatesThreat.ShapeshiftUpdate()
