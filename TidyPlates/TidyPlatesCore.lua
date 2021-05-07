@@ -941,7 +941,7 @@ do
 			plate = source.parentPlate
 		end
 
-		if plate.extended.unit.isTarget then
+		if plate and plate.extended.unit.isTarget then
 			-- Grabs the target's casting information
 			local spell, _, icon, start, finish, nonInt, channel, spellid, _
 
