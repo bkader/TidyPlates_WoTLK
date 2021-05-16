@@ -51,7 +51,7 @@ do
 			local size = GetNumRaidMembers() - 1
 			for index = 1, size do
 				local raidid = "raid" .. tostring(index)
-				local isAssigned = GetPartyAssignment("MAINTANK", raidid)
+				local isAssigned = GetPartyAssignment("MAINTANK", raidid) or GetPartyAssignment("MAINASSIST", raidid)
 				if isAssigned then
 					RaidTankList[UnitName(raidid)] = true
 				else

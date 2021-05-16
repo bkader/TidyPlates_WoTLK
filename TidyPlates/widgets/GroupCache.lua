@@ -10,7 +10,7 @@ Group.Type = "solo"
 Group.Size = 1
 
 local function IsUnitTank(unitId)
-	if GetPartyAssignment("MAINTANK", unitId) or ("TANK" == UnitGroupRolesAssigned(unitId)) then
+	if GetPartyAssignment("MAINTANK", unitId) or GetPartyAssignment("MAINASSIST", unitId) or ("TANK" == UnitGroupRolesAssigned(unitId)) then
 		return true
 	end
 end

@@ -90,7 +90,7 @@ local function TankWatcherEvents()
 		for index = 1, size do
 			local raidid = "raid" .. tostring(index)
 
-			local isAssigned = GetPartyAssignment("MAINTANK", raidid) or ("TANK" == UnitGroupRolesAssigned(raidid))
+			local isAssigned = GetPartyAssignment("MAINTANK", raidid) or GetPartyAssignment("MAINASSIST", raidid) or ("TANK" == UnitGroupRolesAssigned(raidid))
 
 			if isAssigned then
 				TankNames[UnitName(raidid)] = true

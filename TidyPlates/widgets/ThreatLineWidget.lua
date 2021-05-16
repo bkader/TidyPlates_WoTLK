@@ -116,7 +116,7 @@ local function UpdateThreatLine(frame, unitid)
 		end
 
 		if leaderUnitId and leaderUnitId ~= "player" then
-			if UnitIsUnit(leaderUnitId, "pet") or GetPartyAssignment("MAINTANK", leaderUnitId) or ("TANK" == UnitGroupRolesAssigned(leaderUnitId)) then
+			if UnitIsUnit(leaderUnitId, "pet") or GetPartyAssignment("MAINTANK", leaderUnitId) or GetPartyAssignment("MAINASSIST", leaderUnitId) or ("TANK" == UnitGroupRolesAssigned(leaderUnitId)) then
 				threatcolor = frame._TankedColor
 			end
 

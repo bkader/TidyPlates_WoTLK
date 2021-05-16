@@ -22,10 +22,7 @@ do
 		if unitid and unit.guid then
 			local targetID = unitid .. "target"
 			if UnitExists(targetID) then
-				if
-					UnitInRaid(targetID) and GetPartyAssignment("MAINTANK", targetID) or
-						("TANK" == UnitGroupRolesAssigned(targetID))
-				 then
+				if UnitInRaid(targetID) and (GetPartyAssignment("MAINTANK", targetID) or GetPartyAssignment("MAINASSIST", targetID)) or ("TANK" == UnitGroupRolesAssigned(targetID)) then
 					artname = shieldArt
 				else
 					artname = knifeArt
