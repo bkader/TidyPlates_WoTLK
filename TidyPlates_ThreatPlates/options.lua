@@ -4347,13 +4347,14 @@ local function GetOptions()
 	}
 	local TotemOpts_OrderCnt = 30
 	for k_c, v_c in ipairs(totemID) do
-		TotemOpts[GetSpellName(totemID[k_c][1])] = {
-			name = "|cff" .. totemID[k_c][3] .. GetSpellName(totemID[k_c][1]) .. "|r",
+		local totemName = GetSpellInfo(totemID[k_c][1])
+		TotemOpts[totemName] = {
+			name = "|cff" .. totemID[k_c][3] .. totemName .. "|r",
 			type = "group",
 			order = TotemOpts_OrderCnt,
 			args = {
 				Header = {
-					name = "> |cff" .. totemID[k_c][3] .. GetSpellName(totemID[k_c][1]) .. "|r <",
+					name = "> |cff" .. totemID[k_c][3] .. totemName .. "|r <",
 					type = "header",
 					order = 0
 				},
@@ -4428,7 +4429,7 @@ local function GetOptions()
 							get = GetValue,
 							set = function(info, val)
 								SetValue(info, val)
-								options.args.Totems.args[GetSpellName(totemID[k_c][1])].args.Textures.args.Icon.image =
+								options.args.Totems.args[totemName].args.Textures.args.Icon.image =
 									"Interface\\Addons\\TidyPlates_ThreatPlates\\Widgets\\TotemIconWidget\\" ..
 									db.totemSettings[totemID[k_c][2]][7] .. "\\" .. totemID[k_c][2]
 							end,
