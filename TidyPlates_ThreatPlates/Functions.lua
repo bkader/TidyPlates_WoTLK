@@ -245,6 +245,8 @@ do
 
 	local isTanked = TidyPlatesWidgets.IsTankedByAnotherTank
 
+	local TotemNameFallback = TidyPlatesUtility.TotemNameFallback
+
 	local function SetHealthbarColor(unit)
 		local db = TidyPlatesThreat.db.profile
 		local style = SetStyleThreatPlates(unit)
@@ -254,7 +256,7 @@ do
 				local R = db.settings.raidicon.hpMarked[unit.raidIcon]
 				return R.r, R.g, R.b
 			else
-				local tS = db.totemSettings[TPtotemList[unit.name]]
+				local tS = db.totemSettings[TPtotemList[unit.name] or TPtotemList[TotemNameFallback(unit.name)]]
 				if tS[2] then
 					c = tS.color
 					return c.r, c.g, c.b

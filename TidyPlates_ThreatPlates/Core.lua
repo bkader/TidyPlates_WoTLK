@@ -1006,11 +1006,12 @@ function TidyPlatesThreat:OnInitialize()
 	self:SetUpInitialOptions()
 end
 
+local TotemNameFallback = TidyPlatesUtility.TotemNameFallback
 -- Unit Classification
 function TPTP_UnitType(unit)
 	local db = TidyPlatesThreat.db.profile
 	local unitRank
-	local totem = TPtotemList[unit.name]
+	local totem = TPtotemList[unit.name] or TPtotemList[TotemNameFallback(unit.name)]
 	local unique = tContains(db.uniqueSettings.list, unit.name)
 	if totem then
 		unitRank = "Totem"
@@ -1050,7 +1051,7 @@ function SetStyleThreatPlates(unit)
 	local db = TidyPlatesThreat.db.profile
 	local T = TPTP_UnitType(unit)
 	if T == "Totem" then
-		local tS = db.totemSettings[TPtotemList[unit.name]]
+		local tS = db.totemSettings[TPtotemList[unit.name] or TPtotemList[TotemNameFallback(unit.name)]]
 		if tS[1] then
 			if db.totemSettings.hideHealthbar then
 				return "etotem"
