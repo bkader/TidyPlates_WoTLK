@@ -534,8 +534,7 @@ local NameColorFunctions = {
 	function(unit)
 		-- Friendly Units; Enemy units are taken care of via SetNameColorDelegate
 		if unit.reaction == "FRIENDLY" and unit.type == "PLAYER" then
-			local class = TidyPlatesUtility.GroupMembers.Class[unit.name]
-			--local class = TidyPlatesUtility.GroupMembers.Class[unit.name] or TidyPlatesData.UnitClass[unit.name]
+			local class = TidyPlatesUtility.GroupMembers.Class[unit.name] or TidyPlatesData.UnitClass[unit.name]
 
 			if class then
 				return RAID_CLASS_COLORS[class]

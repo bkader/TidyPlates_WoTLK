@@ -45,7 +45,7 @@ function UnitCacheMonitorEvents.UPDATE_MOUSEOVER_UNIT(self, ...)
 		-- If a unit is an NPC...
 		name = UnitName("mouseover")
 		description = GetGuildInfo("mouseover")
-		_, class = UnitClass("mouseover")
+		class = select(2, UnitClass("mouseover"))
 
 		if TidyPlatesData.UnitClass[name] ~= class then
 			unitadded = true
@@ -55,7 +55,7 @@ function UnitCacheMonitorEvents.UPDATE_MOUSEOVER_UNIT(self, ...)
 		name = GameTooltipTextLeft1:GetText()
 		description = GameTooltipTextLeft2:GetText()
 		if description then
-			_, level = strsplit(" ", description)
+			level = select(2, strsplit(" ", description))
 			if tonumber(level) or level == "??" then
 				description = nil
 			end
