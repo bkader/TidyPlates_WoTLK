@@ -97,11 +97,6 @@ CreateTidyPlatesStatusbar = function(parent)
 	frame:SetWidth(1)
 	frame.Value, frame.MinVal, frame.MaxVal, frame.Orientation = 1, 0, 1, "HORIZONTAL"
 
-	frame.BG = frame:CreateTexture(nil, "BACKGROUND")
-	frame.BG:SetTexture([[Interface\Buttons\WHITE8X8]])
-	frame.BG:SetVertexColor(0, 0, 0, 0.75)
-	frame.BG:SetAllPoints(frame)
-
 	frame.Bar = frame:CreateTexture(nil, "BORDER")
 
 	frame.SetValue = SetValue

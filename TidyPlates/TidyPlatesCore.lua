@@ -132,6 +132,9 @@ local function SetBarGroupObject(object, objectstyle, anchorTo)
 	SetObjectBartexture(object, objectstyle.texture, objectstyle.orientation, objectstyle.texcoord)
 	backdropTable.bgFile = objectstyle.backdrop
 	object:SetBackdrop(backdropTable)
+	if objectstyle.backdropcolor then
+		object:SetBackdropColor(unpack(objectstyle.backdropcolor))
+	end
 end
 local function MatchTextWidth()
 	local stringwidth = visual.name:GetStringWidth() or 100

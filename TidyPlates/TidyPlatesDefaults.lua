@@ -105,6 +105,7 @@ theme.level = {
 theme.healthbar = {
 	texture = EMPTY_TEXTURE,
 	backdrop = EMPTY_TEXTURE,
+	backdropcolor = {0, 0, 0, 0.75},
 	height = 12,
 	width = 0,
 	x = 0,
