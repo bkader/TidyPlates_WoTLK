@@ -133,10 +133,13 @@ do
 		elseif style == "normal" then
 			return db.nameplate.scale[(unit.isTarget and "Target" or T)] or 1
 		elseif (style == "tank" or style == "dps") and db.threat.useScale then
+			local targetscale = unit.isTarget and db.nameplate.scale.Target or 0
+
 			if unit.isMarked and db.threat.marked.scale then
-				return db.nameplate.scale["Marked"]
+				return (db.nameplate.scale.Marked > targetscale) and db.nameplate.scale.Marked or targetscale
 			else
-				return (db.threat[style].scale[unit.threatSituation] + (TypeScale(unit)))
+				local scale = db.threat[style].scale[unit.threatSituation]
+				return (((scale > targetscale) and scale or targetscale) + TypeScale(unit))
 			end
 		else
 			if db.nameplate.scale then

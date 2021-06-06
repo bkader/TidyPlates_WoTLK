@@ -3159,8 +3159,7 @@ local function GetOptions()
 											end,
 											args = {
 												NormalNeutral = {
-													name = PLAYER_DIFFICULTY1 ..
-														" & " .. COMBATLOG_FILTER_STRING_NEUTRAL_UNITS,
+													name = PLAYER_DIFFICULTY1 .. " & " .. COMBATLOG_FILTER_STRING_NEUTRAL_UNITS,
 													order = 1,
 													type = "range",
 													width = "double",
