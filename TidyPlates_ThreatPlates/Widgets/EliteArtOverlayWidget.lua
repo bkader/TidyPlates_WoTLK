@@ -4,8 +4,9 @@
 local path = "Interface\\AddOns\\TidyPlates_ThreatPlates\\Media\\Artwork\\"
 
 local function UpdateEliteFrameArtOverlay(frame, unit)
-	local db = TidyPlatesThreat.db.profile.settings.elitehealthborder
-	if unit.isElite and db.show then
+	local DB = TidyPlatesThreat.db.profile
+	local db = DB.settings.elitehealthborder
+	if unit.isElite and db.show and not (unit.reaction == "FRIENDLY" and DB.friendlyNameOnly) then
 		frame.Icon:SetTexture(path .. db.texture)
 		frame:Show()
 	else

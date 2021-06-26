@@ -9,6 +9,7 @@ local function CreateStyle(self, event, ...)
 		config.hitbox = {width = 124, height = 30}
 		config.frame = {
 			emptyTexture = path .. "Empty",
+			elitetexture = path .. "Empty",
 			width = 124,
 			height = 30,
 			x = 0,
@@ -62,7 +63,7 @@ local function CreateStyle(self, event, ...)
 			x = 0,
 			y = 0,
 			anchor = "CENTER",
-			show = db.castborder.show
+			show = false
 		}
 		config.castnostop = {
 			texture = path .. "Empty",
@@ -70,7 +71,8 @@ local function CreateStyle(self, event, ...)
 			height = 64,
 			x = 0,
 			y = -15,
-			anchor = "CENTER"
+			anchor = "CENTER",
+			show = false
 		}
 		-- Bar Textures
 		config.healthbar = {
@@ -81,7 +83,8 @@ local function CreateStyle(self, event, ...)
 			x = 0,
 			y = 0,
 			anchor = "CENTER",
-			orientation = "HORIZONTAL"
+			orientation = "HORIZONTAL",
+			show = false
 		}
 		config.castbar = {
 			texture = path .. "Empty",
@@ -90,7 +93,8 @@ local function CreateStyle(self, event, ...)
 			x = 0,
 			y = -15,
 			anchor = "CENTER",
-			orientation = "HORIZONTAL"
+			orientation = "HORIZONTAL",
+			show = false
 		}
 		-- TEXT
 
