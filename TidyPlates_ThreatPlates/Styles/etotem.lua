@@ -57,8 +57,6 @@ local function CreateStyle(self, event, ...)
 		-- Bar Textures
 		config.healthbar = {
 			texture = path .. "Empty",
-			backdrop = [[Interface\Buttons\WHITE8X8]],
-			backdropcolor = {0, 0, 0, 0.75},
 			width = 120,
 			height = 10,
 			x = 0,
