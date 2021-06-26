@@ -66,7 +66,7 @@ local UpdateIndicator_HealthBar, UpdateHitboxShape
 -- Data and Condition Functions
 local OnNewNameplate, OnShowNameplate, OnHideNameplate, OnUpdateNameplate, OnResetNameplate, OnEchoNewNameplate
 local OnUpdateHealth, OnUpdateLevel, OnUpdateThreatSituation, OnUpdateRaidIcon, OnUpdateHealthRange
-local OnMouseoverNameplate, OnLeaveNameplate, OnRequestWidgetUpdate, OnRequestDelegateUpdate
+local OnMouseoverNameplate, OnRequestWidgetUpdate, OnRequestDelegateUpdate
 
 -- Spell Casting
 local UpdateCastAnimation, UpdateChannelAnimation, StartCastAnimation, StopCastAnimation, OnUpdateTargetCastbar
@@ -1194,7 +1194,6 @@ do
 		-- Process Mouseover
 		if HasMouseover then
 			if LastMouseover ~= CurrentMouseover then
-				--ForEachPlate(OnLeaveNameplate)		-- Resets the highlight regions
 				if LastMouseover then
 					OnMouseoverNameplate(LastMouseover)
 				end
@@ -1309,3 +1308,17 @@ end
 TidyPlates.StartCastAnimationOnNameplate = StartCastAnimation
 TidyPlates.StopCastAnimationOnNameplate = StopCastAnimation
 TidyPlates.NameplatesByGUID, TidyPlates.NameplatesAll, TidyPlates.NameplatesByVisible = GUID, Plates, PlatesVisible
+TidyPlates.OnNewNameplate = OnNewNameplate
+TidyPlates.OnShowNameplate = OnShowNameplate
+TidyPlates.OnHideNameplate = OnHideNameplate
+TidyPlates.OnUpdateNameplate = OnUpdateNameplate
+TidyPlates.OnResetNameplate = OnResetNameplate
+TidyPlates.OnEchoNewNameplate = OnEchoNewNameplate
+TidyPlates.OnUpdateHealth = OnUpdateHealth
+TidyPlates.OnUpdateLevel = OnUpdateLevel
+TidyPlates.OnUpdateThreatSituation = OnUpdateThreatSituation
+TidyPlates.OnUpdateRaidIcon = OnUpdateRaidIcon
+TidyPlates.OnUpdateHealthRange = OnUpdateHealthRange
+TidyPlates.OnMouseoverNameplate = OnMouseoverNameplate
+TidyPlates.OnRequestWidgetUpdate = OnRequestWidgetUpdate
+TidyPlates.OnRequestDelegateUpdate = OnRequestDelegateUpdate

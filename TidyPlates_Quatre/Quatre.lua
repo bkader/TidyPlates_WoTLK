@@ -241,7 +241,7 @@ local LocalVars = TidyPlatesHubDamageVariables
 local function ApplyFontCustomization(style)
 	local currentFont = font
 	if LocalVars.TextUseBlizzardFont then
-		currentFont = blizzfont
+		currentFont = GameFontNormal
 	end
 	style.name.typeface = currentFont
 	style.level.typeface = currentFont

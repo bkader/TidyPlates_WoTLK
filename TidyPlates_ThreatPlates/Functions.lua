@@ -253,7 +253,6 @@ do
 	local function SetHealthbarColor(unit)
 		local db = TidyPlatesThreat.db.profile
 		local style = SetStyleThreatPlates(unit)
-		local c
 		if style == "totem" or style == "etotem" then
 			if db.settings.raidicon.hpColor and unit.isMarked then
 				local R = db.settings.raidicon.hpMarked[unit.raidIcon]

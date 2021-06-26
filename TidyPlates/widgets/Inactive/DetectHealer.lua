@@ -1,14 +1,12 @@
 --[[
-	Two Components:
-		- Healer List
-		- Who's Casting a Heal on My Target?
-		
-	Graphics?
-		"Interface\\LFGFrame\\UI-LFG-ICON-ROLES"
-		TexCoord		.25,.5,0,.25
---]]
+Two Components:
+	- Healer List
+	- Who's Casting a Heal on My Target?
 
-local InCombat = false
+Graphics?
+	"Interface\\LFGFrame\\UI-LFG-ICON-ROLES"
+	TexCoord		.25,.5,0,.25
+--]]
 
 local HealerClasses = {
 	DRUID = true,
@@ -18,11 +16,13 @@ local HealerClasses = {
 	Druid = true,
 	Priest = true,
 	Paladin = true,
-	Shaman = true,
+	Shaman = true
 }
 local function IsHealerClass(guid)
-	local _, engClass, _, _, _ = GetPlayerInfoByGUID(sourceName)	
-	if engClass then return HealerClasses[engClass] end
+	local _, engClass, _, _, _ = GetPlayerInfoByGUID(guid)
+	if engClass then
+		return HealerClasses[engClass]
+	end
 end
 
 --[[
@@ -58,60 +58,68 @@ HealingSpells["Holy Shock"] = true
 HealingSpells["Riptide"] = true
 HealingSpells["Beacon of Light"] = true
 --]]
-
-local function IsHostile(sourceFlag)
-	if sourceFlag then return (bit.band(sourceFlags,COMBATLOG_OBJECT_REACTION_HOSTILE)>0) end
+local function IsHostile(sourceFlags)
+	if sourceFlags then
+		return (bit.band(sourceFlags, COMBATLOG_OBJECT_REACTION_HOSTILE) > 0)
+	end
 end
 
 local function IsHealingSpellEvent(event, spellName, ...)
-	if event and ((event=="SPELL_HEAL") or (event=="SPELL_PERIODIC_HEAL")) then return true end
+	if event and ((event == "SPELL_HEAL") or (event == "SPELL_PERIODIC_HEAL")) then
+		return true
+	end
 end
 
 -- Healer List
 local EnemyHealerList = {}
 
 local PlayerFactionIndex
-if UnitFactionGroup("player") == "Alliance" then PlayerFactionIndex = 1 else PlayerFactionIndex = 0 end
+if UnitFactionGroup("player") == "Alliance" then
+	PlayerFactionIndex = 1
+else
+	PlayerFactionIndex = 0
+end
 
 local function UPDATE_BATTLEFIELD_SCORE()
 	local HealerListIsUpdated = false
-	for scoreIndex=1, GetNumBattlefieldScores() do
-		local unitName, _, _, _, _, unitFaction, _, _, classToken, damageDone, healingDone = GetBattlefieldScore(scoreIndex)
-		
+	for scoreIndex = 1, GetNumBattlefieldScores() do
+		local unitName, _, _, _, _, unitFaction, _, _, classToken, damageDone, healingDone =
+			GetBattlefieldScore(scoreIndex)
+
 		if PlayerFactionIndex ~= unitFaction then
-		
-			if (healingDone > damageDone) and HealerClasses[classToken] then 
+			if (healingDone > damageDone) and HealerClasses[classToken] then
 				-- Add Healer
-				if not EnemyHealerList[unitName] then 
+				if not EnemyHealerList[unitName] then
 					HealerListIsUpdated = true
 					EnemyHealerList[unitName] = true
 				end
-			else 
+			else
 				-- Remove Healer
-				if EnemyHealerList[unitName] then 
+				if EnemyHealerList[unitName] then
 					HealerListIsUpdated = true
 					EnemyHealerList[unitName] = nil
 				end
 			end
-			
 		end
 		-- End For/Do Loop
 	end
-	if HealerListIsUpdated then TidyPlates:Update() end
+	if HealerListIsUpdated then
+		TidyPlates:Update()
+	end
 end
 
 -- Who's Healing My Target?
 local CurrentTargetHealers = {}
 
 local function COMBAT_LOG_EVENT_UNFILTERED(frame, timestamp, combatEvent, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, spellID, spellName, ...)
-		local TargetName = tostring(UnitName("target"))
-		local IsEnemy = not UnitIsFriend("player","target")
-			
-		if IsEnemy and (destName == TargetName) and IsHealerClass(sourceGUID) and (sourceGUID ~= destGUID) then
-			if IsHealingSpellEvent(combatEvent, spellName, ...) then
-				CurrentTargetHealers[sourceName] = true
-			end
+	local TargetName = tostring(UnitName("target"))
+	local IsEnemy = not UnitIsFriend("player", "target")
+
+	if IsEnemy and (destName == TargetName) and IsHealerClass(sourceGUID) and (sourceGUID ~= destGUID) then
+		if IsHealingSpellEvent(combatEvent, spellName, ...) then
+			CurrentTargetHealers[sourceName] = true
 		end
+	end
 end
 
 local function PLAYER_TARGET_CHANGED()
@@ -119,12 +127,10 @@ local function PLAYER_TARGET_CHANGED()
 end
 
 local function PLAYER_REGEN_DISABLED()
-	InCombat = true
 	RequestBattlefieldScoreData()
 end
 
 local function PLAYER_REGEN_ENABLED()
-	InCombat = false
 	RequestBattlefieldScoreData()
 end
 
@@ -141,37 +147,34 @@ Events.PLAYER_REGEN_ENABLED = PLAYER_REGEN_ENABLED
 Events.PLAYER_REGEN_DISABLED = PLAYER_REGEN_DISABLED
 Events.PLAYER_ENTERING_WORLD = PLAYER_ENTERING_WORLD
 
--- Watcher Frame 
+-- Watcher Frame
 local WatcherFrame
 local NextUpdate = 0
 local UpdateInterval = 10
 
---[[
-local function OnUpdate()
-	local CurrentTime = GetTime()
-	if not InCombat and (CurrentTime > NextUpdate) then
-		RequestBattlefieldScoreData()
-		NextUpdate = UpdateInterval + CurrentTime
-	end
-end
---]]
-
 local function OnEvent(frame, event, ...)
-	if Events[event] then Events[event](...) end
+	if Events[event] then
+		Events[event](...)
+	end
 end
 
 local function Enable()
-	if not WatcherFrame then WatcherFrame = CreateFrame("Frame", nil, WorldFrame) end
+	if not WatcherFrame then
+		WatcherFrame = CreateFrame("Frame", nil, WorldFrame)
+	end
 	WatcherFrame:SetScript("OnEvent", OnEvent)
-	for eventName in pairs(Event) do WatcherFrame:RegisterEvent(eventName) end
+	for eventName in pairs(Events) do
+		WatcherFrame:RegisterEvent(eventName)
+	end
 end
 
 local function Disable()
-	if WatcherFrame then WatcherFrame:SetScript("OnEvent", nil) end
+	if WatcherFrame then
+		WatcherFrame:SetScript("OnEvent", nil)
+	end
 end
 
 TidyPlatesUtility.EnableHealerDetection = Enable
 TidyPlatesUtility.DisableHealerDetection = Disable
 TidyPlatesUtility.CurrentTargetHealers = CurrentTargetHealers
 TidyPlatesUtility.EnemyHealerList = EnemyHealerList
-
