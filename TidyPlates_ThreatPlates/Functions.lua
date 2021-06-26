@@ -415,8 +415,31 @@ end
 
 do
 	local function SetNameColor(unit)
-		local db = TidyPlatesThreat.db.profile.settings.name.color
-		return db.r, db.g, db.b
+		local db = TidyPlatesThreat.db.profile
+		local color = db.settings.name.color
+		local r, g, b = color.r, color.g, color.b
+
+		if unit and unit.reaction == "FRIENDLY" and db.friendlyNameOnly then
+			if unit.type == "PLAYER" then
+				if db.cache[unit.name] then
+					local class = db.cache[unit.name]
+					local c = RAID_CLASS_COLORS[class]
+					r, g, b = c.r, c.g, c.b
+				elseif unit.guid and GetPlayerInfoByGUID(unit.guid) and not db.cache[unit.name] then
+					local _, class = GetPlayerInfoByGUID(unit.guid)
+					local c = RAID_CLASS_COLORS[class]
+					if db.cacheClass then
+						db.cache[unit.name] = class
+					end
+					r, g, b = c.r, c.g, c.b
+				end
+			elseif unit.type == "NPC" then
+				r, g, b = 0.2, 0.6, 0.1
+			else
+				r, g, b = db.fHPbarColor.r, db.fHPbarColor.g, db.fHPbarColor.b
+			end
+		end
+		return r, g, b
 	end
 
 	TidyPlatesThreat.SetNameColor = SetNameColor

@@ -5,11 +5,16 @@ local path = "Interface\\AddOns\\TidyPlates_ThreatPlates\\Widgets\\TargetArtWidg
 
 -- Target Art
 local function UpdateTargetFrameArt(frame, unit)
-	local t = TidyPlatesThreat.db.profile.targetWidget
+	local db = TidyPlatesThreat.db.profile
+	local t = db.targetWidget
 	if UnitExists("target") and unit.isTarget and t["ON"] and SetStyleThreatPlates(unit) ~= "etotem" then
-		frame.Icon:SetTexture(path .. t.theme)
-		frame.Icon:SetVertexColor(t.r, t.g, t.b, t.a)
-		frame:Show()
+		if db.friendlyNameOnly and unit.reaction == "FRIENDLY" then
+			frame:Hide()
+		else
+			frame.Icon:SetTexture(path .. t.theme)
+			frame.Icon:SetVertexColor(t.r, t.g, t.b, t.a)
+			frame:Show()
+		end
 	else
 		frame:Hide()
 	end

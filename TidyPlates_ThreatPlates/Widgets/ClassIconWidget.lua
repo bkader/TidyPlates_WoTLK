@@ -3,6 +3,10 @@
 -----------------------
 local path = "Interface\\AddOns\\TidyPlates_ThreatPlates\\Widgets\\ClassIconWidget\\"
 
+local function noop()
+	return
+end
+
 local function UpdateClassIconWidget(frame, unit)
 	local db = TidyPlatesThreat.db.profile
 	if db.classWidget.ON then
@@ -24,6 +28,27 @@ local function UpdateClassIconWidget(frame, unit)
 		end
 	else
 		frame:Hide()
+	end
+
+	-- hack to move friendly class icons above names.
+	if frame:IsShown() and unit.reaction == "FRIENDLY" and unit.type == "PLAYER" then
+		if db.friendlyNameOnly then
+			if not frame.moved then
+				frame:ClearAllPoints()
+				frame:SetPoint("BOTTOM", frame:GetParent(), "BOTTOM", 0, 20)
+				frame.moved = true
+				frame._SetPoint = frame.SetPoint
+				frame.SetPoint = noop
+				frame._SetAllPoints = frame.SetAllPoints
+				frame.SetAllPoints = noop
+			end
+		elseif frame._SetPoint and frame.moved then
+			frame.SetPoint = frame._SetPoint
+			frame.SetAllPoints = frame._SetAllPoints
+			frame:ClearAllPoints()
+			frame:SetPoint("CENTER", frame:GetParent(), "CENTER", -74, 7)
+			frame.moved = nil
+		end
 	end
 end
 

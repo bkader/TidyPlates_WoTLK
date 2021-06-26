@@ -149,6 +149,7 @@ function TidyPlatesThreat:OnInitialize()
 			customColor = false,
 			allowClass = false,
 			friendlyClass = false,
+			friendlyNameOnly = false,
 			friendlyClassIcon = false,
 			cacheClass = false,
 			castbarColor = {toggle = true, r = 1, g = 0.56, b = 0.06, a = 1},
@@ -1103,7 +1104,9 @@ function SetStyleThreatPlates(unit)
 				return "empty"
 			end
 		elseif unit.reaction == "FRIENDLY" then
-			if db.nameplate.toggle[T] then
+			if TidyPlatesThreat.db.profile.friendlyNameOnly then
+				return "text"
+			elseif db.nameplate.toggle[T] then
 				return "normal"
 			else
 				return "empty"

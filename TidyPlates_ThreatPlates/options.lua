@@ -797,6 +797,7 @@ local function GetOptions()
 																"Enable the showing of friendly player class color on hp bars."
 															],
 															descStyle = "inline",
+															order = 1,
 															width = "full",
 															get = GetValue,
 															set = SetValue,
@@ -809,6 +810,7 @@ local function GetOptions()
 																"This allows you to save friendly player class information between play sessions or nameplates going off the screen.|cffff0000(Uses more memory)"
 															],
 															descStyle = "inline",
+															order = 2,
 															width = "full",
 															disabled = function()
 																return (not db.friendlyClass or db.healthColorChange)
@@ -816,6 +818,16 @@ local function GetOptions()
 															get = GetValue,
 															set = SetValue,
 															arg = {"cacheClass"}
+														},
+														FriendlyTextOnly = {
+															name = L["Name Only"],
+															desc = L["Show only names above friendly units."],
+															descStyle = "inline",
+															type = "toggle",
+															width = "full",
+															get = GetValue,
+															set = SetValue,
+															arg = {"friendlyNameOnly"}
 														}
 													}
 												}

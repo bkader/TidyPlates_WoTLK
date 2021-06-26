@@ -167,6 +167,8 @@ L["Enable Friendly Class Colors"] = "Enable Friendly Class Colors"
 L["Enable the showing of friendly player class color on hp bars."] = "Enable the showing of friendly player class color on hp bars."
 L["Friendly Caching"] = "Friendly Caching"
 L["This allows you to save friendly player class information between play sessions or nameplates going off the screen.|cffff0000(Uses more memory)"] = "This allows you to save friendly player class information between play sessions or nameplates going off the screen.|cffff0000(Uses more memory)"
+L["Name Only"] = "Name Only"
+L["Show only names above friendly units."] = "Show only names above friendly units."
 ----
 L["Custom HP Color"] = "Custom HP Color"
 L["Enable Custom HP colors"] = "Enable Custom HP colors"

@@ -167,6 +167,8 @@ L["Enable Friendly Class Colors"] = "啟用友方單位職業顏色"
 L["Enable the showing of friendly player class color on hp bars."] = "啟用血量條上友方玩家職業顏色的顯示"
 L["Friendly Caching"] = "友方單位緩存"
 L["This allows you to save friendly player class information between play sessions or nameplates going off the screen.|cffff0000(Uses more memory)"] = "這個選項允許你在遊戲會話或者離開屏幕的姓名板中保存友方玩家職業信息。|cffff0000（更多的內存使用）"
+L["Name Only"] = "Name Only"
+L["Show only names above friendly units."] = "Show only names above friendly units."
 ----
 L["Custom HP Color"] = "自定義血量顏色"
 L["Enable Custom HP colors"] = "啟用自定義血量顏色"

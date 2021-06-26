@@ -167,6 +167,8 @@ L["Enable Friendly Class Colors"] = true
 L["Enable the showing of friendly player class color on hp bars."] = true
 L["Friendly Caching"] = true
 L["This allows you to save friendly player class information between play sessions or nameplates going off the screen.|cffff0000(Uses more memory)"] = true
+L["Name Only"] = true
+L["Show only names above friendly units."] = true
 ----
 L["Custom HP Color"] = true
 L["Enable Custom HP colors"] = true

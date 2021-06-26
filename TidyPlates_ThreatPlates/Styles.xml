@@ -2,6 +2,7 @@
 xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
 <Script file="Styles\empty.lua" />
+<Script file="Styles\text.lua" />
 <Script file="Styles\normal.lua" />
 <Script file="Styles\etotem.lua" />
 <Script file="Styles\totem.lua" />

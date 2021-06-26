@@ -6,77 +6,76 @@ local function CreateStyle(self, event, ...)
 	local arg1 = ...
 	if arg1 == "TidyPlates_ThreatPlates" then
 		local db = TidyPlatesThreat.db.profile.settings
-		config.hitbox = {
-			width = 128,
-			height = 24
-		}
+		config.hitbox = {width = 124, height = 30}
 		config.frame = {
 			emptyTexture = path .. "Empty",
 			width = 124,
 			height = 30,
-			x = db.frame.x,
-			y = db.frame.y,
+			x = 0,
+			y = 0,
 			anchor = "CENTER"
 		}
 		config.threatborder = {
-			texture = path .. "TP_Threat",
+			texture = path .. "Empty",
+			elitetexture = path .. "Empty",
 			width = 256,
 			height = 64,
 			x = 0,
 			y = 0,
 			anchor = "CENTER",
-			show = db.threatborder.show
+			show = false
 		}
 		config.highlight = {
-			texture = path .. db.highlight.texture,
-			width = 256,
-			height = 64,
-			x = 0,
-			y = 0,
-			anchor = "CENTER"
-		}
-		config.healthborder = {
-			texture = path .. db.healthborder.texture,
-			backdrop = path .. db.healthborder.backdrop,
+			texture = path .. "Empty",
 			width = 256,
 			height = 64,
 			x = 0,
 			y = 0,
 			anchor = "CENTER",
-			show = db.healthborder.show
+			show = false
 		}
-		config.eliteicon = {
-			texture = "Interface\\AddOns\\TidyPlates_ThreatPlates\\Widgets\\EliteArtWidget\\" .. TidyPlatesThreat.db.profile.settings.eliteicon.theme,
-			width = db.eliteicon.scale,
-			height = db.eliteicon.scale,
-			x = db.eliteicon.x,
-			y = db.eliteicon.y,
-			anchor = db.eliteicon.anchor,
-			show = db.eliteicon.show
-		}
-		config.castborder = {
-			texture = path .. "TP_CastBarOverlay",
+		config.healthborder = {
+			texture = path .. "Empty",
+			glowtexture = path .. "Empty",
+			elitetexture = path .. "Empty",
+			backdrop = nil,
 			width = 256,
 			height = 64,
-			x = db.castborder.x,
-			y = db.castborder.y,
+			x = 0,
+			y = 0,
+			anchor = "CENTER",
+			show = false
+		}
+		config.eliteicon = {
+			texture = nil,
+			width = 0,
+			height = 0,
+			x = 0,
+			y = 0,
+			anchor = db.eliteicon.anchor,
+			show = false
+		}
+		config.castborder = {
+			texture = path .. "Empty",
+			width = 256,
+			height = 64,
+			x = 0,
+			y = 0,
 			anchor = "CENTER",
 			show = db.castborder.show
 		}
 		config.castnostop = {
-			texture = path .. "TP_CastBarLock",
+			texture = path .. "Empty",
 			width = 256,
 			height = 64,
-			x = db.castnostop.x,
-			y = db.castnostop.y,
-			anchor = "CENTER",
-			show = db.castnostop.show
+			x = 0,
+			y = -15,
+			anchor = "CENTER"
 		}
 		-- Bar Textures
 		config.healthbar = {
-			texture = Media:Fetch("statusbar", db.healthbar.texture),
-			backdrop = [[Interface\Buttons\WHITE8X8]],
-			backdropcolor = {0, 0, 0, 0.75},
+			texture = path .. "Empty",
+			backdrop = nil,
 			width = 120,
 			height = 10,
 			x = 0,
@@ -85,11 +84,11 @@ local function CreateStyle(self, event, ...)
 			orientation = "HORIZONTAL"
 		}
 		config.castbar = {
-			texture = Media:Fetch("statusbar", db.castbar.texture),
+			texture = path .. "Empty",
 			width = 120,
 			height = 10,
-			x = db.castbar.x,
-			y = db.castbar.y,
+			x = 0,
+			y = -15,
 			anchor = "CENTER",
 			orientation = "HORIZONTAL"
 		}
@@ -100,14 +99,14 @@ local function CreateStyle(self, event, ...)
 			size = db.name.size,
 			width = db.name.width,
 			height = db.name.height,
-			x = db.name.x,
-			y = db.name.y,
+			x = 0,
+			y = -5,
 			align = db.name.align,
 			anchor = "CENTER",
 			vertical = db.name.vertical,
 			shadow = db.name.shadow,
 			flags = db.name.flags,
-			show = db.name.show
+			show = true
 		}
 		config.level = {
 			typeface = Media:Fetch("font", db.level.typeface),
@@ -121,7 +120,7 @@ local function CreateStyle(self, event, ...)
 			vertical = db.level.vertical,
 			shadow = db.level.shadow,
 			flags = db.level.flags,
-			show = db.level.show
+			show = false
 		}
 		config.customtext = {
 			typeface = Media:Fetch("font", db.customtext.typeface),
@@ -135,7 +134,7 @@ local function CreateStyle(self, event, ...)
 			vertical = db.customtext.vertical,
 			shadow = db.customtext.shadow,
 			flags = db.customtext.flags,
-			show = db.customtext.show
+			show = false
 		}
 		config.spelltext = {
 			typeface = Media:Fetch("font", db.spelltext.typeface),
@@ -149,7 +148,7 @@ local function CreateStyle(self, event, ...)
 			vertical = db.spelltext.vertical,
 			shadow = db.spelltext.shadow,
 			flags = db.spelltext.flags,
-			show = db.spelltext.show
+			show = false
 		}
 		-- ICONS
 		config.skullicon = {
@@ -158,7 +157,7 @@ local function CreateStyle(self, event, ...)
 			x = (db.skullicon.x),
 			y = (db.skullicon.y),
 			anchor = (db.skullicon.anchor),
-			show = db.skullicon.show
+			show = false
 		}
 		config.customart = {
 			width = (db.customart.scale),
@@ -166,7 +165,7 @@ local function CreateStyle(self, event, ...)
 			x = (db.customart.x),
 			y = (db.customart.y),
 			anchor = (db.customart.anchor),
-			show = db.customart.show
+			show = false
 		}
 		config.spellicon = {
 			width = (db.spellicon.scale),
@@ -174,7 +173,7 @@ local function CreateStyle(self, event, ...)
 			x = (db.spellicon.x),
 			y = (db.spellicon.y),
 			anchor = (db.spellicon.anchor),
-			show = db.spellicon.show
+			show = false
 		}
 		config.raidicon = {
 			width = (db.raidicon.scale),
@@ -185,29 +184,13 @@ local function CreateStyle(self, event, ...)
 			show = db.raidicon.show
 		}
 		-- OPTIONS
-		local threat = db.normal.threatcolor
 		config.threatcolor = {
-			LOW = {
-				r = threat.LOW.r,
-				g = threat.LOW.g,
-				b = threat.LOW.b,
-				a = threat.LOW.a
-			},
-			MEDIUM = {
-				r = threat.MEDIUM.r,
-				g = threat.MEDIUM.g,
-				b = threat.MEDIUM.b,
-				a = threat.MEDIUM.a
-			},
-			HIGH = {
-				r = threat.HIGH.r,
-				g = threat.HIGH.g,
-				b = threat.HIGH.b,
-				a = threat.HIGH.a
-			}
+			LOW = {r = 0, g = 0, b = 0, a = 0},
+			MEDIUM = {r = 0, g = 0, b = 0, a = 0},
+			HIGH = {r = 0, g = 0, b = 0, a = 0}
 		}
-		TidyPlatesThemeList["Threat Plates"]["normal"] = {}
-		TidyPlatesThemeList["Threat Plates"]["normal"] = config
+		TidyPlatesThemeList["Threat Plates"]["text"] = {}
+		TidyPlatesThemeList["Threat Plates"]["text"] = config
 	end
 end
 f:RegisterEvent("ADDON_LOADED")
