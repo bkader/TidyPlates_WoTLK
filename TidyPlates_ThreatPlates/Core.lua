@@ -695,8 +695,8 @@ function TidyPlatesThreat:OnInitialize()
 			targetWidget = {
 				ON = true,
 				theme = "default",
-				width = 20,
-				height = 20,
+				width = 30,
+				height = 30,
 				r = 1,
 				g = 1,
 				b = 1,

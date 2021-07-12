@@ -56,11 +56,9 @@ local function CreateTargetFrameArt(parent)
 
 	local IconLeft = parent:CreateTexture(nil, "OVERLAY")
 	IconLeft:SetPoint("RIGHT", parent.bars.healthbar, "LEFT")
-	IconLeft:Hide()
 
 	local IconRight = parent:CreateTexture(nil, "OVERLAY")
 	IconRight:SetPoint("LEFT", parent.bars.healthbar, "RIGHT")
-	IconRight:Hide()
 
 	db = db or TidyPlatesThreat.db.profile
 
@@ -81,6 +79,9 @@ local function CreateTargetFrameArt(parent)
 		IconLeft:SetHeight(db.targetWidget.height)
 		IconRight:SetHeight(db.targetWidget.height)
 	end
+
+	IconLeft:Hide()
+	IconRight:Hide()
 
 	frame.IconLeft, frame.IconRight = IconLeft, IconRight
 	frame.Update = UpdateTargetFrameArt

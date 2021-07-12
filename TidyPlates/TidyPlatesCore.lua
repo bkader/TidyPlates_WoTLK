@@ -146,33 +146,9 @@ local UpdateStyle
 do
 	-- Style Property Groups
 	local fontgroup = {"name", "level", "spelltext", "customtext"}
-	local anchorgroup = {
-		"healthborder",
-		"threatborder",
-		"castborder",
-		"castnostop",
-		"name",
-		"spelltext",
-		"customtext",
-		"level",
-		"customart",
-		"spellicon",
-		"raidicon",
-		"skullicon",
-		"eliteicon",
-		"target"
-	}
+	local anchorgroup = {"healthborder", "threatborder", "castborder", "castnostop", "name", "spelltext", "customtext", "level", "customart", "spellicon", "raidicon", "skullicon", "eliteicon", "target"}
 	local bargroup = {"castbar", "healthbar"}
-	local texturegroup = {
-		"castborder",
-		"castnostop",
-		"healthborder",
-		"threatborder",
-		"eliteicon",
-		"skullicon",
-		"highlight",
-		"target"
-	}
+	local texturegroup = {"castborder", "castnostop", "healthborder", "threatborder", "eliteicon", "skullicon", "highlight", "target"}
 	-- UpdateStyle:
 	function UpdateStyle()
 		-- Frame
