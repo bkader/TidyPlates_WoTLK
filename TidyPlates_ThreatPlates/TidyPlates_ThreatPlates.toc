@@ -6,7 +6,7 @@
 ## Author: Suicidal Katt (Kader Backport)
 ## RequiredDeps: TidyPlates
 ## SavedVariables: ThreatPlatesDB
-## Version: 5.5
+## Version: 5.6
 ## OptionalDeps: LibSharedMedia-3.0
 
 Libs\embeds.xml
