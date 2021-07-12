@@ -147,6 +147,8 @@ L["Normal Border"] = "Нормальная граница"
 L["Show Elite Border"] = "Показывать границу элиты"
 L["Elite Border"] = "Граница элиты"
 L["Mouseover"] = "Наведение мыши"
+L["Width"] = "Ширина"
+L["Height"] = "Высота"
 ----
 L["Placement"] = "Расположение"
 L["Changing these settings will alter the placement of the nameplates, however the mouseover area does not follow. |cffff0000Use with caution!|r"] = "Изменение этих настроек изменит положение неймплейтов, однако область наведения указателя мыши не изменится. |cffff0000Use with caution!|r"
@@ -446,7 +448,7 @@ L["Set Icon"] = "Установить иконку"
 
 L["\n\nThank you for supporting my work!\n"] = "\n\nСпасибо за поддержку!\n"
 L["Click to Donate!"] = "Поддержать автора!"
-L["Clear and easy to use nameplate theme for use with TidyPlates.\n\nFeel free to email me at |cff00ff00Shamtasticle@gmail.com|r\n\n--Suicidal Katt"] = "Легко и просто используйте эту тему для TidyPlates.\n\nМожете связаться со мной по мылу |cff00ff00Shamtasticle@gmail.com|r\n\n--Suicidal Katt"
+L["Clear and easy to use nameplate theme for use with TidyPlates.\n\nFeel free to email me at |cff00ff00bkader@mail.com|r"] = "Легко и просто используйте эту тему для TidyPlates.\n\nМожете связаться со мной по мылу |cff00ff00bkader@mail.com|r"
 
 --------------------------------
 -- Default Game Options Frame --

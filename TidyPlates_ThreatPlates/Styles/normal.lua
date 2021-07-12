@@ -6,22 +6,25 @@ local function CreateStyle(self, event, ...)
 	local arg1 = ...
 	if arg1 == "TidyPlates_ThreatPlates" then
 		local db = TidyPlatesThreat.db.profile.settings
+		local width = db.healthbar.width or 120
+		local height = db.healthbar.height or 10
+
 		config.hitbox = {
-			width = 128,
-			height = 24
+			width = width + 8,
+			height = height + 14
 		}
 		config.frame = {
 			emptyTexture = path .. "Empty",
-			width = 124,
-			height = 30,
+			width = width + 4,
+			height = height + 20,
 			x = db.frame.x,
 			y = db.frame.y,
 			anchor = "CENTER"
 		}
 		config.threatborder = {
 			texture = path .. "TP_Threat",
-			width = 256,
-			height = 64,
+			width = (width * 2) + 20,
+			height = height + 54,
 			x = 0,
 			y = 0,
 			anchor = "CENTER",
@@ -29,8 +32,8 @@ local function CreateStyle(self, event, ...)
 		}
 		config.highlight = {
 			texture = path .. db.highlight.texture,
-			width = 256,
-			height = 64,
+			width = (width * 2) + 20,
+			height = height + 54,
 			x = 0,
 			y = 0,
 			anchor = "CENTER"
@@ -38,8 +41,8 @@ local function CreateStyle(self, event, ...)
 		config.healthborder = {
 			texture = path .. db.healthborder.texture,
 			backdrop = path .. db.healthborder.backdrop,
-			width = 256,
-			height = 64,
+			width = (width * 2) + 20,
+			height = height + 54,
 			x = 0,
 			y = 0,
 			anchor = "CENTER",
@@ -56,8 +59,8 @@ local function CreateStyle(self, event, ...)
 		}
 		config.castborder = {
 			texture = path .. "TP_CastBarOverlay",
-			width = 256,
-			height = 64,
+			width = (width * 2) + 20,
+			height = height + 54,
 			x = db.castborder.x,
 			y = db.castborder.y,
 			anchor = "CENTER",
@@ -65,8 +68,8 @@ local function CreateStyle(self, event, ...)
 		}
 		config.castnostop = {
 			texture = path .. "TP_CastBarLock",
-			width = 256,
-			height = 64,
+			width = (width * 2) + 20,
+			height = height + 54,
 			x = db.castnostop.x,
 			y = db.castnostop.y,
 			anchor = "CENTER",
@@ -77,8 +80,8 @@ local function CreateStyle(self, event, ...)
 			texture = Media:Fetch("statusbar", db.healthbar.texture),
 			backdrop = [[Interface\Buttons\WHITE8X8]],
 			backdropcolor = {0, 0, 0, 0.75},
-			width = 120,
-			height = 10,
+			width = db.healthbar.width or 120,
+			height = db.healthbar.height or 10,
 			x = 0,
 			y = 0,
 			anchor = "CENTER",
@@ -86,7 +89,7 @@ local function CreateStyle(self, event, ...)
 		}
 		config.castbar = {
 			texture = Media:Fetch("statusbar", db.castbar.texture),
-			width = 120,
+			width = db.healthbar.width or 120,
 			height = 10,
 			x = db.castbar.x,
 			y = db.castbar.y,

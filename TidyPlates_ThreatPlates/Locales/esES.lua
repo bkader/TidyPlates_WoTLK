@@ -145,6 +145,8 @@ L["Normal Border"] = "Normal Border"
 L["Show Elite Border"] = "Show Elite Border"
 L["Elite Border"] = "Elite Border"
 L["Mouseover"] = "Mouseover"
+L["Width"] = "Anchura"
+L["Height"] = "Altura"
 ----
 L["Placement"] = "Placement"
 L["Changing these settings will alter the placement of the nameplates, however the mouseover area does not follow. |cffff0000Use with caution!|r"] = "Changing these settings will alter the placement of the nameplates, however the mouseover area does not follow. |cffff0000Use with caution!|r"
@@ -444,7 +446,7 @@ L["Set Icon"] = "Set Icon"
 
 L["\n\nThank you for supporting my work!\n"] = "\n\nThank you for supporting my work!\n"
 L["Click to Donate!"] = "Click to Donate!"
-L["Clear and easy to use nameplate theme for use with TidyPlates.\n\nFeel free to email me at |cff00ff00Shamtasticle@gmail.com|r\n\n--Suicidal Katt"] = "Clear and easy to use nameplate theme for use with TidyPlates.\n\nFeel free to email me at |cff00ff00Shamtasticle@gmail.com|r\n\n--Suicidal Katt"
+L["Clear and easy to use nameplate theme for use with TidyPlates.\n\nFeel free to email me at |cff00ff00bkader@mail.com|r"] = "Clear and easy to use nameplate theme for use with TidyPlates.\n\nFeel free to email me at |cff00ff00bkader@mail.com|r"
 
 --------------------------------
 -- Default Game Options Frame --

@@ -145,6 +145,8 @@ L["Normal Border"] = true
 L["Show Elite Border"] = true
 L["Elite Border"] = true
 L["Mouseover"] = true
+L["Width"] = true
+L["Height"] = true
 ----
 L["Placement"] = true
 L["Changing these settings will alter the placement of the nameplates, however the mouseover area does not follow. |cffff0000Use with caution!|r"] = true
@@ -382,6 +384,7 @@ L["This widget will display a small shield or dagger that will indicate if the n
 ----
 L["Target Highlight"] = true
 L["Enables the showing of a texture on your target nameplate"] = true
+L["Invert Texture"] = true
 
 ----------------------
 -- Totem Nameplates --
@@ -444,7 +447,7 @@ L["Set Icon"] = true
 
 L["\n\nThank you for supporting my work!\n"] = true
 L["Click to Donate!"] = true
-L["Clear and easy to use nameplate theme for use with TidyPlates.\n\nFeel free to email me at |cff00ff00Shamtasticle@gmail.com|r\n\n--Suicidal Katt"] = true
+L["Clear and easy to use nameplate theme for use with TidyPlates.\n\nFeel free to email me at |cff00ff00bkader@mail.com|r"] = true
 
 --------------------------------
 -- Default Game Options Frame --

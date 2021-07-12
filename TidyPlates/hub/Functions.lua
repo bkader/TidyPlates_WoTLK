@@ -642,31 +642,15 @@ end
 
 local DebuffPrefixModes = {
 	-- All
-	function(debuff)
-		return true
-	end,
+	function(debuff) return true end,
 	-- My
-	function(debuff)
-		if debuff.caster == UnitGUID("player") then
-			return true
-		else
-			return nil
-		end
-	end,
+	function(debuff) return (debuff.caster == UnitGUID("player")) or nil end,
 	-- No
-	function(debuff)
-		return nil
-	end,
+	function(debuff) return nil end,
 	-- CC
-	function(debuff)
-		return true
-	end,
+	function(debuff) return true end,
 	-- Other
-	function(debuff)
-		if debuff.caster ~= UnitGUID("player") then
-			return true
-		end
-	end
+	function(debuff) return (debuff.caster ~= UnitGUID("player")) end
 }
 
 local DebuffFilterModes = {

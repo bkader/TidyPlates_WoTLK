@@ -2,9 +2,10 @@
 -- Elite Art Overlay Widget --
 ------------------------------
 local path = "Interface\\AddOns\\TidyPlates_ThreatPlates\\Media\\Artwork\\"
+local DB
 
 local function UpdateEliteFrameArtOverlay(frame, unit)
-	local DB = TidyPlatesThreat.db.profile
+	DB = DB or TidyPlatesThreat.db.profile
 	local db = DB.settings.elitehealthborder
 	if unit.isElite and db.show and not (unit.reaction == "FRIENDLY" and DB.friendlyNameOnly) then
 		frame.Icon:SetTexture(path .. db.texture)
@@ -14,10 +15,12 @@ local function UpdateEliteFrameArtOverlay(frame, unit)
 	end
 end
 local function CreateEliteFrameArtOverlay(parent)
+	DB = DB or TidyPlatesThreat.db.profile
+
 	local frame = CreateFrame("Frame", nil, parent)
 	frame:SetFrameLevel(parent.bars.healthbar:GetFrameLevel())
-	frame:SetWidth(256)
-	frame:SetHeight(64)
+	frame:SetWidth(((DB.settings.healthbar.width or 120) * 2) + 20)
+	frame:SetHeight((DB.settings.healthbar.height or 10) + 54)
 	frame.Icon = frame:CreateTexture(nil, "OVERLAY")
 	frame.Icon:SetAllPoints(frame)
 	frame:Hide()

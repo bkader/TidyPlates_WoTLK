@@ -145,6 +145,8 @@ L["Normal Border"] = "普通单位边框"
 L["Show Elite Border"] = "显示精英单位边框"
 L["Elite Border"] = "精英单位边框"
 L["Mouseover"] = "鼠标指向"
+L["Width"] = "宽度"
+L["Height"] = "高度"
 ----
 L["Placement"] = "位置"
 L["Changing these settings will alter the placement of the nameplates, however the mouseover area does not follow. |cffff0000Use with caution!|r"] = "更改这些设置将改变姓名板的位置，但鼠标指向区域却不会随之改变。|cffff0000请谨慎使用！|r"
@@ -444,7 +446,7 @@ L["Set Icon"] = "设置图标"
 
 L["\n\nThank you for supporting my work!\n"] = "\n\n感谢对我工作的支持！\n"
 L["Click to Donate!"] = "点击捐赠！"
-L["Clear and easy to use nameplate theme for use with TidyPlates.\n\nFeel free to email me at |cff00ff00Shamtasticle@gmail.com|r\n\n--Suicidal Katt"] = "TidyPlates的清晰易用的姓名板主题。\n\n请随时通过电子邮件联系我|cff00ff00Shamtasticle@gmail.com|r\n\n--Suicidal Katt"
+L["Clear and easy to use nameplate theme for use with TidyPlates.\n\nFeel free to email me at |cff00ff00bkader@mail.com|r"] = "TidyPlates的清晰易用的姓名板主题。\n\n请随时通过电子邮件联系我|cff00ff00bkader@mail.com|r"
 
 --------------------------------
 -- Default Game Options Frame --

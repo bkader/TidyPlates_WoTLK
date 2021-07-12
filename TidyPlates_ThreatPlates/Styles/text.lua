@@ -6,12 +6,18 @@ local function CreateStyle(self, event, ...)
 	local arg1 = ...
 	if arg1 == "TidyPlates_ThreatPlates" then
 		local db = TidyPlatesThreat.db.profile.settings
-		config.hitbox = {width = 124, height = 30}
+		local width = db.healthbar.width or 120
+		local height = db.healthbar.height or 10
+
+		config.hitbox = {
+			width = width + 4,
+			height = height + 20
+		}
 		config.frame = {
 			emptyTexture = path .. "Empty",
 			elitetexture = path .. "Empty",
-			width = 124,
-			height = 30,
+			width = width + 4,
+			height = height + 20,
 			x = 0,
 			y = 0,
 			anchor = "CENTER"
@@ -19,8 +25,8 @@ local function CreateStyle(self, event, ...)
 		config.threatborder = {
 			texture = path .. "Empty",
 			elitetexture = path .. "Empty",
-			width = 256,
-			height = 64,
+			width = (width * 2) + 20,
+			height = height + 54,
 			x = 0,
 			y = 0,
 			anchor = "CENTER",
@@ -28,8 +34,8 @@ local function CreateStyle(self, event, ...)
 		}
 		config.highlight = {
 			texture = path .. "Empty",
-			width = 256,
-			height = 64,
+			width = (width * 2) + 20,
+			height = height + 54,
 			x = 0,
 			y = 0,
 			anchor = "CENTER",
@@ -40,8 +46,8 @@ local function CreateStyle(self, event, ...)
 			glowtexture = path .. "Empty",
 			elitetexture = path .. "Empty",
 			backdrop = nil,
-			width = 256,
-			height = 64,
+			width = (width * 2) + 20,
+			height = height + 54,
 			x = 0,
 			y = 0,
 			anchor = "CENTER",
@@ -58,8 +64,8 @@ local function CreateStyle(self, event, ...)
 		}
 		config.castborder = {
 			texture = path .. "Empty",
-			width = 256,
-			height = 64,
+			width = (width * 2) + 20,
+			height = height + 54,
 			x = 0,
 			y = 0,
 			anchor = "CENTER",
@@ -67,8 +73,8 @@ local function CreateStyle(self, event, ...)
 		}
 		config.castnostop = {
 			texture = path .. "Empty",
-			width = 256,
-			height = 64,
+			width = (width * 2) + 20,
+			height = height + 54,
 			x = 0,
 			y = -15,
 			anchor = "CENTER",
@@ -78,8 +84,8 @@ local function CreateStyle(self, event, ...)
 		config.healthbar = {
 			texture = path .. "Empty",
 			backdrop = nil,
-			width = 120,
-			height = 10,
+			width = db.healthbar.width or 120,
+			height = db.healthbar.height or 10,
 			x = 0,
 			y = 0,
 			anchor = "CENTER",
@@ -88,7 +94,7 @@ local function CreateStyle(self, event, ...)
 		}
 		config.castbar = {
 			texture = path .. "Empty",
-			width = 120,
+			width = db.healthbar.width or 120,
 			height = 10,
 			x = 0,
 			y = -15,

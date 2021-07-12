@@ -695,6 +695,8 @@ function TidyPlatesThreat:OnInitialize()
 			targetWidget = {
 				ON = true,
 				theme = "default",
+				width = 20,
+				height = 20,
 				r = 1,
 				g = 1,
 				b = 1,
@@ -754,7 +756,9 @@ function TidyPlatesThreat:OnInitialize()
 					show = true
 				},
 				healthbar = {
-					texture = "ThreatPlatesBar"
+					texture = "ThreatPlatesBar",
+					width = 120,
+					height = 10
 				},
 				castnostop = {
 					texture = "TP_CastBarLock",

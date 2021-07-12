@@ -55,12 +55,7 @@ end
 
 -- Indicator Functions
 local UpdateIndicator_CustomScaleText, UpdateIndicator_Standard, UpdateIndicator_CustomAlpha
-local UpdateIndicator_Level,
-	UpdateIndicator_ThreatGlow,
-	UpdateIndicator_RaidIcon,
-	UpdateIndicator_EliteIcon,
-	UpdateIndicator_UnitColor,
-	UpdateIndicator_Name
+local UpdateIndicator_Level, UpdateIndicator_ThreatGlow, UpdateIndicator_RaidIcon, UpdateIndicator_EliteIcon, UpdateIndicator_UnitColor, UpdateIndicator_Name
 local UpdateIndicator_HealthBar, UpdateHitboxShape
 
 -- Data and Condition Functions
@@ -384,8 +379,7 @@ do
 	-- UpdateHitboxShape:  Updates the nameplate's hitbox, but only out of combat
 	function UpdateHitboxShape()
 		if not InCombat then
-			objectstyle = style.hitbox
-			SetObjectShape(nameplate, objectstyle.width, objectstyle.height)
+			SetObjectShape(nameplate, style.hitbox.width, style.hitbox.height)
 		end
 	end
 end

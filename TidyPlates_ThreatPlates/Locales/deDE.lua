@@ -145,6 +145,8 @@ L["Normal Border"] = "Normaler Rand"
 L["Show Elite Border"] = "Elite-Markierung anzeigen"
 L["Elite Border"] = "Elite-Markierung"
 L["Mouseover"] = "Mouseover"
+L["Width"] = "Breite"
+L["Height"] = "Höhe"
 ----
 L["Placement"] = "Platzierung"
 L["Changing these settings will alter the placement of the nameplates, however the mouseover area does not follow. |cffff0000Use with caution!|r"] = "Änderungen an dieser Einstellung wird die Platzierung der Namensplatten verschieben, die Mouseover-Informationen werden dem aber nicht folgen. |cffff0000Vorsicht im Gebrauch!|r"
@@ -442,7 +444,7 @@ L["Set Icon"] = "Icon festlegen"
 
 L["\n\nThank you for supporting my work!\n"] = "\n\nDanke, dass Du meine Arbeit unterstützt!\n"
 L["Click to Donate!"] = "Hier klicken, um eine Spende abzugeben!"
-L["Clear and easy to use nameplate theme for use with TidyPlates.\n\nFeel free to email me at |cff00ff00Shamtasticle@gmail.com|r\n\n--Suicidal Katt"] = "Sauberes und leicht zu verwendendes Plakettendesign zur Benutzung mit TidyPlates.\n\nDu kannst mich gerne per E-Mail erreichen unter |cff00ff00Shamtasticle@gmail.com|r\n\n--Suicidal Katt"
+L["Clear and easy to use nameplate theme for use with TidyPlates.\n\nFeel free to email me at |cff00ff00bkader@mail.com|r"] = "Sauberes und leicht zu verwendendes Plakettendesign zur Benutzung mit TidyPlates.\n\nDu kannst mich gerne per E-Mail erreichen unter |cff00ff00bkader@mail.com|r"
 
 --------------------------------
 -- Default Game Options Frame --
