@@ -144,6 +144,37 @@ do
 
 	TidyPlatesUtility.GetRelativeThreat = GetRelativeThreat
 end
+
+------------------------
+-- Group Functions
+------------------------
+do
+	local GetNumRaidMembers, GetNumPartyMembers = GetNumRaidMembers, GetNumPartyMembers
+
+	local function IsInRaid()
+		return (GetNumRaidMembers() > 0)
+	end
+
+	local function IsInGroup()
+		return (GetNumRaidMembers() > 0 or GetNumPartyMembers() > 0)
+	end
+
+	local function GetGroupTypeAndCount()
+		local prefix, min_member, max_member = "raid", 1, GetNumRaidMembers()
+		if max_member == 0 then
+			prefix, min_member, max_member = "party", 0, GetNumPartyMembers()
+		end
+		if max_member == 0 then
+			prefix, min_member, max_member = nil, 0, 0
+		end
+		return prefix, min_member, max_member
+	end
+
+	TidyPlatesUtility.IsInRaid = IsInRaid
+	TidyPlatesUtility.IsInGroup = IsInGroup
+	TidyPlatesUtility.GetGroupTypeAndCount = GetGroupTypeAndCount
+end
+
 ------------------------------------------------------------------
 -- Panel Helpers (Used to create interface panels)
 ------------------------------------------------------------------
