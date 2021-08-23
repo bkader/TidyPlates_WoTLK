@@ -3,8 +3,7 @@ local config = {}
 local path = "Interface\\Addons\\TidyPlates_ThreatPlates\\Media\\Artwork\\"
 local f = CreateFrame("Frame")
 local function CreateStyle(self, event, ...)
-	local arg1 = ...
-	if arg1 == "TidyPlates_ThreatPlates" then
+	if ... == "TidyPlates_ThreatPlates" then
 		local db = TidyPlatesThreat.db.profile.settings
 		local width = db.healthbar.width or 120
 		local height = db.healthbar.height or 10
@@ -110,10 +109,10 @@ local function CreateStyle(self, event, ...)
 			width = db.name.width,
 			height = db.name.height,
 			x = 0,
-			y = -5,
-			align = db.name.align,
+			y = 5,
+			align = "CENTER",
 			anchor = "CENTER",
-			vertical = db.name.vertical,
+			vertical = "CENTER",
 			shadow = db.name.shadow,
 			flags = db.name.flags,
 			show = true
