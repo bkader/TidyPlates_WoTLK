@@ -216,7 +216,7 @@ do
 			else
 				HpMax = ""
 			end
-			if TidyPlatesThreat.db.profile.settings.name.show then
+			if TidyPlatesThreat.db.profile.settings.customtext.show then
 				if (unit.health / unit.healthmax) < 1 then
 					return HpAmt .. HpMax .. HpPct
 				else
@@ -414,6 +414,9 @@ end
 --
 
 do
+	local IsInGroup = TidyPlatesUtility.IsInGroup
+	local GetGroupTypeAndCount = TidyPlatesUtility.GetGroupTypeAndCount
+
 	local function SetNameColor(unit)
 		local db = TidyPlatesThreat.db.profile
 		local color = db.settings.name.color
@@ -432,6 +435,19 @@ do
 						db.cache[unit.name] = class
 					end
 					r, g, b = c.r, c.g, c.b
+				elseif IsInGroup() then
+					local prefix, min_member, max_member = GetGroupTypeAndCount()
+					for i = min_member, max_member do
+						if UnitExists(prefix .. i) and UnitName(prefix .. i) == unit.name then
+							local class = select(2, UnitClass(prefix .. i))
+							local c = RAID_CLASS_COLORS[class]
+							if db.cacheClass then
+								db.cache[unit.name] = class
+							end
+							r, g, b = c.r, c.g, c.b
+							break
+						end
+					end
 				end
 			elseif unit.type == "NPC" then
 				r, g, b = 0.2, 0.6, 0.1
