@@ -29,7 +29,9 @@ end
 local function EventHandler(self, event, ...)
 	if event == "PLAYER_ENTERING_WORLD" then
 		ShowFriends()
-		GuildRoster()
+		if IsInGuild() then
+			GuildRoster()
+		end
 		UpdateBnetList()
 	elseif event == "GUILD_ROSTER_UPDATE" then
 		wipe(ListTable.g)
