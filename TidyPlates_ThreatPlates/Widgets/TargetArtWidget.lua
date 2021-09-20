@@ -6,7 +6,7 @@ local db
 
 -- Target Art
 local function UpdateTargetFrameArt(frame, unit)
-	db = db or TidyPlatesThreat.db.profile
+	db = TidyPlatesThreat.db.profile
 
 	local t = db.targetWidget
 	if UnitExists("target") and unit.isTarget and t["ON"] and SetStyleThreatPlates(unit) ~= "etotem" then
@@ -60,7 +60,7 @@ local function CreateTargetFrameArt(parent)
 	local IconRight = parent:CreateTexture(nil, "OVERLAY")
 	IconRight:SetPoint("LEFT", parent.bars.healthbar, "RIGHT")
 
-	db = db or TidyPlatesThreat.db.profile
+	db = TidyPlatesThreat.db.profile
 
 	if db.targetWidget.inverted then
 		IconLeft:SetRotation(1.57)

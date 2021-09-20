@@ -5,7 +5,7 @@ local path = "Interface\\AddOns\\TidyPlates_ThreatPlates\\Media\\Artwork\\"
 local DB
 
 local function UpdateEliteFrameArtOverlay(frame, unit)
-	DB = DB or TidyPlatesThreat.db.profile
+	DB = TidyPlatesThreat.db.profile
 	local db = DB.settings.elitehealthborder
 	if unit.isElite and db.show and not (unit.reaction == "FRIENDLY" and DB.friendlyNameOnly) then
 		frame.Icon:SetTexture(path .. db.texture)
@@ -15,7 +15,7 @@ local function UpdateEliteFrameArtOverlay(frame, unit)
 	end
 end
 local function CreateEliteFrameArtOverlay(parent)
-	DB = DB or TidyPlatesThreat.db.profile
+	DB = TidyPlatesThreat.db.profile
 
 	local frame = CreateFrame("Frame", nil, parent)
 	frame:SetFrameLevel(parent.bars.healthbar:GetFrameLevel())

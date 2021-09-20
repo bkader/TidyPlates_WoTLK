@@ -1,9 +1,9 @@
 ---------------
 -- Unique Icon Widget
 ---------------
-
+local db
 local function UpdateUniqueIconWidget(self, unit)
-	local db = TidyPlatesThreat.db.profile
+	db = TidyPlatesThreat.db.profile
 	if db.uniqueWidget.ON then
 		if tContains(db.uniqueSettings.list, unit.name) then
 			for k_c, k_v in pairs(db.uniqueSettings.list) do

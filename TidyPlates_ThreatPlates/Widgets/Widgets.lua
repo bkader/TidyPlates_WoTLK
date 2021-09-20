@@ -186,7 +186,7 @@ end
 -- CONTEXT UPDATE --
 --------------------
 local function OnContextUpdate(plate, unit)
-	local db = TidyPlatesThreat.db.profile
+	db = TidyPlatesThreat.db.profile
 	local w = plate.widgets
 	-- Debuff Widget
 	if db.debuffWidget.ON then
