@@ -9,7 +9,7 @@ local function UpdateTargetFrameArt(frame, unit)
 	db = TidyPlatesThreat.db.profile
 
 	local t = db.targetWidget
-	if UnitExists("target") and unit.isTarget and t["ON"] and SetStyleThreatPlates(unit) ~= "etotem" then
+	if t.ON and UnitExists("target") and unit.isTarget and SetStyleThreatPlates(unit) ~= "etotem" then
 		if db.friendlyNameOnly and unit.reaction == "FRIENDLY" then
 			frame.IconLeft:Hide()
 			frame.IconRight:Hide()
@@ -45,7 +45,7 @@ local function UpdateTargetFrameArt(frame, unit)
 			frame.IconLeft:Show()
 			frame.IconRight:Show()
 		end
-	else
+	elseif frame.IconLeft and frame.IconRight then
 		frame.IconLeft:Hide()
 		frame.IconRight:Hide()
 	end

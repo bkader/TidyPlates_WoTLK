@@ -3927,6 +3927,9 @@ local function GetOptions()
 									type = "multiselect",
 									width = "half",
 									order = 30,
+									disabled = function()
+										return not db.targetWidget.ON
+									end,
 									get = function(info, key)
 										return db.targetWidget.theme == key
 									end,

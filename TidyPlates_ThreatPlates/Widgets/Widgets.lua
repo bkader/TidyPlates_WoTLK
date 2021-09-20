@@ -115,6 +115,8 @@ local function OnInitialize(plate)
 			w.TargetArt = widget
 		end
 	elseif w.TargetArt then
+		w.TargetArt.IconLeft:Hide()
+		w.TargetArt.IconRight:Hide()
 		w.TargetArt:Hide()
 		w.TargetArt = nil
 	end
