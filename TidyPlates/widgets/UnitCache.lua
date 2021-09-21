@@ -106,7 +106,9 @@ local function Enable()
 		TidyPlatesData.Friends = {}
 	end
 
-	GuildRoster()
+	if IsInGuild() then
+		GuildRoster()
+	end
 	UpdateFriendCache()
 end
 
