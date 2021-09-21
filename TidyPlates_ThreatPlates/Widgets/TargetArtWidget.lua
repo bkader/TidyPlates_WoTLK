@@ -42,48 +42,52 @@ local function UpdateTargetFrameArt(frame, unit)
 				frame.IconRight:SetHeight(t.height)
 			end
 
-			frame.IconLeft:Show()
-			frame.IconRight:Show()
+			frame:Show()
 		end
-	elseif frame.IconLeft and frame.IconRight then
-		frame.IconLeft:Hide()
-		frame.IconRight:Hide()
+	else
+		frame:Hide()
 	end
 end
 
 local function CreateTargetFrameArt(parent)
 	local frame = CreateFrame("Frame", nil, parent)
 
-	local IconLeft = parent:CreateTexture(nil, "OVERLAY")
-	IconLeft:SetPoint("RIGHT", parent.bars.healthbar, "LEFT")
+	frame.IconLeft = parent:CreateTexture(nil, "OVERLAY")
+	frame.IconLeft:SetPoint("RIGHT", parent.bars.healthbar, "LEFT")
 
-	local IconRight = parent:CreateTexture(nil, "OVERLAY")
-	IconRight:SetPoint("LEFT", parent.bars.healthbar, "RIGHT")
+	frame.IconRight = parent:CreateTexture(nil, "OVERLAY")
+	frame.IconRight:SetPoint("LEFT", parent.bars.healthbar, "RIGHT")
 
 	db = TidyPlatesThreat.db.profile
 
 	if db.targetWidget.inverted then
-		IconLeft:SetRotation(1.57)
-		IconRight:SetRotation(-1.57)
+		frame.IconLeft:SetRotation(1.57)
+		frame.IconRight:SetRotation(-1.57)
 	else
-		IconLeft:SetRotation(-1.57)
-		IconRight:SetRotation(1.57)
+		frame.IconLeft:SetRotation(-1.57)
+		frame.IconRight:SetRotation(1.57)
 	end
 
 	if db.targetWidget.width ~= nil then
-		IconLeft:SetWidth(db.targetWidget.width)
-		IconRight:SetWidth(db.targetWidget.width)
+		frame.IconLeft:SetWidth(db.targetWidget.width)
+		frame.IconRight:SetWidth(db.targetWidget.width)
 	end
 
 	if db.targetWidget.height ~= nil then
-		IconLeft:SetHeight(db.targetWidget.height)
-		IconRight:SetHeight(db.targetWidget.height)
+		frame.IconLeft:SetHeight(db.targetWidget.height)
+		frame.IconRight:SetHeight(db.targetWidget.height)
 	end
 
-	IconLeft:Hide()
-	IconRight:Hide()
+	frame:SetScript("OnShow", function(self)
+		self.IconLeft:Show()
+		self.IconRight:Show()
+	end)
 
-	frame.IconLeft, frame.IconRight = IconLeft, IconRight
+	frame:SetScript("OnHide", function(self)
+		self.IconLeft:Hide()
+		self.IconRight:Hide()
+	end)
+
 	frame.Update = UpdateTargetFrameArt
 	return frame
 end
