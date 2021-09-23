@@ -1336,8 +1336,8 @@ local function GetOptions()
 											name = COMBATLOG_FILTER_STRING_NEUTRAL_UNITS,
 											arg = {"nameplate", "scale", "Neutral"},
 											step = 0.05,
-											softMin = 0.6,
-											softMax = 1.3,
+											min = 0.6,
+											max = 1.3,
 											isPercent = true
 										},
 										Normal = {
@@ -1346,8 +1346,8 @@ local function GetOptions()
 											name = PLAYER_DIFFICULTY1,
 											arg = {"nameplate", "scale", "Normal"},
 											step = 0.05,
-											softMin = 0.6,
-											softMax = 1.3,
+											min = 0.6,
+											max = 1.3,
 											isPercent = true
 										},
 										Elite = {
@@ -1356,8 +1356,8 @@ local function GetOptions()
 											name = ELITE,
 											arg = {"nameplate", "scale", "Elite"},
 											step = 0.05,
-											softMin = 0.6,
-											softMax = 1.3,
+											min = 0.6,
+											max = 1.3,
 											isPercent = true
 										},
 										Boss = {
@@ -1366,8 +1366,8 @@ local function GetOptions()
 											name = BOSS,
 											arg = {"nameplate", "scale", "Boss"},
 											step = 0.05,
-											softMin = 0.6,
-											softMax = 1.3,
+											min = 0.6,
+											max = 1.3,
 											isPercent = true
 										},
 										Target = {
@@ -1376,8 +1376,8 @@ local function GetOptions()
 											name = STATUS_TEXT_TARGET,
 											arg = {"nameplate", "scale", "Target"},
 											step = 0.05,
-											softMin = 0.6,
-											softMax = 1.3,
+											min = 0.6,
+											max = 1.3,
 											isPercent = true
 										}
 									}
@@ -3633,8 +3633,8 @@ local function GetOptions()
 											type = "range",
 											order = 1,
 											width = "double",
-											softMin = 0.6,
-											softMax = 1.3,
+											min = 0.6,
+											max = 1.3,
 											step = 0.05,
 											isPercent = true,
 											arg = {"debuffWidget", "scale"}
@@ -4245,8 +4245,8 @@ local function GetOptions()
 							width = "double",
 							arg = {"nameplate", "scale", "Totem"},
 							step = 0.05,
-							softMin = 0.6,
-							softMax = 1.3,
+							min = 0.6,
+							max = 1.3,
 							isPercent = true
 						}
 					}

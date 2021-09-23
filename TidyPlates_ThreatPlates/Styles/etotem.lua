@@ -9,13 +9,13 @@ local function CreateStyle(self, event, ...)
 		local height = db.healthbar.height or 10
 
 		config.hitbox = {
-			width = width + 8,
-			height = height + 14
+			width = width * 1.0667,
+			height = height * 2.4
 		}
 		config.frame = {
 			emptyTexture = path .. "Empty",
-			width = width + 4,
-			height = height + 20,
+			width = width * 1.0333,
+			height = height * 3,
 			x = 0,
 			y = 0,
 			anchor = "CENTER"
@@ -23,8 +23,8 @@ local function CreateStyle(self, event, ...)
 		config.threatborder = {
 			texture = path .. "Empty",
 			elitetexture = path .. "Empty",
-			width = (width * 2) + 20,
-			height = height + 54,
+			width = width * 2.1333,
+			height = height * 6.4,
 			x = 0,
 			y = 0,
 			anchor = "CENTER"
@@ -33,16 +33,16 @@ local function CreateStyle(self, event, ...)
 			texture = path .. "Empty",
 			glowtexture = path .. "Empty",
 			elitetexture = path .. "Empty",
-			width = (width * 2) + 20,
-			height = height + 54,
+			width = width * 2.1333,
+			height = height * 6.4,
 			x = 0,
 			y = 0,
 			anchor = "CENTER"
 		}
 		config.castborder = {
 			texture = path .. "Empty",
-			width = (width * 2) + 20,
-			height = height + 54,
+			width = width * 2.1333,
+			height = height * 6.4,
 			x = 0,
 			y = -15,
 			anchor = "CENTER"
@@ -50,8 +50,8 @@ local function CreateStyle(self, event, ...)
 
 		config.castnostop = {
 			texture = path .. "Empty",
-			width = (width * 2) + 20,
-			height = height + 54,
+			width = width * 2.1333,
+			height = height * 6.4,
 			x = 0,
 			y = -15,
 			anchor = "CENTER"

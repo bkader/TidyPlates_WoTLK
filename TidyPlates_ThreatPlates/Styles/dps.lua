@@ -9,21 +9,21 @@ local function CreateStyle(self, event, ...)
 		local height = db.healthbar.height or 10
 
 		config.hitbox = {
-			width = width + 8,
-			height = height + 14
+			width = width * 1.0667,
+			height = height * 2.4
 		}
 		config.frame = {
 			emptyTexture = path .. "Empty",
-			width = width + 4,
-			height = height + 20,
+			width = width * 1.0333,
+			height = height * 3,
 			x = db.frame.x,
 			y = db.frame.y,
 			anchor = "CENTER"
 		}
 		config.threatborder = {
 			texture = path .. "TP_Threat",
-			width = (width * 2) + 20,
-			height = height + 54,
+			width = width * 2.1333,
+			height = height * 6.4,
 			x = 0,
 			y = 0,
 			anchor = "CENTER",
@@ -31,8 +31,8 @@ local function CreateStyle(self, event, ...)
 		}
 		config.highlight = {
 			texture = path .. db.highlight.texture,
-			width = (width * 2) + 20,
-			height = height + 54,
+			width = width * 2.1333,
+			height = height * 6.4,
 			x = 0,
 			y = 0,
 			anchor = "CENTER"
@@ -40,8 +40,8 @@ local function CreateStyle(self, event, ...)
 		config.healthborder = {
 			texture = path .. db.healthborder.texture,
 			backdrop = path .. db.healthborder.backdrop,
-			width = (width * 2) + 20,
-			height = height + 54,
+			width = width * 2.1333,
+			height = height * 6.4,
 			x = 0,
 			y = 0,
 			anchor = "CENTER",
@@ -59,8 +59,8 @@ local function CreateStyle(self, event, ...)
 		}
 		config.castborder = {
 			texture = path .. "TP_CastBarOverlay",
-			width = (width * 2) + 20,
-			height = height + 54,
+			width = width * 2.1333,
+			height = height * 6.4,
 			x = db.castborder.x,
 			y = db.castborder.y,
 			anchor = "CENTER",
@@ -68,8 +68,8 @@ local function CreateStyle(self, event, ...)
 		}
 		config.castnostop = {
 			texture = path .. "TP_CastBarLock",
-			width = (width * 2) + 20,
-			height = height + 54,
+			width = width * 2.1333,
+			height = height * 6.4,
 			x = db.castnostop.x,
 			y = db.castnostop.y,
 			anchor = "CENTER",
@@ -163,8 +163,8 @@ local function CreateStyle(self, event, ...)
 			show = db.skullicon.show
 		}
 		config.customart = {
-			width = (width * 2) + 20,
-			height = height + 54,
+			width = width * 2.1333,
+			height = height * 6.4,
 			x = 0,
 			y = 0,
 			anchor = "CENTER",
