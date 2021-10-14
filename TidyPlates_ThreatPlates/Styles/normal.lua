@@ -78,7 +78,7 @@ local function CreateStyle(self, event, ...)
 		config.healthbar = {
 			texture = Media:Fetch("statusbar", db.healthbar.texture),
 			backdrop = [[Interface\Buttons\WHITE8X8]],
-			backdropcolor = {0, 0, 0, 0.75},
+			backdropcolor = {0, 0, 0, 0.5},
 			width = db.healthbar.width or 120,
 			height = db.healthbar.height or 10,
 			x = 0,
