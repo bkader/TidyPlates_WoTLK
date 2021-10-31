@@ -4,7 +4,7 @@
 local classWidgetPath = "Interface\\Addons\\TidyPlates\\widgets\\ClassWidget\\"
 
 local function TotemName(SpellID, suffix)
-	local name = (select(1, GetSpellInfo(SpellID)))
+	local name = GetSpellInfo(SpellID)
 	if suffix then
 		name = name .. " " .. suffix
 	end

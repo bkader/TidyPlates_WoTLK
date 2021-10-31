@@ -171,6 +171,7 @@ L["Friendly Caching"] = "Friendly Caching"
 L["This allows you to save friendly player class information between play sessions or nameplates going off the screen.|cffff0000(Uses more memory)"] = "This allows you to save friendly player class information between play sessions or nameplates going off the screen.|cffff0000(Uses more memory)"
 L["Name Only"] = "Name Only"
 L["Show only names above friendly units."] = "Show only names above friendly units."
+L["Click Through"] = "Clic A través"
 ----
 L["Custom HP Color"] = "Custom HP Color"
 L["Enable Custom HP colors"] = "Enable Custom HP colors"

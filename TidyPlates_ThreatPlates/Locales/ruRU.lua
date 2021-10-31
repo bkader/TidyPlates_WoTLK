@@ -171,8 +171,9 @@ L["Enable Friendly Class Colors"] = "Включить цвета класса с
 L["Enable the showing of friendly player class color on hp bars."] = "Включает показ цветов класса на индикаторах союзников."
 L["Friendly Caching"] = "Кэшировать цвета класса союзников"
 L["This allows you to save friendly player class information between play sessions or nameplates going off the screen.|cffff0000(Uses more memory)"] = "Это позволяет сохранять информацию о цветах класса союзников между игровыми сессиями или когда индикаторы исчезают с экрана.|cffff0000(Uses more memory)"
-L["Name Only"] = "Name Only"
+L["Name Only"] = "Только имя"
 L["Show only names above friendly units."] = "Show only names above friendly units."
+L["Click Through"] = "Клик насквозь"
 ----
 L["Custom HP Color"] = "Свои цвета индикаторов"
 L["Enable Custom HP colors"] = "Включить свои цвета"

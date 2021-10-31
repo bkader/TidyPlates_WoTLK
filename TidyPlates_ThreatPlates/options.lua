@@ -183,7 +183,7 @@ Media:Register("font", "Accidental Presidency", [[Interface\Addons\TidyPlates_Th
 
 -- Functions
 local function GetSpellName(number)
-	return select(1, GetSpellInfo(number))
+	return (GetSpellInfo(number))
 end
 
 local function Update()
@@ -856,11 +856,23 @@ local function GetOptions()
 															name = L["Name Only"],
 															desc = L["Show only names above friendly units."],
 															descStyle = "inline",
+															order = 3,
 															type = "toggle",
 															width = "double",
 															get = GetValue,
 															set = SetValue,
 															arg = {"friendlyNameOnly"}
+														},
+														FriendlyClickThrough = {
+															name = L["Click Through"],
+															order = 4,
+															type = "toggle",
+															width = "double",
+															get = GetValue,
+															set = SetValue,
+															arg = {"friendlyClickThrough"},
+															hidden = function() return not db.friendlyNameOnly end,
+															disabled = function() return not db.friendlyNameOnly end
 														}
 													}
 												}

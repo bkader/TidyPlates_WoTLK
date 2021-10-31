@@ -4,9 +4,14 @@ local path = "Interface\\Addons\\TidyPlates_ThreatPlates\\Media\\Artwork\\"
 local f = CreateFrame("Frame")
 local function CreateStyle(self, event, ...)
 	if ... == "TidyPlates_ThreatPlates" then
-		local db = TidyPlatesThreat.db.profile.settings
+		local DB = TidyPlatesThreat.db.profile
+		local db = DB.settings
+
 		local width = db.healthbar.width or 120
 		local height = db.healthbar.height or 10
+		if DB.friendlyClickThrough then
+			width, height = 0.0001, 0.0001
+		end
 
 		config.hitbox = {
 			width = width * 1.0333,
@@ -109,7 +114,7 @@ local function CreateStyle(self, event, ...)
 			width = db.name.width,
 			height = db.name.height,
 			x = 0,
-			y = 5,
+			y = -5,
 			align = "CENTER",
 			anchor = "CENTER",
 			vertical = "CENTER",

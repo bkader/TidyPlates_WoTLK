@@ -150,6 +150,7 @@ function TidyPlatesThreat:OnInitialize()
 			allowClass = false,
 			friendlyClass = false,
 			friendlyNameOnly = false,
+			friendlyClickThrough = false,
 			friendlyClassIcon = false,
 			cacheClass = false,
 			castbarColor = {toggle = true, r = 1, g = 0.56, b = 0.06, a = 1},
@@ -735,6 +736,10 @@ function TidyPlatesThreat:OnInitialize()
 				x = 65,
 				y = 6,
 				anchor = "CENTER"
+			},
+			clickthrough = {
+				friendly = false,
+				enemy = false,
 			},
 			settings = {
 				frame = {

@@ -6,7 +6,7 @@ local path = "Interface\\Addons\\TidyPlates_ThreatPlates\\Widgets\\TotemIconWidg
 local L = TidyPlates.L
 
 local function TotemName(SpellID, suffix)
-	local name = (select(1, GetSpellInfo(SpellID)))
+	local name = GetSpellInfo(SpellID)
 	if suffix then name = name .. " "..suffix end
 	return name
 end
