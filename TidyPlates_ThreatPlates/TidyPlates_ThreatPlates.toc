@@ -7,8 +7,8 @@
 ## RequiredDeps: TidyPlates
 ## SavedVariables: ThreatPlatesDB
 ## Version: 5.6
-## OptionalDeps: LibSharedMedia-3.0
-## X-Date: 2021-10-10 @ 02:45 PM |cff808080UTC|r
+## OptionalDeps: LibSharedMedia-3.0, LibDualSpec-1.0
+## X-Date: 2021-11-30 @ 02:21 PM |cff808080UTC|r
 
 Libs\embeds.xml
 Locales\locales.xml

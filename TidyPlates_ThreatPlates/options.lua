@@ -1,5 +1,6 @@
 local TidyPlatesThreat = LibStub("AceAddon-3.0"):GetAddon("TidyPlatesThreat")
 local L = LibStub("AceLocale-3.0"):GetLocale("TidyPlatesThreat")
+local LDS = LibStub("LibDualSpec-1.0", true)
 local class = select(2, UnitClass("Player"))
 
 TidyPlatesThreat.title = GetAddOnMetadata("TidyPlates_ThreatPlates", "title") .. " v" .. GetAddOnMetadata("TidyPlates_ThreatPlates", "version")
@@ -5003,6 +5004,9 @@ function TidyPlatesThreat:SetUpOptions()
 
 	options.args.profiles = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
 	options.args.profiles.order = 10000
+
+	-- dual spec profiles
+	if LDS then LDS:EnhanceOptions(options.args.profiles, self.db) end
 
 	LibStub("AceConfig-3.0"):RegisterOptionsTable("Tidy Plates: Threat Plates", options)
 	LibStub("AceConfigDialog-3.0"):SetDefaultSize("Tidy Plates: Threat Plates", 750, 600)

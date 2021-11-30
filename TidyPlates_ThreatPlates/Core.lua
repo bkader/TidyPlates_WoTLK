@@ -1,5 +1,6 @@
 TidyPlatesThreat = LibStub("AceAddon-3.0"):NewAddon("TidyPlatesThreat", "AceConsole-3.0", "AceEvent-3.0")
 local L = LibStub("AceLocale-3.0"):GetLocale("TidyPlatesThreat", false)
+local LDS = LibStub("LibDualSpec-1.0", true)
 
 local PlayerClass = select(2, UnitClass("player"))
 local Active = function()
@@ -1006,6 +1007,9 @@ function TidyPlatesThreat:OnInitialize()
 	}
 	local db = LibStub("AceDB-3.0"):New("ThreatPlatesDB", defaults, "Default")
 	self.db = db
+
+	-- dual spec profiles
+	if LDS then LDS:EnhanceDatabase(self.db, "Tidy Plates: Threat Plates") end
 
 	local RegisterCallback = db.RegisterCallback
 
