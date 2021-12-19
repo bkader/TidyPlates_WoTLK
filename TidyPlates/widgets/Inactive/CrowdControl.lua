@@ -118,6 +118,7 @@ local RaidIconBit = {
 }
 
 local function CrowdControlEventHandler(frame, event, timestamp, combatevent, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, spellId, spellName, ...)
+	print("here", event, combatevent, sourceName, destName, spellId, spellName)
 	local CombatLogFunction = CombatLogEvents[combatevent]
 
 	if CombatLogFunction and (bit.band(destFlags, COMBATLOG_OBJECT_REACTION_HOSTILE) > 0) then
@@ -234,7 +235,7 @@ local function CreateCrowdControlWidget(parent)
 	frame.Icon:SetHeight(33)
 	frame.Icon:SetPoint("CENTER")
 	frame.Icon:SetTexture(testicon)
-	frame.Icon:SetTexCoord(.07, 1 - .07, .23, 1 - .23) -- obj:SetTexCoord(left,right,top,bottom)
+	frame.Icon:SetTexCoord(.07, 1 - .07, .23, 1 - .23)
 	-- Text
 	frame.TimeLeft = frame:CreateFontString(nil, "OVERLAY")
 	frame.TimeLeft:SetFont(font, 20, "OUTLINE")
@@ -262,8 +263,3 @@ end
 TidyPlatesWidgets.CreateCrowdControlWidget = CreateCrowdControlWidget
 TidyPlatesWidgets.EnableCrowdControlWatcher = Enable
 TidyPlatesWidgets.DisableCrowdControlWatcher = Disable
-
---[[
-http://www.wowpedia.org/Diminishing_returns
-http://www.wowpedia.org/Crowd_control
---]]

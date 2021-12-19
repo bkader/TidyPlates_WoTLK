@@ -43,7 +43,7 @@ local function CreateFauxPlate(plate)
 
 		--extended.text = CreateFrame("Frame", nil, healthbar)
 
-		health, cast, healthbar, castbar = bars.health, bars.cast, bars.healthbar, bars.castbar
+		local health, cast, healthbar, castbar = bars.health, bars.cast, bars.healthbar, bars.castbar
 		healthbar:SetFrameLevel(level)
 		castbar:Hide()
 		castbar:SetFrameLevel(level)

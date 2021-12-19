@@ -827,16 +827,8 @@ end
 local function OnInitializeWidgets(plate, configTable)
 	AddClassIcon(plate, (LocalVars.ClassEnemyIcon or LocalVars.ClassPartyIcon), configTable.ClassIcon)
 	AddTotemIcon(plate, LocalVars.WidgetsTotemIcon, configTable.TotemIcon)
-	AddThreatWheelWidget(
-		plate,
-		LocalVars.WidgetsThreatIndicator and (LocalVars.WidgetsThreatIndicatorMode == 2),
-		configTable.ThreatWheelWidget
-	)
-	AddThreatLineWidget(
-		plate,
-		LocalVars.WidgetsThreatIndicator and (LocalVars.WidgetsThreatIndicatorMode == 1),
-		configTable.ThreatLineWidget
-	)
+	AddThreatWheelWidget(plate, LocalVars.WidgetsThreatIndicator and (LocalVars.WidgetsThreatIndicatorMode == 2), configTable.ThreatWheelWidget)
+	AddThreatLineWidget(plate, LocalVars.WidgetsThreatIndicator and (LocalVars.WidgetsThreatIndicatorMode == 1), configTable.ThreatLineWidget)
 	AddComboPoints(plate, LocalVars.WidgetsComboPoints, configTable.ComboWidget)
 	AddRangeWidget(plate, LocalVars.WidgetsRangeIndicator, configTable.RangeWidget)
 	AddDebuffWidget(plate, LocalVars.WidgetsDebuff, configTable.DebuffWidget)

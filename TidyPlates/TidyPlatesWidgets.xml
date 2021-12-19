@@ -14,4 +14,11 @@
 <Script file="widgets\TotemIconWidget.lua"/>
 <Script file="widgets\SelectionWidget.lua"/>
 <Script file="widgets\UnitCache.lua"/>
+
+<!-- Inactive -->
+<!-- <Script file="widgets\Inactive\CrowdControl.lua"/> -->
+<!-- <Script file="widgets\Inactive\DetectHealer.lua"/> -->
+<!-- <Script file="widgets\Inactive\Encounter.lua"/> -->
+<!-- <Script file="widgets\Inactive\FauxPlate.lua"/> -->
+<!-- <Script file="widgets\Inactive\TargetOfTracker.lua"/> -->
 </Ui>

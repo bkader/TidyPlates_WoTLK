@@ -996,7 +996,7 @@ do
 		-- Create Statusbars
 		bars.healthbar = CreateTidyPlatesStatusbar(extended)
 		bars.castbar = CreateTidyPlatesStatusbar(extended)
-		health, cast, healthbar, castbar = bars.health, bars.cast, bars.healthbar, bars.castbar
+		local health, cast, healthbar, castbar = bars.health, bars.cast, bars.healthbar, bars.castbar
 		extended.parentPlate = plate
 		health.parentPlate = plate
 		cast.parentPlate = plate
