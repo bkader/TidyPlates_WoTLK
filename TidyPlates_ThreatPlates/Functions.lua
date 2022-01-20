@@ -5,7 +5,7 @@
 do
 	local function SetAlpha(unit)
 		local db = TidyPlatesThreat.db.profile
-		local T = TPTP_UnitType(unit)
+		local T, custom = TPTP_UnitType(unit)
 		local style = SetStyleThreatPlates(unit)
 		local nonTargetAlpha
 		if not unit.isTarget and db.blizzFade.toggle and UnitExists("target") then
@@ -15,7 +15,7 @@ do
 		end
 		if style == "unique" then
 			for k_c, k_v in pairs(db.uniqueSettings.list) do
-				if k_v == unit.name then
+				if k_v == unit.name or (custom and k_v == "GROUP") then
 					u = db.uniqueSettings[k_c]
 					if not u.overrideAlpha then
 						return (u.alpha + nonTargetAlpha), db.blizzFade.toggle
@@ -75,14 +75,16 @@ end
 do
 	local function TypeScale(unit)
 		local db = TidyPlatesThreat.db.profile.threat
-		local T = TPTP_UnitType(unit)
+		local T, custom = TPTP_UnitType(unit)
 		if db.useType then
 			if T == "Neutral" then
 				return db.scaleType["Normal"]
 			elseif T == "Normal" or T == "Elite" or T == "Boss" then
 				return db.scaleType[T]
 			elseif T == "Unique" then
-				if (unit.isDangerous and (unit.reaction == "FRIENDLY" or unit.reaction == "HOSTILE")) then
+				if custom then
+					return db.scaleType["Normal"]
+				elseif (unit.isDangerous and (unit.reaction == "FRIENDLY" or unit.reaction == "HOSTILE")) then
 					return db.scaleType["Boss"]
 				elseif (unit.isElite and not unit.isDangerous and (unit.reaction == "FRIENDLY" or unit.reaction == "HOSTILE")) then
 					return db.scaleType["Elite"]
@@ -99,18 +101,18 @@ do
 
 	local function SetScale(unit)
 		local db = TidyPlatesThreat.db.profile
-		local T = TPTP_UnitType(unit)
+		local T, custom = TPTP_UnitType(unit)
 		local style = SetStyleThreatPlates(unit)
 		if style == "unique" then
 			for k_c, k_v in pairs(db.uniqueSettings.list) do
-				if k_v == unit.name then
+				if k_v == unit.name or (custom and k_v == "GROUP") then
 					local u = db.uniqueSettings[k_c]
 					if not u.overrideScale then
 						return u.scale
 					elseif db.threat.ON and InCombatLockdown and db.threat.useScale and u.overrideScale then
 						if unit.isMarked and db.threat.marked.scale then
 							return (db.nameplate.scale["Marked"])
-						else
+						elseif not custom then
 							if TidyPlatesThreat.db.char.threat.tanking then
 								return (db.threat["tank"].scale[unit.threatSituation] + (TypeScale(unit)))
 							else
@@ -127,6 +129,7 @@ do
 						elseif unit.reaction == "NEUTRAL" then
 							return ((db.nameplate.scale["Neutral"]) or 1)
 						end
+					else
 					end
 				end
 			end
@@ -252,7 +255,19 @@ do
 
 	local function SetHealthbarColor(unit)
 		local db = TidyPlatesThreat.db.profile
-		local style = SetStyleThreatPlates(unit)
+		local style, custom = SetStyleThreatPlates(unit)
+
+		if custom == true then
+			for k_c, k_v in pairs(db.uniqueSettings.list) do
+				if k_v == "GROUP" then
+					if db.uniqueSettings[k_c].useColor == false and (db.uniqueSettings[k_c].allowMarked == false or not unit.isMarked) then
+						style = TidyPlatesThreat.db.char.threat.tanking and "tank" or "dps"
+					end
+					break
+				end
+			end
+		end
+
 		if style == "totem" or style == "etotem" then
 			if db.settings.raidicon.hpColor and unit.isMarked then
 				local R = db.settings.raidicon.hpMarked[unit.raidIcon]
@@ -268,7 +283,7 @@ do
 			end
 		elseif style == "unique" then
 			for k_c, k_v in pairs(db.uniqueSettings.list) do
-				if k_v == unit.name then
+				if k_v == unit.name or (custom and k_v == "GROUP") then
 					local u = db.uniqueSettings[k_c]
 					if u.useColor then
 						if u.allowMarked and unit.isMarked and db.settings.raidicon.hpColor then
@@ -307,7 +322,7 @@ do
 				end
 			end
 		elseif (((style == "tank") or (style == "dps")) and db.threat.useHPColor and InCombatLockdown()) then
-			if db.settings.raidicon.hpColor and unit.isMarked then
+			if db.settings.raidicon.hpColor and unit.isMarked and not custom then
 				local R = db.settings.raidicon.hpMarked[unit.raidIcon]
 				return R.r, R.g, R.b
 			else
@@ -315,7 +330,7 @@ do
 				return T.r, T.g, T.b
 			end
 		else
-			if db.settings.raidicon.hpColor and unit.isMarked then
+			if db.settings.raidicon.hpColor and unit.isMarked and not custom then
 				local R = db.settings.raidicon.hpMarked[unit.raidIcon]
 				return R.r, R.g, R.b
 			else

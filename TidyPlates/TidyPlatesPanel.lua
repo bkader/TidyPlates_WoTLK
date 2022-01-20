@@ -355,7 +355,7 @@ local function ActivateInterfacePanel()
 	InterfaceOptions_AddCategory(panel)
 end
 
-TidyPlatesInterfacePanel = panel
+-- TidyPlatesInterfacePanel = panel -- error: TidyPlatesInterfacePanel
 
 local function ApplyAutomationSettings()
 	SetSpellCastWatcher(TidyPlatesOptions.EnableCastWatcher)

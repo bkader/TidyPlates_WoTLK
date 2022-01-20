@@ -328,7 +328,7 @@ do
 			if activetheme.SetScale then
 				scale = activetheme.SetScale(unit)
 				if scale then
-					extended:SetScale(scale)
+					extended:SetScale(math.max(0.0001, scale))
 				end
 			end
 

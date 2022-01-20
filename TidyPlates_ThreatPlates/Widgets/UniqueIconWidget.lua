@@ -4,10 +4,12 @@
 local db
 local function UpdateUniqueIconWidget(self, unit)
 	db = TidyPlatesThreat.db.profile
+	local T, custom = TPTP_UnitType(unit)
+
 	if db.uniqueWidget.ON then
-		if tContains(db.uniqueSettings.list, unit.name) then
+		if tContains(db.uniqueSettings.list, unit.name) or (custom and tContains(db.uniqueSettings.list, "GROUP")) then
 			for k_c, k_v in pairs(db.uniqueSettings.list) do
-				if k_v == unit.name then
+				if k_v == unit.name or (custom and k_v == "GROUP") then
 					if db.uniqueSettings[k_c].icon and db.uniqueSettings[k_c].showIcon then
 						if tonumber(db.uniqueSettings[k_c].icon) == nil then
 							self.Icon:SetTexture(db.uniqueSettings[k_c].icon)

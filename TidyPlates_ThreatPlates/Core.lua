@@ -1,6 +1,7 @@
 TidyPlatesThreat = LibStub("AceAddon-3.0"):NewAddon("TidyPlatesThreat", "AceConsole-3.0", "AceEvent-3.0")
 local L = LibStub("AceLocale-3.0"):GetLocale("TidyPlatesThreat", false)
 local LDS = LibStub("LibDualSpec-1.0", true)
+local DB
 
 local PlayerClass = select(2, UnitClass("player"))
 local Active = function()
@@ -1020,54 +1021,87 @@ function TidyPlatesThreat:OnInitialize()
 	self:SetUpInitialOptions()
 end
 
+local UnitInGroup = TidyPlatesUtility.UnitInGroup
 local TotemNameFallback = TidyPlatesUtility.TotemNameFallback
 -- Unit Classification
 function TPTP_UnitType(unit)
-	local db = TidyPlatesThreat.db.profile
-	local unitRank
+	DB = DB or  TidyPlatesThreat.db.profile
 	local totem = TPtotemList[unit.name] or TPtotemList[TotemNameFallback(unit.name)]
-	local unique = tContains(db.uniqueSettings.list, unit.name)
+
+	-- a totem?
 	if totem then
-		unitRank = "Totem"
-	elseif unique then
-		for k_c, k_v in pairs(db.uniqueSettings.list) do
+		return "Totem"
+	end
+
+	-- a unique unit?
+	local unique = tContains(DB.uniqueSettings.list, unit.name)
+	if unique then
+		for k_c, k_v in pairs(DB.uniqueSettings.list) do
 			if k_v == unit.name then
-				if db.uniqueSettings[k_c].useStyle then
-					unitRank = "Unique"
+				if DB.uniqueSettings[k_c].useStyle then
+					return "Unique"
 				else
 					if (unit.isDangerous and (unit.reaction == "FRIENDLY" or unit.reaction == "HOSTILE")) then
-						unitRank = "Boss"
+						return "Boss"
 					elseif (unit.isElite and not unit.isDangerous and (unit.reaction == "FRIENDLY" or unit.reaction == "HOSTILE")) then
-						unitRank = "Elite"
+						return "Elite"
 					elseif (not unit.isElite and not unit.isDangerous and (unit.reaction == "FRIENDLY" or unit.reaction == "HOSTILE")) then
-						unitRank = "Normal"
+						return "Normal"
 					elseif unit.reaction == "NEUTRAL" then
-						unitRank = "Neutral"
+						return "Neutral"
 					end
 				end
 			end
 		end
-	elseif (unit.isDangerous and (unit.reaction == "FRIENDLY" or unit.reaction == "HOSTILE")) then
-		unitRank = "Boss"
-	elseif (unit.isElite and not unit.isDangerous and (unit.reaction == "FRIENDLY" or unit.reaction == "HOSTILE")) then
-		unitRank = "Elite"
-	elseif (not unit.isElite and not unit.isDangerous and (unit.reaction == "FRIENDLY" or unit.reaction == "HOSTILE")) then
-		unitRank = "Normal"
-	elseif unit.reaction == "NEUTRAL" then
-		unitRank = "Neutral"
-	else
-		unitRank = "Normal"
 	end
-	return unitRank
+
+	-- a group member with hidden nameplates?
+	if (tContains(DB.uniqueSettings.list, "GROUP") and unit.name and UnitInGroup(unit.name)) then
+		if TidyPlatesThreat.db.profile.friendlyNameOnly then
+			return "Normal", true
+		end
+		for k_c, k_v in pairs(DB.uniqueSettings.list) do
+			if k_v == "GROUP" then
+				if DB.uniqueSettings[k_c].useStyle then
+					return "Unique", true
+				else
+					return "Normal", true
+				end
+			end
+		end
+	end
+
+	-- aboss?
+	if (unit.isDangerous and (unit.reaction == "FRIENDLY" or unit.reaction == "HOSTILE")) then
+		return "Boss"
+	end
+
+	-- an elite?
+	if (unit.isElite and not unit.isDangerous and (unit.reaction == "FRIENDLY" or unit.reaction == "HOSTILE")) then
+		return "Elite"
+	end
+
+	-- just an oridinary unit?
+	if (not unit.isElite and not unit.isDangerous and (unit.reaction == "FRIENDLY" or unit.reaction == "HOSTILE")) then
+		return "Normal"
+	end
+
+	-- a neutral unit?
+	if unit.reaction == "NEUTRAL" then
+		return "Neutral"
+	end
+
+	-- well, fallback to normal.
+	return "Normal"
 end
 
 function SetStyleThreatPlates(unit)
-	local db = TidyPlatesThreat.db.profile
-	local T = TPTP_UnitType(unit)
+	DB = DB or  TidyPlatesThreat.db.profile
+	local T, custom = TPTP_UnitType(unit)
 	if T == "Totem" then
-		local tS = db.totemSettings[TPtotemList[unit.name] or TPtotemList[TotemNameFallback(unit.name)]]
+		local tS = DB.totemSettings[TPtotemList[unit.name] or TPtotemList[TotemNameFallback(unit.name)]]
 		if tS[1] then
-			if db.totemSettings.hideHealthbar then
+			if DB.totemSettings.hideHealthbar then
 				return "etotem"
 			else
 				return "totem"
@@ -1076,9 +1110,17 @@ function SetStyleThreatPlates(unit)
 			return "empty"
 		end
 	elseif T == "Unique" then
-		for k_c, k_v in pairs(db.uniqueSettings.list) do
-			if k_v == unit.name then
-				if db.uniqueSettings[k_c].showNameplate then
+		for k_c, k_v in pairs(DB.uniqueSettings.list) do
+			if custom and k_v == "GROUP" then
+				if TidyPlatesThreat.db.profile.friendlyNameOnly then
+					return "text"
+				elseif DB.uniqueSettings[k_c].showNameplate then
+					return "unique", true
+				else
+					return "empty", true
+				end
+			elseif k_v == unit.name then
+				if DB.uniqueSettings[k_c].showNameplate then
 					return "unique"
 				else
 					return "empty"
@@ -1087,9 +1129,9 @@ function SetStyleThreatPlates(unit)
 		end
 	elseif T then
 		if unit.reaction == "HOSTILE" or unit.reaction == "NEUTRAL" then
-			if db.nameplate.toggle[T] then
-				if db.threat.toggle[T] and db.threat.ON and unit.class == "UNKNOWN" and InCombatLockdown() then
-					if db.threat.nonCombat then
+			if DB.nameplate.toggle[T] then
+				if DB.threat.toggle[T] and DB.threat.ON and unit.class == "UNKNOWN" and InCombatLockdown() then
+					if DB.threat.nonCombat then
 						if unit.isInCombat or (unit.health < unit.healthmax) then
 							if TidyPlatesThreat.db.char.threat.tanking then
 								return "tank"
@@ -1097,7 +1139,7 @@ function SetStyleThreatPlates(unit)
 								return "dps"
 							end
 						else
-							if not db.threat.hideNonCombat then
+							if not DB.threat.hideNonCombat then
 								return "normal"
 							else
 								return "empty"
@@ -1119,7 +1161,7 @@ function SetStyleThreatPlates(unit)
 		elseif unit.reaction == "FRIENDLY" then
 			if TidyPlatesThreat.db.profile.friendlyNameOnly then
 				return "text"
-			elseif db.nameplate.toggle[T] then
+			elseif DB.nameplate.toggle[T] then
 				return "normal"
 			else
 				return "empty"

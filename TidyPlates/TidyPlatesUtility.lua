@@ -170,8 +170,13 @@ do
 		return prefix, min_member, max_member
 	end
 
+	local function UnitInGroup(unit)
+		return IsInRaid() and (UnitInRaid(unit) ~= nil) or (UnitInParty(unit) == 1)
+	end
+
 	TidyPlatesUtility.IsInRaid = IsInRaid
 	TidyPlatesUtility.IsInGroup = IsInGroup
+	TidyPlatesUtility.UnitInGroup = UnitInGroup
 	TidyPlatesUtility.GetGroupTypeAndCount = GetGroupTypeAndCount
 end
 

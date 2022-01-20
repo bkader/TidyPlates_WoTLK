@@ -21,6 +21,7 @@ exclude_files = {
 
 ignore = {
 	"11./SLASH_.*", -- Setting an undefined (Slash handler) global variable
+	"13./SLASH_.*", -- unused global variable 'SLASH_*'
 	"11./BINDING_.*", -- Setting an undefined (Keybinding header) global variable
 	"11./TidyPlates.*", -- Setting an undefined (TidyPlates) global variable
 	"113/LE_.*", -- Accessing an undefined (Lua ENUM type) global variable
@@ -64,6 +65,7 @@ globals = {
 	"Transcriptor",
 	"KuiNameplates",
 	"TidyPlatesThreatDBM",
+	"TPtotemList",
 	"Plater",
 	"DBT_AllPersistentOptions",
 	"DBT_PersistentOptions",

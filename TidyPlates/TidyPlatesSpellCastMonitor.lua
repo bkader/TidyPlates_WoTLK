@@ -144,7 +144,7 @@ TidyPlates.StopSpellCastWatcher = StopSpellCastWatcher
 
 -- The spell ID number of Fireball is 133
 -- To test spell cast: /run TestTidyPlatesCastBar("Boognish", 133, true)
-function TestTidyPlatesCastBar(SearchFor, SpellID, Shielded, ForceChanneled)
+function TidyPlates.TestCastBar(SearchFor, SpellID, Shielded, ForceChanneled)
 	local FoundPlate
 	local currentTime = GetTime()
 	local spell, _, icon, _, _, _, castTime, _, _ = GetSpellInfo(SpellID)
