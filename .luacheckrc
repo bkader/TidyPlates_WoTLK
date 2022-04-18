@@ -16,7 +16,8 @@ exclude_files = {
 	"./.lua",
 	"./.luarocks",
 	"**/Libs/**/*.lua",
-	".luacheckrc"
+	".luacheckrc",
+    "_dev/*",
 }
 
 ignore = {
@@ -65,6 +66,9 @@ globals = {
 	"Transcriptor",
 	"KuiNameplates",
 	"TidyPlatesThreatDBM",
+	"ShowTidyPlatesHubDamagePanel",
+	"ShowTidyPlatesHubTankPanel",
+	"CreateTidyPlatesStatusbar",
 	"TPtotemList",
 	"Plater",
 	"DBT_AllPersistentOptions",

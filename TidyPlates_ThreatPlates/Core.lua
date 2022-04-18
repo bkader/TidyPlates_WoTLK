@@ -1233,10 +1233,13 @@ function TidyPlatesThreat:StartUp()
 			StaticPopup_Show("SetToThreatPlates")
 		end
 		if
-			PlayerClass == "SHAMAN" or PlayerClass == "MAGE" or PlayerClass == "HUNTER" or PlayerClass == "ROGUE" or
-				PlayerClass == "PRIEST" or
-				PlayerClass == "WARLOCK"
-		 then
+			PlayerClass == "SHAMAN" or
+			PlayerClass == "MAGE" or
+			PlayerClass == "HUNTER" or
+			PlayerClass == "ROGUE" or
+			PlayerClass == "PRIEST" or
+			PlayerClass == "WARLOCK"
+		then
 			if TidyPlatesThreat.db.profile.verbose then
 				print(NotTank)
 			end

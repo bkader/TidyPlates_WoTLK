@@ -65,7 +65,7 @@ local function OnSpellCast(...)
 	-- Gather Spell Info
 	local spell, _, icon, castTime
 	spell, _, icon, _, _, _, castTime, _, _ = GetSpellInfo(spellid)
-	if not (castTime > 0) then
+	if castTime <= 0 then
 		return
 	end
 

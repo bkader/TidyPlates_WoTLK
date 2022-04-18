@@ -181,6 +181,7 @@ local function OnMouseWheelScrollFrame(frame, value, name)
 end
 
 TidyPlatesHubRapidPanel = {}
+TidyPlatesHubRapidPanel.QuickSetPoints = QuickSetPoints
 TidyPlatesHubRapidPanel.CreateQuickSlider = CreateQuickSlider
 TidyPlatesHubRapidPanel.CreateQuickCheckbutton = CreateQuickCheckbutton
 TidyPlatesHubRapidPanel.SetSliderMechanics = SetSliderMechanics

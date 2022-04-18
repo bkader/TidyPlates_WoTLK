@@ -3718,8 +3718,13 @@ local function GetOptions()
 												return TableToString(list)
 											end,
 											set = function(info, v)
-												local table = {strsplit("\n", v)}
-												db.debuffWidget.filter = table
+												v = v:trim()
+												if v == "" then
+													wipe(db.debuffWidget.filter)
+												else
+													local tbl = {strsplit("\n", v)}
+													db.debuffWidget.filter = tbl
+												end
 											end
 										}
 									}

@@ -3,7 +3,11 @@
 ----------------------------------
 local PrefixList = {
 	["ALL"] = 1,
+	["All"] = 1,
+	["all"] = 1,
 	["MY"] = 2,
+	["My"] = 2,
+	["my"] = 2,
 	["NO"] = 3,
 	["CC"] = 4,
 	["OTHER"] = 5
@@ -58,7 +62,7 @@ local function ConvertStringToTable(source, target)
 	target = wipe(target)
 
 	for index = 1, #source do
-		local str = source[index]
+		local str = temp[index]
 		if str then
 			target[str] = true
 		end
@@ -96,6 +100,7 @@ local function ConvertDebuffListTable(source, target, order)
 end
 
 TidyPlatesHubHelpers = {}
+TidyPlatesHubHelpers.PrefixList = PrefixList
 TidyPlatesHubHelpers.CallForStyleUpdate = CallForStyleUpdate
 TidyPlatesHubHelpers.GetPanelValues = GetPanelValues
 TidyPlatesHubHelpers.SetPanelValues = SetPanelValues

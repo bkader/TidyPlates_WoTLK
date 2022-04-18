@@ -432,8 +432,7 @@ local function CombatEventHandler(frame, event, ...)
 	end
 
 	-- Combat Log Unfiltered
-	local timestamp, combatevent, sourceGUID, destGUID, destName, destFlags, destRaidFlag, auraType, spellid, stackCount =
-		GetCombatEventResults(...)
+	local timestamp, combatevent, sourceGUID, destGUID, destName, destFlags, destRaidFlag, auraType, spellid, stackCount = GetCombatEventResults(...)
 
 	-- Evaluate only for enemy units, for now
 	if (bit.band(destFlags, COMBATLOG_OBJECT_REACTION_FRIENDLY) == 0) then -- FILTER: ENEMY UNIT

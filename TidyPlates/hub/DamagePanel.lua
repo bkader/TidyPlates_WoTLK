@@ -82,103 +82,14 @@ local TidyPlatesHubDamageDefaults = CopyTable(TidyPlatesHubDamageVariables)
 ---------------
 -- Helpers
 ---------------
-local function CallForStyleUpdate()
-	for name, theme in pairs(TidyPlatesThemeList) do
-		if theme.OnApplyThemeCustomization then
-			theme.OnApplyThemeCustomization()
-		end
-	end
-end
-
-local function GetPanelValues(panel, targetTable, cloneTable)
-	for index in pairs(targetTable) do
-		if panel[index] then
-			targetTable[index] = panel[index]:GetValue()
-			cloneTable[index] = targetTable[index]
-		end
-	end
-end
-
-local function SetPanelValues(panel, sourceTable)
-	for index, value in pairs(sourceTable) do
-		if panel[index] then
-			panel[index]:SetValue(value)
-		end
-	end
-end
-
-local function GetSavedVariables(targetTable, cloneTable)
-	for i, v in pairs(targetTable) do
-		if cloneTable[i] ~= nil then
-			targetTable[i] = cloneTable[i]
-		end
-	end
-end
-
-local function ListToTable(...)
-	local t = {}
-	for index = 1, select("#", ...) do
-		local line = select(index, ...)
-		if line ~= "" then
-			t[index] = line
-		end
-	end
-	return t
-end
-
-local function ConvertStringToTable(source, target)
-	local temp = ListToTable(strsplit("\n", source))
-	target = wipe(target)
-
-	for index = 1, #source do
-		local str = temp[index]
-		if str then
-			target[str] = true
-		end
-	end
-end
-
-local PrefixList = {
-	["ALL"] = 1,
-	["All"] = 1,
-	["all"] = 1,
-	["MY"] = 2,
-	["My"] = 2,
-	["my"] = 2,
-	["NO"] = 3,
-	["CC"] = 4,
-	["OTHER"] = 5
-}
-
-local function ConvertDebuffListTable(source, target, order)
-	local temp = ListToTable(strsplit("\n", source))
-	target = wipe(target)
-	if order then
-		order = wipe(order)
-	end
-
-	for index = 1, #temp do
-		local str = temp[index]
-		local item
-		local _, _, prefix, suffix = string.find(str, "(%w+)[%s%p]*(.*)")
-		if prefix then
-			if PrefixList[prefix] then
-				item = suffix
-				target[item] = PrefixList[prefix]
-			else -- If no prefix is listed, assume 1
-				if suffix and suffix ~= "" then
-					item = prefix .. " " .. suffix
-				else
-					item = prefix
-				end
-				target[item] = 1
-			end
-			if order then
-				order[item] = index
-			end
-		end
-	end
-end
+local TidyPlatesHubHelpers = TidyPlatesHubHelpers
+local CallForStyleUpdate = TidyPlatesHubHelpers.CallForStyleUpdate
+local GetPanelValues = TidyPlatesHubHelpers.GetPanelValues
+local SetPanelValues = TidyPlatesHubHelpers.SetPanelValues
+local GetSavedVariables = TidyPlatesHubHelpers.GetSavedVariables
+local ListToTable = TidyPlatesHubHelpers.ListToTable
+local ConvertStringToTable = TidyPlatesHubHelpers.ConvertStringToTable
+local ConvertDebuffListTable = TidyPlatesHubHelpers.ConvertDebuffListTable
 
 ------------------------------------------------
 -- Rapid Panel Functions
@@ -197,20 +108,12 @@ local function OnPanelItemChange()
 	)
 end
 
-local function QuickSetPoints(frame, columnFrame, neighborFrame, xOffset, yOffset)
-	local TopOffset = frame.Margins.Top + (yOffset or 0)
-	local LeftOffset = frame.Margins.Left + (xOffset or 0)
-	frame:ClearAllPoints()
-	if neighborFrame then
-		if neighborFrame.Margins then
-			TopOffset = neighborFrame.Margins.Bottom + TopOffset + (yOffset or 0)
-		end
-		frame:SetPoint("TOP", neighborFrame, "BOTTOM", -(neighborFrame:GetWidth() / 2), -TopOffset)
-	else
-		frame:SetPoint("TOP", columnFrame, "TOP", 0, -TopOffset)
-	end
-	frame:SetPoint("LEFT", columnFrame, "LEFT", LeftOffset, 0)
-end
+local TidyPlatesHubRapidPanel = TidyPlatesHubRapidPanel
+local QuickSetPoints = TidyPlatesHubRapidPanel.QuickSetPoints
+local SetSliderMechanics = TidyPlatesHubRapidPanel.SetSliderMechanics
+local CreateQuickHeadingLabel = TidyPlatesHubRapidPanel.CreateQuickHeadingLabel
+local CreateQuickItemLabel = TidyPlatesHubRapidPanel.CreateQuickItemLabel
+local OnMouseWheelScrollFrame = TidyPlatesHubRapidPanel.OnMouseWheelScrollFrame
 
 local function CreateQuickSlider(name, label, ...) --, neighborFrame, xOffset, yOffset)
 	local columnFrame = ...
@@ -233,12 +136,6 @@ local function CreateQuickCheckbutton(name, label, ...)
 	-- Set Feedback Function
 	frame:SetScript("OnClick", function() OnPanelItemChange() end)
 	return frame
-end
-
-local function SetSliderMechanics(slider, value, minimum, maximum, increment)
-	slider:SetMinMaxValues(minimum, maximum)
-	slider:SetValueStep(increment)
-	slider:SetValue(value)
 end
 
 local function CreateQuickEditbox(name, ...)
@@ -319,56 +216,6 @@ local function CreateQuickDropdown(name, label, dropdownTable, initialValue, ...
 	-- Set Feedback Function
 	frame.OnValueChanged = OnPanelItemChange
 	return frame
-end
-
-local function CreateQuickHeadingLabel(name, label, ...)
-	local columnFrame = ...
-	local frame = CreateFrame("Frame", name, columnFrame)
-	frame:SetHeight(20)
-	frame:SetWidth(500)
-	frame.Text = frame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-	frame.Text:SetFont(font, 22)
-	frame.Text:SetTextColor(255 / 255, 105 / 255, 6 / 255)
-	frame.Text:SetAllPoints()
-	frame.Text:SetText(label)
-	frame.Text:SetJustifyH("LEFT")
-	frame.Text:SetJustifyV("BOTTOM")
-	-- Margins	-- Bottom/Left are supposed to be negative
-	frame.Margins = {Left = 6, Right = 2, Top = 2, Bottom = 2}
-	-- Set Positions
-	QuickSetPoints(frame, ...)
-	return frame
-end
-
-local function CreateQuickItemLabel(name, label, ...)
-	local columnFrame = ...
-	local frame = CreateFrame("Frame", name, columnFrame)
-	frame:SetHeight(15)
-	frame:SetWidth(500)
-	frame.Text = frame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-	frame.Text:SetAllPoints()
-	frame.Text:SetText(label)
-	frame.Text:SetJustifyH("LEFT")
-	frame.Text:SetJustifyV("BOTTOM")
-	-- Margins	-- Bottom/Left are supposed to be negative
-	frame.Margins = {Left = 6, Right = 2, Top = 2, Bottom = 2}
-	-- Set Positions
-	QuickSetPoints(frame, ...)
-	return frame
-end
-
-local function OnMouseWheelScrollFrame(frame, value, name)
-	local scrollbar = _G[frame:GetName() .. "ScrollBar"]
-	local currentPosition = scrollbar:GetValue()
-	local increment = 50
-
-	-- Spin Up
-	if (value > 0) then
-		-- Spin Down
-		scrollbar:SetValue(currentPosition - increment)
-	else
-		scrollbar:SetValue(currentPosition + increment)
-	end
 end
 
 ------------------------------------------------------------------
