@@ -103,6 +103,7 @@ L["White List (Mine)"] = true
 L["Black List (Mine)"] = true
 L["All Debuffs"] = true
 L["All Debuffs (Mine)"] = true
+L["By Prefix"] = true
 
 -- Tab Titles
 L["Nameplate Settings"] = true

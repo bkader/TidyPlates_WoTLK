@@ -36,7 +36,8 @@ local DebuffMode = {
 	["whitelistMine"] = L["White List (Mine)"],
 	["blacklistMine"] = L["Black List (Mine)"],
 	["all"] = L["All Debuffs"],
-	["allMine"] = L["All Debuffs (Mine)"]
+	["allMine"] = L["All Debuffs (Mine)"],
+	["prefix"] = L["By Prefix"],
 }
 local totemID = {
 	[1] = {8177, "A1", "b8d1ff"},

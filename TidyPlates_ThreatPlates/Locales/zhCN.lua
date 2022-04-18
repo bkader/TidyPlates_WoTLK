@@ -103,6 +103,7 @@ L["White List (Mine)"] = "白名单（个人）"
 L["Black List (Mine)"] = "黑名单（个人）"
 L["All Debuffs"] = "全部Debuff"
 L["All Debuffs (Mine)"] = "全部Debuff（个人）"
+L["By Prefix"] = "根据前缀…"
 
 -- Tab Titles
 L["Nameplate Settings"] = "姓名板设置"

@@ -1,6 +1,5 @@
 TidyPlatesWidgets.DebuffWidgetBuild = 2
 
-local PlayerGUID = UnitGUID("player")
 local PolledHideIn = TidyPlatesWidgets.PolledHideIn
 local AuraMonitor = CreateFrame("Frame")
 local WidgetList, WidgetGUID = {}, {}
@@ -346,7 +345,7 @@ end
 local function CombatLog_ApplyAura(...)
 	local timestamp, sourceGUID, destGUID, destName, spellid = ...
 	local duration = GetSpellDuration(spellid)
-	local texture = select(3, GetSpellInfo(spellid))
+	local _, _, texture = GetSpellInfo(spellid)
 	SetAuraInstance(destGUID, spellid, GetTime() + (duration or 0), 1, sourceGUID, duration, texture, AURA_TYPE_DEBUFF, AURA_TARGET_HOSTILE)
 end
 
@@ -358,7 +357,7 @@ end
 local function CombatLog_UpdateAuraStacks(...)
 	local timestamp, sourceGUID, destGUID, destName, spellid, stackCount = ...
 	local duration = GetSpellDuration(spellid)
-	local texture = select(3, GetSpellInfo(spellid))
+	local _, _, texture = GetSpellInfo(spellid)
 	SetAuraInstance(destGUID, spellid, GetTime() + (duration or 0), stackCount, sourceGUID, duration, texture, AURA_TYPE_DEBUFF, AURA_TARGET_HOSTILE)
 end
 

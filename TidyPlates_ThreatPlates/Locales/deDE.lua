@@ -103,6 +103,7 @@ L["White List (Mine)"] = "White-List (eigene)"
 L["Black List (Mine)"] = "Black-List (eigene)"
 L["All Debuffs"] = "Alle Debuffs"
 L["All Debuffs (Mine)"] = "Alle Debuffs (eigene)"
+-- L["By Prefix"] = ""
 
 -- Tab Titles
 L["Nameplate Settings"] = "Einstellungen Namensplaketten"

@@ -105,6 +105,7 @@ L["White List (Mine)"] = "Белый список (Мой)"
 L["Black List (Mine)"] = "Черный список (Мой)"
 L["All Debuffs"] = "Все дебафы"
 L["All Debuffs (Mine)"] = "Все дебафы (Мои)"
+-- L["By Prefix"] = ""
 
 -- Tab Titles
 L["Nameplate Settings"] = "Настройка неймплейтов"

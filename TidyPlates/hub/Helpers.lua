@@ -9,8 +9,13 @@ local PrefixList = {
 	["My"] = 2,
 	["my"] = 2,
 	["NO"] = 3,
+	["No"] = 3,
+	["no"] = 3,
 	["CC"] = 4,
-	["OTHER"] = 5
+	["cc"] = 4,
+	["OTHER"] = 5,
+	["Other"] = 5,
+	["other"] = 5
 }
 
 local function CallForStyleUpdate()
