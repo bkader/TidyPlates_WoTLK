@@ -1,3 +1,5 @@
+local TidyPlatesThreat = TidyPlatesThreat
+
 -------------------------------------------------------------------------------
 -- 1. alpha.lua
 --
@@ -5,8 +7,8 @@
 do
 	local function SetAlpha(unit)
 		local db = TidyPlatesThreat.db.profile
-		local T, custom = TPTP_UnitType(unit)
-		local style = SetStyleThreatPlates(unit)
+		local T, custom = TidyPlatesThreat.UnitType(unit)
+		local style = TidyPlatesThreat.SetStyle(unit)
 		local nonTargetAlpha
 		if not unit.isTarget and db.blizzFade.toggle and UnitExists("target") then
 			nonTargetAlpha = db.blizzFade.amount
@@ -75,7 +77,7 @@ end
 do
 	local function TypeScale(unit)
 		local db = TidyPlatesThreat.db.profile.threat
-		local T, custom = TPTP_UnitType(unit)
+		local T, custom = TidyPlatesThreat.UnitType(unit)
 		if db.useType then
 			if T == "Neutral" then
 				return db.scaleType["Normal"]
@@ -101,8 +103,8 @@ do
 
 	local function SetScale(unit)
 		local db = TidyPlatesThreat.db.profile
-		local T, custom = TPTP_UnitType(unit)
-		local style = SetStyleThreatPlates(unit)
+		local T, custom = TidyPlatesThreat.UnitType(unit)
+		local style = TidyPlatesThreat.SetStyle(unit)
 		if style == "unique" then
 			for k_c, k_v in pairs(db.uniqueSettings.list) do
 				if k_v == unit.name or (custom and k_v == "GROUP") then
@@ -255,7 +257,7 @@ do
 
 	local function SetHealthbarColor(unit)
 		local db = TidyPlatesThreat.db.profile
-		local style, custom = SetStyleThreatPlates(unit)
+		local style, custom = TidyPlatesThreat.SetStyle(unit)
 
 		if custom == true then
 			for k_c, k_v in pairs(db.uniqueSettings.list) do
@@ -482,7 +484,7 @@ end
 
 do
 	local function SetThreatColor(unit)
-		local style = SetStyleThreatPlates(unit)
+		local style = TidyPlatesThreat.SetStyle(unit)
 		local color = {r = "0", g = "0", b = "0", a = "0"}
 		if style == "dps" or style == "tank" or style == "normal" and InCombatLockdown() then
 			color = TidyPlatesThreat.db.profile.settings[style]["threatcolor"][unit.threatSituation]

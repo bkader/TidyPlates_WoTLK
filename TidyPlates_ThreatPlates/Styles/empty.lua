@@ -1,4 +1,6 @@
-local Media = LibStub("LibSharedMedia-3.0")
+local TidyPlatesUtility = TidyPlatesUtility
+local MediaFetch = TidyPlatesUtility.MediaFetch
+
 local config = {}
 local path = "Interface\\Addons\\TidyPlates_ThreatPlates\\Media\\Artwork\\"
 local f = CreateFrame("Frame")
@@ -80,7 +82,7 @@ local function CreateStyle(self, event, ...)
 		-- TEXT
 
 		config.name = {
-			typeface = Media:Fetch("font", db.name.typeface),
+			typeface = MediaFetch("font", db.name.typeface),
 			size = db.name.size,
 			width = db.name.width,
 			height = db.name.height,
@@ -93,7 +95,7 @@ local function CreateStyle(self, event, ...)
 			show = false
 		}
 		config.level = {
-			typeface = Media:Fetch("font", db.level.typeface),
+			typeface = MediaFetch("font", db.level.typeface),
 			size = db.level.size,
 			width = db.level.width,
 			height = db.level.height,
@@ -106,7 +108,7 @@ local function CreateStyle(self, event, ...)
 			show = false
 		}
 		config.customtext = {
-			typeface = Media:Fetch("font", db.customtext.typeface),
+			typeface = MediaFetch("font", db.customtext.typeface),
 			size = db.customtext.size,
 			width = db.customtext.width,
 			height = db.customtext.height,
@@ -119,7 +121,7 @@ local function CreateStyle(self, event, ...)
 			show = false
 		}
 		config.spelltext = {
-			typeface = Media:Fetch("font", db.spelltext.typeface),
+			typeface = MediaFetch("font", db.spelltext.typeface),
 			size = db.spelltext.size,
 			width = db.spelltext.width,
 			height = db.spelltext.height,

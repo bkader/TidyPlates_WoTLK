@@ -1,6 +1,7 @@
 -------==------------
 -- Threat Widget --
 -------------------
+local TidyPlatesThreat = TidyPlatesThreat
 local path = "Interface\\AddOns\\TidyPlates_ThreatPlates\\Widgets\\ThreatWidget\\"
 local db
 
@@ -8,7 +9,7 @@ local db
 local function UpdateThreatWidget(frame, unit)
 	db = db or TidyPlatesThreat.db.profile
 	local threatLevel
-	local style = SetStyleThreatPlates(unit)
+	local style = TidyPlatesThreat.SetStyle(unit)
 	if TidyPlatesThreat.db.char.threat.tanking then
 		threatLevel = unit.threatSituation
 	else

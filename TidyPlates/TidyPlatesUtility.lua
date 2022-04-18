@@ -519,3 +519,26 @@ do
 
 	TidyPlatesUtility.CallIn = CallIn
 end
+
+-------------------------------------------------------------------------------------
+--  ShareMedia
+-------------------------------------------------------------------------------------
+do
+	local LSM = LibStub("LibSharedMedia-3.0")
+
+	local function MediaFetch(mediatype, key, default)
+		return (key and LSM:Fetch(mediatype, key)) or (default and LSM:Fetch(mediatype, default)) or default
+	end
+
+	local function MediaList(mediatype)
+		return LSM:HashTable(mediatype)
+	end
+
+	local function MediaRegister(mediatype, key, path)
+		return LSM:Register(mediatype, key, path)
+	end
+
+	TidyPlatesUtility.MediaFetch = MediaFetch
+	TidyPlatesUtility.MediaList = MediaList
+	TidyPlatesUtility.MediaRegister = MediaRegister
+end

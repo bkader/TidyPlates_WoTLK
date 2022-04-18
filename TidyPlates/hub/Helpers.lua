@@ -90,10 +90,9 @@ local function ConvertDebuffListTable(source, target, order)
 				item = suffix
 				target[item] = PrefixList[prefix]
 			else -- If no prefix is listed, assume 1
+				item = prefix
 				if suffix and suffix ~= "" then
-					item = prefix .. " " .. suffix
-				else
-					item = prefix
+					item = item .. " " .. suffix
 				end
 				target[item] = 1
 			end

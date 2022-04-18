@@ -107,11 +107,6 @@ end
 -- Watch Combat Log Events
 --------------------------------------
 
-local function GetCombatEventResults(...)
-	local _, combatevent, sourceGUID, sourceName, sourceFlags, _, _, _, spellid, spellname = ...
-	return combatevent, sourceGUID, sourceName, sourceFlags, sourceFlags, spellid, spellname
-end
-
 local function OnCombatEvent(self, event, ...)
 	local _, combatevent, sourceGUID, sourceName, sourceFlags, _, _, _, spellid, spellname = ...
 	if CombatEventHandlers[combatevent] and sourceGUID ~= UnitGUID("target") and spellid then

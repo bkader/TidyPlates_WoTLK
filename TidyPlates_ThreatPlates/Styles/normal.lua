@@ -1,4 +1,6 @@
-local Media = LibStub("LibSharedMedia-3.0")
+local TidyPlatesUtility = TidyPlatesUtility
+local MediaFetch = TidyPlatesUtility.MediaFetch
+
 local config = {}
 local path = "Interface\\Addons\\TidyPlates_ThreatPlates\\Media\\Artwork\\"
 local f = CreateFrame("Frame")
@@ -76,7 +78,7 @@ local function CreateStyle(self, event, ...)
 		}
 		-- Bar Textures
 		config.healthbar = {
-			texture = Media:Fetch("statusbar", db.healthbar.texture),
+			texture = MediaFetch("statusbar", db.healthbar.texture),
 			backdrop = [[Interface\Buttons\WHITE8X8]],
 			backdropcolor = {0, 0, 0, 0.5},
 			width = db.healthbar.width or 120,
@@ -87,7 +89,7 @@ local function CreateStyle(self, event, ...)
 			orientation = "HORIZONTAL"
 		}
 		config.castbar = {
-			texture = Media:Fetch("statusbar", db.castbar.texture),
+			texture = MediaFetch("statusbar", db.castbar.texture),
 			width = db.healthbar.width or 120,
 			height = 10,
 			x = db.castbar.x,
@@ -98,7 +100,7 @@ local function CreateStyle(self, event, ...)
 		-- TEXT
 
 		config.name = {
-			typeface = Media:Fetch("font", db.name.typeface),
+			typeface = MediaFetch("font", db.name.typeface),
 			size = db.name.size,
 			width = db.name.width,
 			height = db.name.height,
@@ -112,7 +114,7 @@ local function CreateStyle(self, event, ...)
 			show = db.name.show
 		}
 		config.level = {
-			typeface = Media:Fetch("font", db.level.typeface),
+			typeface = MediaFetch("font", db.level.typeface),
 			size = db.level.size,
 			width = db.level.width,
 			height = db.level.height,
@@ -126,7 +128,7 @@ local function CreateStyle(self, event, ...)
 			show = db.level.show
 		}
 		config.customtext = {
-			typeface = Media:Fetch("font", db.customtext.typeface),
+			typeface = MediaFetch("font", db.customtext.typeface),
 			size = db.customtext.size,
 			width = db.customtext.width,
 			height = db.customtext.height,
@@ -140,7 +142,7 @@ local function CreateStyle(self, event, ...)
 			show = db.customtext.show
 		}
 		config.spelltext = {
-			typeface = Media:Fetch("font", db.spelltext.typeface),
+			typeface = MediaFetch("font", db.spelltext.typeface),
 			size = db.spelltext.size,
 			width = db.spelltext.width,
 			height = db.spelltext.height,

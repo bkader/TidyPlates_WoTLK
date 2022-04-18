@@ -1,6 +1,7 @@
 -----------------------
 -- Target Art Widget --
 -----------------------
+local TidyPlatesThreat = TidyPlatesThreat
 local path = "Interface\\AddOns\\TidyPlates_ThreatPlates\\Widgets\\TargetArtWidget\\"
 local db
 
@@ -9,7 +10,7 @@ local function UpdateTargetFrameArt(frame, unit)
 	db = TidyPlatesThreat.db.profile
 
 	local t = db.targetWidget
-	if t.ON and UnitExists("target") and unit.isTarget and SetStyleThreatPlates(unit) ~= "etotem" then
+	if t.ON and UnitExists("target") and unit.isTarget and TidyPlatesThreat.SetStyle(unit) ~= "etotem" then
 		if db.friendlyNameOnly and unit.reaction == "FRIENDLY" then
 			frame.IconLeft:Hide()
 			frame.IconRight:Hide()

@@ -1,215 +1,105 @@
 -- Set Global Table
 ThreatPlatesWidgets = ThreatPlatesWidgets or {}
-local Media = LibStub("LibSharedMedia-3.0")
 local db
+local _
 
-local PlayerGUID = UnitGUID("player")
 TidyPlatesUtility:EnableGroupWatcher()
 TidyPlatesWidgets:EnableAuraWatcher()
 TidyPlatesWidgets:EnableTankWatch()
 
-local ParseDebuffString
-do
-	local PrefixList = TidyPlatesHubHelpers.PrefixList
+local TidyPlatesHubFunctions = TidyPlatesHubFunctions
+local DebuffPrefixModes = TidyPlatesHubFunctions.DebuffPrefixModes
 
-	local FilterFuncs = {}
+local TidyPlatesHubHelpers = TidyPlatesHubHelpers
+local PrefixList = TidyPlatesHubHelpers.PrefixList
 
-	FilterFuncs[1] = function(debuff)
-		return (debuff.duration < 600)
-	end -- ALL
+local PlayerGUID = UnitGUID("player")
+local DebuffFilterModes = {}
 
-	FilterFuncs[2] = function(debuff)
-		PlayerGUID = PlayerGUID or UnitGUID("player") -- just in case
-		return (debuff.duration < 600 and debuff.caster == PlayerGUID)
-	end -- MY
+-- All
+DebuffFilterModes.all = function(debuff, list) return true end
 
-	FilterFuncs[3] = function(debuff)
-		return false
-	end -- NONE
+-- All mine
+DebuffFilterModes.allMine = function(debuff, list) return (debuff.caster == PlayerGUID) end
 
-	do
-		local GetSpellInfo = GetSpellInfo
-		local ccSpellsTable = {
-			-- general
-			[GetSpellInfo(118)] = true, -- Polymorph
-			[GetSpellInfo(3355)] = true, -- Freezing Trap Effect
-			[GetSpellInfo(6770)] = true, -- Sap
-			[GetSpellInfo(6358)] = true, -- Seduction (succubus)
-			[GetSpellInfo(60210)] = true, -- Freezing Arrow
-			[GetSpellInfo(45524)] = true, -- Chains of Ice
-			[GetSpellInfo(33786)] = true, -- Cyclone
-			[GetSpellInfo(53308)] = true, -- Entangling Roots
-			[GetSpellInfo(2637)] = true, -- Hibernate
-			[GetSpellInfo(20066)] = true, -- Repentance
-			[GetSpellInfo(9484)] = true, -- Shackle Undead
-			[GetSpellInfo(51722)] = true, -- Dismantle
-			[GetSpellInfo(710)] = true, -- Banish
-			[GetSpellInfo(12809)] = true, -- Concussion Blow
-			[GetSpellInfo(676)] = true, -- Disarm
-			-- Death Knight
-			[GetSpellInfo(47476)] = true, -- Strangulate
-			[GetSpellInfo(49203)] = true, -- Hungering Cold
-			[GetSpellInfo(47481)] = true, -- Gnaw
-			[GetSpellInfo(49560)] = true, -- Death Grip
-			-- Druid
-			[GetSpellInfo(339)] = true, -- Entangling Roots
-			[GetSpellInfo(8983)] = true, -- Bash
-			[GetSpellInfo(16979)] = true, -- Feral Charge - Bear
-			[GetSpellInfo(45334)] = true, -- Feral Charge Effect
-			[GetSpellInfo(22570)] = true, -- Maim
-			[GetSpellInfo(49803)] = true, -- Pounce
-			-- Hunter
-			[GetSpellInfo(5116)] = true, -- Concussive Shot
-			[GetSpellInfo(19503)] = true, -- Scatter Shot
-			[GetSpellInfo(19386)] = true, -- Wyvern Sting
-			[GetSpellInfo(53548)] = true, -- Pin (Crab)
-			[GetSpellInfo(4167)] = true, -- Web (Spider)
-			[GetSpellInfo(55509)] = true, -- Venom Web Spray (Silithid)
-			[GetSpellInfo(24394)] = true, -- Intimidation
-			[GetSpellInfo(19577)] = true, -- Intimidation (stun)
-			[GetSpellInfo(53568)] = true, -- Sonic Blast (Bat)
-			[GetSpellInfo(53543)] = true, -- Snatch (Bird of Prey)
-			[GetSpellInfo(50541)] = true, -- Clench (Scorpid)
-			[GetSpellInfo(55492)] = true, -- Froststorm Breath (Chimaera)
-			[GetSpellInfo(26090)] = true, -- Pummel (Gorilla)
-			[GetSpellInfo(53575)] = true, -- Tendon Rip (Hyena)
-			[GetSpellInfo(53589)] = true, -- Nether Shock (Nether Ray)
-			[GetSpellInfo(53562)] = true, -- Ravage (Ravager)
-			[GetSpellInfo(1513)] = true, -- Scare Beast
-			[GetSpellInfo(64803)] = true, -- Entrapment
-			-- Mage
-			[GetSpellInfo(31661)] = true, -- Dragon's Breath
-			[GetSpellInfo(44572)] = true, -- Deep Freeze
-			[GetSpellInfo(122)] = true, -- Frost Nova
-			[GetSpellInfo(33395)] = true, -- Freeze (Frost Water Elemental)
-			[GetSpellInfo(55021)] = true, -- Silenced - Improved Counterspell
-			-- Paladin
-			[GetSpellInfo(853)] = true, -- Hammer of Justice
-			[GetSpellInfo(10326)] = true, -- Turn Evil
-			[GetSpellInfo(2812)] = true, -- Holy Wrath
-			[GetSpellInfo(31935)] = true, -- Avengers Shield
-			-- Priest
-			[GetSpellInfo(8122)] = true, -- Psychic Scream
-			[GetSpellInfo(605)] = true, -- Dominate Mind (Mind Control)
-			[GetSpellInfo(15487)] = true, -- Silence
-			[GetSpellInfo(64044)] = true, -- Psychic Horror
-			-- Rogue
-			[GetSpellInfo(408)] = true, -- Kidney Shot
-			[GetSpellInfo(2094)] = true, -- Blind
-			[GetSpellInfo(1833)] = true, -- Cheap Shot
-			[GetSpellInfo(1776)] = true, -- Gouge
-			[GetSpellInfo(1330)] = true, -- Garrote - Silence
-			-- Shaman
-			[GetSpellInfo(51514)] = true, -- Hex
-			[GetSpellInfo(8056)] = true, -- Frost Shock
-			[GetSpellInfo(64695)] = true, -- Earthgrab (Earthbind Totem with Storm, Earth and Fire talent)
-			[GetSpellInfo(3600)] = true, -- Earthbind (Earthbind Totem)
-			[GetSpellInfo(39796)] = true, -- Stoneclaw Stun (Stoneclaw Totem)
-			[GetSpellInfo(8034)] = true, -- Frostbrand Weapon
-			-- Warlock
-			[GetSpellInfo(6215)] = true, -- Fear
-			[GetSpellInfo(5484)] = true, -- Howl of Terror
-			[GetSpellInfo(30283)] = true, -- Shadowfury
-			[GetSpellInfo(22703)] = true, -- Infernal Awakening
-			[GetSpellInfo(6789)] = true, -- Death Coil
-			[GetSpellInfo(24259)] = true, -- Spell Lock
-			-- Warrior
-			[GetSpellInfo(5246)] = true, -- Initmidating Shout
-			[GetSpellInfo(46968)] = true, -- Shockwave
-			[GetSpellInfo(6552)] = true, -- Pummel
-			[GetSpellInfo(58357)] = true, -- Heroic Throw silence
-			[GetSpellInfo(7922)] = true, -- Charge
-			[GetSpellInfo(47995)] = true, -- Intercept (Stun)
-			[GetSpellInfo(12323)] = true, -- Piercing Howl
-			-- Racials
-			[GetSpellInfo(20549)] = true, -- War Stomp (Tauren)
-			[GetSpellInfo(28730)] = true, -- Arcane Torrent (Bloodelf)
-			[GetSpellInfo(47779)] = true, -- Arcane Torrent (Bloodelf)
-			[GetSpellInfo(50613)] = true, -- Arcane Torrent (Bloodelf)
-			-- Engineering
-			[GetSpellInfo(67890)] = true -- Cobalt Frag Bomb
-		}
-
-		FilterFuncs[4] = function(debuff)
-			return (debuff.duration < 600 and ccSpellsTable[debuff.name])
-		end -- CC
-	end
-
-	FilterFuncs[5] = function(debuff)
-		PlayerGUID = PlayerGUID or UnitGUID("player") -- just in case
-		return (debuff.duration < 600 and debuff.caster ~= PlayerGUID)
-	end -- OTHER
-
-	function ParseDebuffString(debuff)
-		local filterFunc = nil
-
-		local _, _, prefix, suffix = string.find(debuff, "(%w+)[%s%p]*(.*)")
-		if prefix then
-			if PrefixList[prefix] then
-				debuff = suffix
-				filterFunc = FilterFuncs[PrefixList[prefix]]
-			else
-				debuff = prefix
-				if suffix and suffix ~= "" then
-					debuff = debuff .. " " .. suffix
-				end
-				filterFunc = FilterFuncs[1]
-			end
+-- Whitelist
+DebuffFilterModes.whitelist = function(debuff, list)
+	for _, name in ipairs(list) do
+		if name == debuff.name or tonumber(name) == debuff.spellid then
+			return true
 		end
-
-		return debuff, filterFunc
 	end
 end
 
-local function FindDebuff(t, debuff)
-	if t and debuff then
-		for index, aura in ipairs(t) do
-			-- no filter!
-			if aura == debuff.name or tonumber(aura) == debuff.spellid then
-				return true
-			end
+-- whitelist mine
+DebuffFilterModes.whitelistMine = function(debuff, list)
+	local found = DebuffFilterModes.whitelist(debuff, list)
+	return (found and debuff.caster == PlayerGUID)
+end
 
-			local name, func = ParseDebuffString(aura)
-			if (name == debuff.name or tonumber(name) == debuff.spellid) and func then
-				return func(debuff)
-			end
+-- blacklist
+DebuffFilterModes.blacklist = function(debuff, list)
+	for _, name in ipairs(list) do
+		if name == debuff.name or tonumber(name) == debuff.spellid then
+			return false
 		end
 	end
-	return false
+	return true
+end
+
+	-- blacklist mine
+DebuffFilterModes.blacklistMine = function(debuff, list)
+	local found = DebuffFilterModes.blacklist(debuff, list)
+	return (found == true and debuff.caster == PlayerGUID)
+end
+
+-- prefix
+local ParseDebuffString = nil
+DebuffFilterModes.prefix = function(debuff, list)
+	-- we generate the func only if used
+	if ParseDebuffString == nil then
+		ParseDebuffString = function(str)
+			local func = nil
+			local _, _, prefix, suffix = string.find(str, "(%w+)[%s%p]*(.*)")
+			if prefix then
+				if PrefixList[prefix] then
+					str = suffix
+					func = DebuffPrefixModes[PrefixList[prefix]]
+				else
+					str = prefix
+					if suffix and suffix ~= "" then
+						str = str .. " " .. suffix
+					end
+					func = DebuffPrefixModes[1]
+				end
+			end
+
+			return str, func
+		end
+	end
+
+	for _, deb in ipairs(list) do
+		-- no filter?
+		if deb == debuff.name or tonumber(deb) == debuff.spellid then
+			return true
+		end
+
+		local name, func = ParseDebuffString(deb)
+		if (name == debuff.name or tonumber(name) == debuff.spellid) and func then
+			return func(debuff)
+		end
+	end
 end
 
 --DebuffFilterFunction
 local function DebuffFilter(debuff)
+	-- Debuffs on Friendly Units
+	if debuff.target == 2 then -- AURA_TARGET_FRIENDLY
+		return false
+	end
+
 	db = db or TidyPlatesThreat.db.profile
-
-	local spellfound = nil
-	if db.debuffWidget.mode == "prefix" then
-		return FindDebuff(db.debuffWidget.filter, debuff)
-	else
-		for _, name in ipairs(db.debuffWidget.filter) do
-			if name == debuff.name or tonumber(name) == debuff.spellid then
-				spellfound = true
-				break
-			end
-		end
-	end
-
-	if db.debuffWidget.mode == "whitelist" then
-		return (spellfound == true)
-	elseif db.debuffWidget.mode == "blacklist" then
-		return (spellfound == nil)
-	elseif db.debuffWidget.mode == "whitelistMine" then
-		PlayerGUID = PlayerGUID or UnitGUID("player")
-		return (spellfound and debuff.caster == PlayerGUID)
-	elseif db.debuffWidget.mode == "blacklistMine" then
-		PlayerGUID = PlayerGUID or UnitGUID("player")
-		return (debuff.caster == PlayerGUID and spellfound == nil)
-	elseif db.debuffWidget.mode == "allMine" then
-		PlayerGUID = PlayerGUID or UnitGUID("player")
-		return (debuff.caster == PlayerGUID)
-	elseif db.debuffWidget.mode == "all" then
-		return true
-	end
+	return DebuffFilterModes[db.debuffWidget.mode](debuff, db.debuffWidget.filter)
 end
 ----------------
 -- INITIALIZE --

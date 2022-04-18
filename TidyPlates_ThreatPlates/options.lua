@@ -178,10 +178,11 @@ StaticPopupDialogs["TPTP Discord"] = {
 }
 
 -- Shared Media Configs
-local Media = LibStub("LibSharedMedia-3.0")
-local mediaWidgets = Media and LibStub("AceGUISharedMediaWidgets-1.0", true)
-Media:Register("statusbar", "ThreatPlatesBar", [[Interface\Addons\TidyPlates_ThreatPlates\Media\Artwork\TP_BarTexture.tga]])
-Media:Register("font", "Accidental Presidency", [[Interface\Addons\TidyPlates_ThreatPlates\Media\Fonts\Accidental Presidency.ttf]])
+local MediaFetch = TidyPlatesUtility.MediaFetch
+local MediaList = TidyPlatesUtility.MediaList
+local MediaRegister = TidyPlatesUtility.MediaRegister
+MediaRegister("statusbar", "ThreatPlatesBar", [[Interface\Addons\TidyPlates_ThreatPlates\Media\Artwork\TP_BarTexture.tga]])
+MediaRegister("font", "Accidental Presidency", [[Interface\Addons\TidyPlates_ThreatPlates\Media\Fonts\Accidental Presidency.ttf]])
 
 -- Functions
 local function GetSpellName(number)
@@ -389,7 +390,7 @@ local function SetLSMFont(info, val)
 	local a, b, c, d = info.arg[1], info.arg[2], info.arg[3], info.arg[4]
 	db[a][b][c] = val
 	for i = 1, #themeList do
-		TidyPlatesThemeList["Threat Plates"][themeList[i]][b][c] = Media:Fetch("font", db[a][b][c])
+		TidyPlatesThemeList["Threat Plates"][themeList[i]][b][c] = MediaFetch("font", db[a][b][c])
 	end
 	Update()
 end
@@ -398,7 +399,7 @@ local function SetLSMTexture(info, val)
 	local a, b, c, d = info.arg[1], info.arg[2], info.arg[3], info.arg[4]
 	db[a][b][c] = val
 	for i = 1, #themeList do
-		TidyPlatesThemeList["Threat Plates"][themeList[i]][b][c] = Media:Fetch("statusbar", db[a][b][c])
+		TidyPlatesThemeList["Threat Plates"][themeList[i]][b][c] = MediaFetch("statusbar", db[a][b][c])
 	end
 	Update()
 end
@@ -663,9 +664,9 @@ local function GetOptions()
 											name = L["Healthbar"],
 											type = "select",
 											width = "double",
-											dialogControl = mediaWidgets and "LSM30_Statusbar" or nil,
+											dialogControl = "LSM30_Statusbar",
 											order = 1,
-											values = Media:HashTable("statusbar"),
+											values = MediaList("statusbar"),
 											get = GetValue,
 											set = SetLSMTexture,
 											arg = {"settings", "healthbar", "texture"}
@@ -1126,9 +1127,9 @@ local function GetOptions()
 											name = L["Castbar"],
 											type = "select",
 											width = "double",
-											dialogControl = mediaWidgets and "LSM30_Statusbar" or nil,
+											dialogControl = "LSM30_Statusbar",
 											order = 1,
-											values = Media:HashTable("statusbar"),
+											values = MediaList("statusbar"),
 											get = GetValue,
 											set = SetLSMTexture,
 											arg = {"settings", "castbar", "texture"}
@@ -3726,6 +3727,9 @@ local function GetOptions()
 													local tbl = {strsplit("\n", v)}
 													db.debuffWidget.filter = tbl
 												end
+											end,
+											disabled = function()
+												return (db.debuffWidget.mode == "all" or db.debuffWidget.mode == "allMine")
 											end
 										}
 									}

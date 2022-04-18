@@ -4,7 +4,7 @@
 local db
 local function UpdateUniqueIconWidget(self, unit)
 	db = TidyPlatesThreat.db.profile
-	local T, custom = TPTP_UnitType(unit)
+	local T, custom = TidyPlatesThreat.UnitType(unit)
 
 	if db.uniqueWidget.ON then
 		if tContains(db.uniqueSettings.list, unit.name) or (custom and tContains(db.uniqueSettings.list, "GROUP")) then

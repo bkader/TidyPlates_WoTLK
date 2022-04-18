@@ -1024,7 +1024,7 @@ end
 local UnitInGroup = TidyPlatesUtility.UnitInGroup
 local TotemNameFallback = TidyPlatesUtility.TotemNameFallback
 -- Unit Classification
-function TPTP_UnitType(unit)
+function TidyPlatesThreat.UnitType(unit)
 	DB = DB or  TidyPlatesThreat.db.profile
 	local totem = TPtotemList[unit.name] or TPtotemList[TotemNameFallback(unit.name)]
 
@@ -1095,9 +1095,9 @@ function TPTP_UnitType(unit)
 	return "Normal"
 end
 
-function SetStyleThreatPlates(unit)
+function TidyPlatesThreat.SetStyle(unit)
 	DB = DB or  TidyPlatesThreat.db.profile
-	local T, custom = TPTP_UnitType(unit)
+	local T, custom = TidyPlatesThreat.UnitType(unit)
 	if T == "Totem" then
 		local tS = DB.totemSettings[TPtotemList[unit.name] or TPtotemList[TotemNameFallback(unit.name)]]
 		if tS[1] then
@@ -1329,7 +1329,7 @@ local function EventHandler(self, event, ...)
 	if event == "ADDON_LOADED" then
 		if arg1 == "TidyPlates_ThreatPlates" then
 			local setup = {
-				SetStyle = SetStyleThreatPlates,
+				SetStyle = TidyPlatesThreat.SetStyle,
 				SetScale = TidyPlatesThreat.SetScale,
 				SetAlpha = TidyPlatesThreat.SetAlpha,
 				SetCustomText = TidyPlatesThreat.SetCustomText,

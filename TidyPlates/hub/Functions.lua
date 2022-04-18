@@ -640,17 +640,20 @@ local function GetPrefixPriority(debuff)
 	return prefix, priority
 end
 
+local CCSpells = WidgetLib.CCSpells
+local PlayerGUID = UnitGUID("player")
+
 local DebuffPrefixModes = {
 	-- All
 	function(debuff) return true end,
 	-- My
-	function(debuff) return (debuff.caster == UnitGUID("player")) or nil end,
+	function(debuff) return (debuff.caster == PlayerGUID) or nil end,
 	-- No
 	function(debuff) return nil end,
 	-- CC
-	function(debuff) return true end,
+	function(debuff) return CCSpells and CCSpells[debuff.name] or nil end,
 	-- Other
-	function(debuff) return (debuff.caster ~= UnitGUID("player")) end
+	function(debuff) return (debuff.caster ~= PlayerGUID) end
 }
 
 local DebuffFilterModes = {
@@ -667,14 +670,12 @@ local DebuffFilterModes = {
 	end,
 	-- All mine
 	function(debuff)
-		if debuff.caster == UnitGUID("player") then
-			return true
-		end
+		return (debuff.caster == PlayerGUID)
 	end,
 	-- My specific
 	function(debuff)
 		local prefix, priority = GetPrefixPriority(debuff)
-		if prefix and debuff.caster == UnitGUID("player") then
+		if prefix and debuff.caster == PlayerGUID then
 			return true, priority
 		end
 	end,
@@ -905,3 +906,5 @@ TidyPlatesHubFunctions.SetCastbarColor = CastBarDelegate
 TidyPlatesHubFunctions.UseDamageVariables = UseDamageVariables
 TidyPlatesHubFunctions.UseTankVariables = UseTankVariables
 TidyPlatesHubFunctions._WidgetDebuffFilter = DebuffFilter
+TidyPlatesHubFunctions.GetPrefixPriority = GetPrefixPriority
+TidyPlatesHubFunctions.DebuffPrefixModes = DebuffPrefixModes

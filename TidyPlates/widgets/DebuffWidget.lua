@@ -1,5 +1,6 @@
 TidyPlatesWidgets.DebuffWidgetBuild = 2
 
+local GetSpellInfo = GetSpellInfo
 local PolledHideIn = TidyPlatesWidgets.PolledHideIn
 local AuraMonitor = CreateFrame("Frame")
 local WidgetList, WidgetGUID = {}, {}
@@ -764,6 +765,110 @@ TidyPlatesWidgets.CanPlayerDispel = CanPlayerDispel
 TidyPlatesWidgets.CreateAuraWidget = CreateAuraWidget
 TidyPlatesWidgets.EnableAuraWatcher = Enable
 TidyPlatesWidgets.DisableAuraWatcher = Disable
+
+do
+	local CCSpells = {
+		-- general
+		[GetSpellInfo(118)] = true, -- Polymorph
+		[GetSpellInfo(3355)] = true, -- Freezing Trap Effect
+		[GetSpellInfo(6770)] = true, -- Sap
+		[GetSpellInfo(6358)] = true, -- Seduction (succubus)
+		[GetSpellInfo(60210)] = true, -- Freezing Arrow
+		[GetSpellInfo(45524)] = true, -- Chains of Ice
+		[GetSpellInfo(33786)] = true, -- Cyclone
+		[GetSpellInfo(53308)] = true, -- Entangling Roots
+		[GetSpellInfo(2637)] = true, -- Hibernate
+		[GetSpellInfo(20066)] = true, -- Repentance
+		[GetSpellInfo(9484)] = true, -- Shackle Undead
+		[GetSpellInfo(51722)] = true, -- Dismantle
+		[GetSpellInfo(710)] = true, -- Banish
+		[GetSpellInfo(12809)] = true, -- Concussion Blow
+		[GetSpellInfo(676)] = true, -- Disarm
+		-- Death Knight
+		[GetSpellInfo(47476)] = true, -- Strangulate
+		[GetSpellInfo(49203)] = true, -- Hungering Cold
+		[GetSpellInfo(47481)] = true, -- Gnaw
+		[GetSpellInfo(49560)] = true, -- Death Grip
+		-- Druid
+		[GetSpellInfo(339)] = true, -- Entangling Roots
+		[GetSpellInfo(8983)] = true, -- Bash
+		[GetSpellInfo(16979)] = true, -- Feral Charge - Bear
+		[GetSpellInfo(45334)] = true, -- Feral Charge Effect
+		[GetSpellInfo(22570)] = true, -- Maim
+		[GetSpellInfo(49803)] = true, -- Pounce
+		-- Hunter
+		[GetSpellInfo(5116)] = true, -- Concussive Shot
+		[GetSpellInfo(19503)] = true, -- Scatter Shot
+		[GetSpellInfo(19386)] = true, -- Wyvern Sting
+		[GetSpellInfo(53548)] = true, -- Pin (Crab)
+		[GetSpellInfo(4167)] = true, -- Web (Spider)
+		[GetSpellInfo(55509)] = true, -- Venom Web Spray (Silithid)
+		[GetSpellInfo(24394)] = true, -- Intimidation
+		[GetSpellInfo(19577)] = true, -- Intimidation (stun)
+		[GetSpellInfo(53568)] = true, -- Sonic Blast (Bat)
+		[GetSpellInfo(53543)] = true, -- Snatch (Bird of Prey)
+		[GetSpellInfo(50541)] = true, -- Clench (Scorpid)
+		[GetSpellInfo(55492)] = true, -- Froststorm Breath (Chimaera)
+		[GetSpellInfo(26090)] = true, -- Pummel (Gorilla)
+		[GetSpellInfo(53575)] = true, -- Tendon Rip (Hyena)
+		[GetSpellInfo(53589)] = true, -- Nether Shock (Nether Ray)
+		[GetSpellInfo(53562)] = true, -- Ravage (Ravager)
+		[GetSpellInfo(1513)] = true, -- Scare Beast
+		[GetSpellInfo(64803)] = true, -- Entrapment
+		-- Mage
+		[GetSpellInfo(31661)] = true, -- Dragon's Breath
+		[GetSpellInfo(44572)] = true, -- Deep Freeze
+		[GetSpellInfo(122)] = true, -- Frost Nova
+		[GetSpellInfo(33395)] = true, -- Freeze (Frost Water Elemental)
+		[GetSpellInfo(55021)] = true, -- Silenced - Improved Counterspell
+		-- Paladin
+		[GetSpellInfo(853)] = true, -- Hammer of Justice
+		[GetSpellInfo(10326)] = true, -- Turn Evil
+		[GetSpellInfo(2812)] = true, -- Holy Wrath
+		[GetSpellInfo(31935)] = true, -- Avengers Shield
+		-- Priest
+		[GetSpellInfo(8122)] = true, -- Psychic Scream
+		[GetSpellInfo(605)] = true, -- Dominate Mind (Mind Control)
+		[GetSpellInfo(15487)] = true, -- Silence
+		[GetSpellInfo(64044)] = true, -- Psychic Horror
+		-- Rogue
+		[GetSpellInfo(408)] = true, -- Kidney Shot
+		[GetSpellInfo(2094)] = true, -- Blind
+		[GetSpellInfo(1833)] = true, -- Cheap Shot
+		[GetSpellInfo(1776)] = true, -- Gouge
+		[GetSpellInfo(1330)] = true, -- Garrote - Silence
+		-- Shaman
+		[GetSpellInfo(51514)] = true, -- Hex
+		[GetSpellInfo(8056)] = true, -- Frost Shock
+		[GetSpellInfo(64695)] = true, -- Earthgrab (Earthbind Totem with Storm, Earth and Fire talent)
+		[GetSpellInfo(3600)] = true, -- Earthbind (Earthbind Totem)
+		[GetSpellInfo(39796)] = true, -- Stoneclaw Stun (Stoneclaw Totem)
+		[GetSpellInfo(8034)] = true, -- Frostbrand Weapon
+		-- Warlock
+		[GetSpellInfo(6215)] = true, -- Fear
+		[GetSpellInfo(5484)] = true, -- Howl of Terror
+		[GetSpellInfo(30283)] = true, -- Shadowfury
+		[GetSpellInfo(22703)] = true, -- Infernal Awakening
+		[GetSpellInfo(6789)] = true, -- Death Coil
+		[GetSpellInfo(24259)] = true, -- Spell Lock
+		-- Warrior
+		[GetSpellInfo(5246)] = true, -- Initmidating Shout
+		[GetSpellInfo(46968)] = true, -- Shockwave
+		[GetSpellInfo(6552)] = true, -- Pummel
+		[GetSpellInfo(58357)] = true, -- Heroic Throw silence
+		[GetSpellInfo(7922)] = true, -- Charge
+		[GetSpellInfo(47995)] = true, -- Intercept (Stun)
+		[GetSpellInfo(12323)] = true, -- Piercing Howl
+		-- Racials
+		[GetSpellInfo(20549)] = true, -- War Stomp (Tauren)
+		[GetSpellInfo(28730)] = true, -- Arcane Torrent (Bloodelf)
+		[GetSpellInfo(47779)] = true, -- Arcane Torrent (Bloodelf)
+		[GetSpellInfo(50613)] = true, -- Arcane Torrent (Bloodelf)
+		-- Engineering
+		[GetSpellInfo(67890)] = true -- Cobalt Frag Bomb
+	}
+	TidyPlatesWidgets.CCSpells = CCSpells
+end
 
 -----------------------------------------------------
 -- Debuff Library
