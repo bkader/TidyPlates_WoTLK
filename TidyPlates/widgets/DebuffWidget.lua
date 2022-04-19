@@ -136,6 +136,7 @@ end
 -----------------------------------------------------
 -- Aura Durations
 -----------------------------------------------------
+TidyPlatesData = TidyPlatesData or {}
 TidyPlatesData.CachedAuraDurations = {}
 
 local function GetSpellDuration(spellid)

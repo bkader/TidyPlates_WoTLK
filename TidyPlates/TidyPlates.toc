@@ -3,8 +3,8 @@
 ## Notes: Enjoys long walks on Darkshore
 ## Author: Binbwen and Friends (Kader Backport)
 ## Version: 6.5.0
-## SavedVariables: TidyPlatesData, TidyPlatesHubCache, TidyPlatesHubTankCache, TidyPlatesHubDamageCache
-## SavedVariablesPerCharacter: TidyPlatesOptions, TidyPlatesHubSavedVariables, TidyPlatesHubTankSavedVariables, TidyPlatesHubDamageSavedVariables
-## X-Date: 2022-04-19 @ 11:35 AM |cff808080UTC|r
+## SavedVariables: TidyPlatesData, TidyPlatesHubTankCache, TidyPlatesHubDamageCache
+## SavedVariablesPerCharacter: TidyPlatesOptions, TidyPlatesHubTankSavedVariables, TidyPlatesHubDamageSavedVariables
+## X-Date: 2022-04-19 @ 01:27 PM |cff808080UTC|r
 
 TidyPlates.xml

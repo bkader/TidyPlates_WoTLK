@@ -1,3 +1,4 @@
+TidyPlatesData = TidyPlatesData or {}
 TidyPlatesData.UnitDescriptions = {}
 TidyPlatesData.UnitClass = {}
 TidyPlatesData.Friends = {}

@@ -8,8 +8,8 @@ local PanelHelpers = TidyPlatesUtility.PanelHelpers
 ---------------------------------------------
 -- Variables Definition
 ---------------------------------------------
-TidyPlatesHubTankCache = {}
-TidyPlatesHubTankSavedVariables = {}
+TidyPlatesHubTankCache = TidyPlatesHubTankCache or {}
+TidyPlatesHubTankSavedVariables = TidyPlatesHubTankSavedVariables or {}
 TidyPlatesHubTankVariables = {
 	-- Style
 	---------------------------------------

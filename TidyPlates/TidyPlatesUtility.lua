@@ -1,5 +1,4 @@
 TidyPlatesUtility = {}
-TidyPlatesData = {}
 
 local _
 

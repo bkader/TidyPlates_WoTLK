@@ -3,6 +3,7 @@
 ------------------------------------------------------
 
 TidyPlatesHubFunctions = {}
+TidyPlatesData = TidyPlatesData or {}
 local LocalVars = TidyPlatesHubDamageVariables
 local LocalRole = 1
 
