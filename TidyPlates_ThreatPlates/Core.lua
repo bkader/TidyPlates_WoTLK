@@ -1057,7 +1057,7 @@ function TidyPlatesThreat.UnitType(unit)
 
 	-- a group member with hidden nameplates?
 	if (tContains(DB.uniqueSettings.list, "GROUP") and unit.name and UnitInGroup(unit.name)) then
-		if TidyPlatesThreat.db.profile.friendlyNameOnly then
+		if DB.friendlyNameOnly then
 			return "Normal", true
 		end
 		for k_c, k_v in pairs(DB.uniqueSettings.list) do
@@ -1112,7 +1112,7 @@ function TidyPlatesThreat.SetStyle(unit)
 	elseif T == "Unique" then
 		for k_c, k_v in pairs(DB.uniqueSettings.list) do
 			if custom and k_v == "GROUP" then
-				if TidyPlatesThreat.db.profile.friendlyNameOnly then
+				if DB.friendlyNameOnly then
 					return "text"
 				elseif DB.uniqueSettings[k_c].showNameplate then
 					return "unique", true
@@ -1159,7 +1159,7 @@ function TidyPlatesThreat.SetStyle(unit)
 				return "empty"
 			end
 		elseif unit.reaction == "FRIENDLY" then
-			if TidyPlatesThreat.db.profile.friendlyNameOnly then
+			if DB.friendlyNameOnly then
 				return "text"
 			elseif DB.nameplate.toggle[T] then
 				return "normal"

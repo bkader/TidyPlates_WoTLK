@@ -88,14 +88,11 @@ local function OnSpellCast(...)
 
 	-- If the unit's nameplate is visible, show the cast bar
 	if FoundPlate then
-		local currentTime = GetTime()
-		FoundPlateUnit = FoundPlate.extended.unit
-		if FoundPlateUnit.isTarget then
-			return
+		local FoundPlateUnit = FoundPlate.extended.unit
+		if not FoundPlateUnit.isTarget then
+			local currentTime = GetTime()
+			StartCastAnimationOnNameplate(FoundPlate, spell, spellid, icon, currentTime, currentTime + (castTime * 0.001), false, false)
 		end
-
-		castTime = (castTime / 1000) -- Convert to seconds
-		StartCastAnimationOnNameplate(FoundPlate, spell, spellid, icon, currentTime, currentTime + castTime, false, false)
 	end
 end
 
@@ -109,7 +106,7 @@ end
 
 local function OnCombatEvent(self, event, ...)
 	local _, combatevent, sourceGUID, sourceName, sourceFlags, _, _, _, spellid, spellname = ...
-	if CombatEventHandlers[combatevent] and sourceGUID ~= UnitGUID("target") and spellid then
+	if CombatEventHandlers[combatevent] and sourceGUID ~= UnitGUID("player") and sourceGUID ~= UnitGUID("target") and spellid then
 		CombatEventHandlers[combatevent](sourceGUID, sourceName, sourceFlags, spellid, spellname)
 	end
 end

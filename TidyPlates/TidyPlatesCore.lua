@@ -59,7 +59,7 @@ local UpdateIndicator_Level, UpdateIndicator_ThreatGlow, UpdateIndicator_RaidIco
 local UpdateIndicator_HealthBar, UpdateHitboxShape
 
 -- Data and Condition Functions
-local OnNewNameplate, OnShowNameplate, OnHideNameplate, OnUpdateNameplate, OnResetNameplate, OnEchoNewNameplate
+local OnNewNameplate, OnShowNameplate, OnHideNameplate, OnUpdateNameplate, OnResetNameplate, OnEchoNewNameplate, OnHideCastbar
 local OnUpdateHealth, OnUpdateLevel, OnUpdateThreatSituation, OnUpdateRaidIcon, OnUpdateHealthRange
 local OnMouseoverNameplate, OnRequestWidgetUpdate, OnRequestDelegateUpdate
 
@@ -654,6 +654,7 @@ do
 		health:HookScript("OnHide", OnHideNameplate)
 		health:HookScript("OnValueChanged", OnUpdateHealth)
 		health:HookScript("OnMinMaxChanged", OnUpdateHealthRange)
+		cast:HookScript("OnHide", OnHideCastbar)
 
 		-- Activates nameplate visibility
 		PlatesVisible[plate] = true
@@ -674,6 +675,12 @@ do
 		UpdateHitboxShape()
 
 		SetTargetQueue(plate, OnUpdateNameplate) -- Echo for a full update
+	end
+
+	function OnHideCastbar(source)
+		if source and source.parentPlate then
+			StopCastAnimation(source.parentPlate)
+		end
 	end
 
 	-- OnUpdateNameplate
