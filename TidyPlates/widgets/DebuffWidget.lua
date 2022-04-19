@@ -3,7 +3,12 @@ TidyPlatesWidgets.DebuffWidgetBuild = 2
 local GetSpellInfo = GetSpellInfo
 local PolledHideIn = TidyPlatesWidgets.PolledHideIn
 local AuraMonitor = CreateFrame("Frame")
-local WidgetList, WidgetGUID = {}, {}
+
+-- TODO: keep an eye on weak tables.
+local WidgetList = setmetatable({}, {__mode = "kv"})
+local weaktable = TidyPlatesUtility.weaktable
+local WidgetGUID = setmetatable({}, weaktable)
+
 local UpdateWidget
 local TargetOfGroupMembers = {}
 local MaximumDisplayableDebuffs = 6
@@ -61,8 +66,9 @@ local RaidIconIndex = {
 	"SKULL"
 }
 
-local ByRaidIcon = {}
-local ByName = {}
+-- TODO: keep an eye on weak tables.
+local ByRaidIcon = setmetatable({}, weaktable)
+local ByName = setmetatable({}, weaktable)
 
 local PlayerDispelCapabilities = {
 	["Curse"] = false,
@@ -155,10 +161,11 @@ end
 -- Aura Instances
 -----------------------------------------------------
 
--- New Style
-local AuraInstances = {}
+-- TODO: keep an eye on weak tables.
+local newTable = TidyPlatesUtility.NewTable
+local delTable = TidyPlatesUtility.DelTable
 
-local Aura_List = {} -- Two Dimensional
+local Aura_List = setmetatable({}, weaktable) -- Two Dimensional
 local Aura_Spellid = {}
 local Aura_Expiration = {}
 local Aura_Stacks = {}
@@ -172,7 +179,7 @@ local function SetAuraInstance(guid, spellid, expiration, stacks, caster, durati
 	if guid and spellid and caster and texture then
 		local aura_id = spellid .. (tostring(caster or "UNKNOWN_CASTER"))
 		local aura_instance_id = guid .. aura_id
-		Aura_List[guid] = Aura_List[guid] or {}
+		Aura_List[guid] = Aura_List[guid] or newTable()
 		Aura_List[guid][aura_id] = aura_instance_id
 		Aura_Spellid[aura_instance_id] = spellid
 		Aura_Expiration[aura_instance_id] = expiration
@@ -262,7 +269,7 @@ local function CleanAuraLists()
 			end
 		end
 		if auracount == 0 then
-			Aura_List[guid] = nil
+			Aura_List[guid] = delTable(Aura_List[guid])
 		end
 	end
 end
@@ -368,7 +375,7 @@ end
 -----------------------------------------------------
 
 local function EventUnitTarget()
-	TargetOfGroupMembers = wipe(TargetOfGroupMembers)
+	wipe(TargetOfGroupMembers)
 
 	for name, unitid in pairs(TidyPlatesUtility.GroupMembers.UnitId) do
 		local targetOf = unitid .. ("target" or "")
@@ -513,14 +520,13 @@ local function debuffSort(a, b)
 end
 
 local DebuffCache = {}
---local CurrentAura = {}
 
 local function UpdateIconGrid(frame, guid)
 	local AuraIconFrames = frame.AuraIconFrames
 	local AurasOnUnit = GetAuraList(guid)
 	local AuraSlotIndex = 1
 
-	DebuffCache = wipe(DebuffCache)
+	wipe(DebuffCache)
 	local debuffCount = 0
 
 	-- Cache displayable debuffs
@@ -568,7 +574,7 @@ local function UpdateIconGrid(frame, guid)
 		UpdateIcon(AuraIconFrames[index])
 	end
 
-	DebuffCache = wipe(DebuffCache)
+	wipe(DebuffCache)
 end
 
 function UpdateWidget(frame)

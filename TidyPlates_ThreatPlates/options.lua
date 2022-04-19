@@ -206,15 +206,19 @@ local function UpdateSpecial()
 	Update()
 end
 
-local function SplitToTable(...)
+local SplitToTable
+do
 	local t = {}
-	for index = 1, select("#", ...) do
-		local line = select(index, ...)
-		if line ~= "" then
-			t[line] = true
+	function SplitToTable(...)
+		wipe(t)
+		for index = 1, select("#", ...) do
+			local line = select(index, ...)
+			if line ~= "" then
+				t[line] = true
+			end
 		end
+		return t
 	end
-	return t
 end
 
 local function TableToString(t)

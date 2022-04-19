@@ -4,6 +4,7 @@
 local comboWidgetPath = "Interface\\Addons\\TidyPlates\\widgets\\ComboWidget\\"
 
 local WidgetList = {}
+setmetatable(WidgetList, {__mode = "kv"})
 
 -- Update Graphics
 local function UpdateWidgetFrame(frame)

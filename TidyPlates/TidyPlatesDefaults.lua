@@ -253,15 +253,13 @@ NameOnlyTheme.skullicon = {show = false}
 NameOnlyTheme.spellicon = {show = false}
 
 -- Hex Colors
-local TextColors = {}
-TextColors.FRIENDLY = {NPC = "|cFF3cee35", PLAYER = "|cFF5cb8ff"}
-TextColors.HOSTILE = {NPC = "|cFFFF3535", PLAYER = "|cFFfc551b"}
-TextColors.NEUTRAL = {NPC = "|cFFFFEE11"}
-
+local TextColors = {
+	FRIENDLY = {NPC = "|cff3cee35", PLAYER = "|cff5cb8ff"},
+	HOSTILE = {NPC = "|cffff3535", PLAYER = "|cfffc551b"},
+	NEUTRAL = {NPC = "|cffffee11"}
+}
 local function TextDelegate(unit)
-	local TextColor
-	TextColor = TextColors[unit.reaction][unit.type] or ""
-	return TextColor .. unit.name
+	return (TextColors[unit.reaction][unit.type] or "") .. unit.name
 end
 
 NameOnlyTheme.SetCustomText = TextDelegate

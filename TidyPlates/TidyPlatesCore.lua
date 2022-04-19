@@ -10,12 +10,25 @@ TidyPlates.callbacks = TidyPlates.callbacks or LibStub("CallbackHandler-1.0"):Ne
 local _
 local numChildren = -1
 local activetheme = {}
-local massQueue, targetQueue, functionQueue = {}, {}, {}
+
+local weaktable = {__mode = "k"}
+
+-- TODO: keep an eye on weaktable and revert if they cause issues
+local massQueue = setmetatable({}, weaktable)
+local functionQueue = setmetatable({}, weaktable)
+local targetQueue = setmetatable({}, weaktable)
+
 local ForEachPlate
 local EMPTY_TEXTURE = "Interface\\Addons\\TidyPlates\\Media\\Empty"
 local select, pairs, tostring = select, pairs, tostring
 local CreateTidyPlatesStatusbar = CreateTidyPlatesStatusbar
-local Plates, PlatesVisible, PlatesFading, GUID = {}, {}, {}, {}
+
+-- TODO: keep an eye on weaktable and revert if they cause issues
+local Plates = setmetatable({}, weaktable)
+local PlatesVisible = setmetatable({}, weaktable)
+local PlatesFading = setmetatable({}, weaktable)
+local GUID = setmetatable({}, weaktable)
+
 local nameplate, extended, bars, regions, visual
 local unit, unitcache, style, stylename, unitchanged
 local currentTarget
@@ -244,7 +257,10 @@ do
 			threatborder:SetVertexColor(activetheme.SetThreatColor(unit))
 		else
 			if InCombat and unit.reaction ~= "FRIENDLY" and unit.type == "NPC" then
-				local color = style.threatcolor[unit.threatSituation]
+				color.r = style.threatcolor[unit.threatSituation].r
+				color.g = style.threatcolor[unit.threatSituation].g
+				color.b = style.threatcolor[unit.threatSituation].b
+				color.a = style.threatcolor[unit.threatSituation].a
 				threatborder:Show()
 				threatborder:SetVertexColor(color.r, color.g, color.b, (color.a or 1))
 			else

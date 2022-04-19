@@ -1,4 +1,5 @@
 local TidyPlatesThreat = TidyPlatesThreat
+local _
 
 -------------------------------------------------------------------------------
 -- 1. alpha.lua
@@ -433,7 +434,7 @@ end
 
 do
 	local IsInGroup = TidyPlatesUtility.IsInGroup
-	local GetGroupTypeAndCount = TidyPlatesUtility.GetGroupTypeAndCount
+	local UnitIterator = TidyPlatesUtility.UnitIterator
 
 	local function SetNameColor(unit)
 		local db = TidyPlatesThreat.db.profile
@@ -454,10 +455,10 @@ do
 					end
 					r, g, b = c.r, c.g, c.b
 				elseif IsInGroup() then
-					local prefix, min_member, max_member = GetGroupTypeAndCount()
-					for i = min_member, max_member do
-						if UnitExists(prefix .. i) and UnitName(prefix .. i) == unit.name then
-							local class = select(2, UnitClass(prefix .. i))
+					for uId in UnitIterator() do
+						if UnitName(uId) == unit.name then
+							local class
+							_, class = UnitClass(uId)
 							local c = RAID_CLASS_COLORS[class]
 							if db.cacheClass then
 								db.cache[unit.name] = class

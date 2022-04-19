@@ -210,7 +210,6 @@ local function CreateStyle(self, event, ...)
 				a = threat.HIGH.a
 			}
 		}
-		TidyPlatesThemeList["Threat Plates"]["dps"] = {}
 		TidyPlatesThemeList["Threat Plates"]["dps"] = config
 	end
 end

@@ -5,6 +5,7 @@ local path = "Interface\\AddOns\\TidyPlates_ThreatPlates\\Widgets\\ComboPointWid
 local COMBO_ART = {"1", "2", "3", "4", "5"}
 
 local WidgetList = {}
+setmetatable(WidgetList, {__mode = "kv"})
 
 local function UpdateWidgetFrame(frame)
 	local points

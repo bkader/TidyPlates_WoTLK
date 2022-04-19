@@ -158,25 +158,89 @@ do
 		return (GetNumRaidMembers() > 0 or GetNumPartyMembers() > 0)
 	end
 
-	local function GetGroupTypeAndCount()
-		local prefix, min_member, max_member = "raid", 1, GetNumRaidMembers()
-		if max_member == 0 then
-			prefix, min_member, max_member = "party", 0, GetNumPartyMembers()
-		end
-		if max_member == 0 then
-			prefix, min_member, max_member = nil, 0, 0
-		end
-		return prefix, min_member, max_member
-	end
-
 	local function UnitInGroup(unit)
 		return IsInRaid() and (UnitInRaid(unit) ~= nil) or (UnitInParty(unit) == 1)
+	end
+
+	local UnitIterator
+	do
+		local rmem, pmem, step, count
+
+		local function SelfIterator(excPets)
+			while step do
+				local unit, owner
+				if step == 1 then
+					unit, owner, step = "player", nil, 2
+				elseif step == 2 then
+					if not excPets then
+						unit, owner = "playerpet", "player"
+					end
+					step = nil
+				end
+				if unit and UnitExists(unit) then
+					return unit, owner
+				end
+			end
+		end
+
+		local function PartyIterator(excPets)
+			while step do
+				local unit, owner
+				if step <= 2 then
+					unit, owner = SelfIterator(excPets)
+					step = step or 3
+				elseif step == 3 then
+					unit, owner, step = format("party%d", count), nil, 4
+				elseif step == 4 then
+					if not excPets then
+						unit, owner = format("partypet%d", count), format("party%d", count)
+					end
+					count = count + 1
+					step = count <= pmem and 3 or nil
+				end
+				if unit and UnitExists(unit) then
+					return unit, owner
+				end
+			end
+		end
+
+		local function RaidIterator(excPets)
+			while step do
+				local unit, owner
+				if step == 1 then
+					unit, owner, step = format("raid%d", count), nil, 2
+				elseif step == 2 then
+					if not excPets then
+						unit, owner = format("raidpet%d", count), format("raid%d", count)
+					end
+					count = count + 1
+					step = count <= rmem and 1 or nil
+				end
+				if unit and UnitExists(unit) then
+					return unit, owner
+				end
+			end
+		end
+
+		function UnitIterator(excPets)
+			rmem, step = GetNumRaidMembers(), 1
+			if rmem == 0 then
+				pmem = GetNumPartyMembers()
+				if pmem == 0 then
+					return SelfIterator, excPets
+				end
+				count = 1
+				return PartyIterator, excPets
+			end
+			count = 1
+			return RaidIterator, excPets
+		end
 	end
 
 	TidyPlatesUtility.IsInRaid = IsInRaid
 	TidyPlatesUtility.IsInGroup = IsInGroup
 	TidyPlatesUtility.UnitInGroup = UnitInGroup
-	TidyPlatesUtility.GetGroupTypeAndCount = GetGroupTypeAndCount
+	TidyPlatesUtility.UnitIterator = UnitIterator
 end
 
 ------------------------------------------------------------------
@@ -479,6 +543,8 @@ PanelHelpers.EnableFreePositioning = EnableFreePositioning
 ----------------------
 do
 	local CallList = {} -- Key = Frame, Value = Expiration Time
+	setmetatable(CallList, {__mode = "kv"}) -- TODO: keep an eye on weak tables.
+
 	local Watcherframe = CreateFrame("Frame")
 	local WatcherframeActive = false
 	local select = select
@@ -540,4 +606,37 @@ do
 	TidyPlatesUtility.MediaFetch = MediaFetch
 	TidyPlatesUtility.MediaList = MediaList
 	TidyPlatesUtility.MediaRegister = MediaRegister
+end
+
+-------------------------------------------------------------------------------------
+--  Weak Tables
+-------------------------------------------------------------------------------------
+do
+	local tablePool = {}
+	setmetatable(tablePool, {__mode = "k"})
+
+	local function new()
+		local t = next(tablePool) or {}
+		tablePool[t] = nil
+		return t
+	end
+
+	local function del(t, deep)
+		if type(t) == "table" then
+			for k, v in pairs(t) do
+				if deep and type(v) == "table" then
+					del(v)
+				end
+				t[k] = nil
+			end
+			t[""] = true
+			t[""] = nil
+			tablePool[t] = true
+		end
+		return nil
+	end
+
+	TidyPlatesUtility.weaktable = {__mode = "v"}
+	TidyPlatesUtility.NewTable = new
+	TidyPlatesUtility.DelTable = del
 end

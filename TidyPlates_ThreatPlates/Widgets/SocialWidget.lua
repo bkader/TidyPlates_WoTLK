@@ -8,10 +8,11 @@ f:RegisterEvent("BN_FRIEND_ACCOUNT_OFFLINE")
 f:RegisterEvent("BN_FRIEND_LIST_SIZE_CHANGED")
 
 --local
+local weaktable = TidyPlatesUtility.weaktable
 local ListTable = {}
-ListTable.g = {}
-ListTable.b = {}
-ListTable.f = {}
+ListTable.g = setmetatable({}, weaktable)
+ListTable.b = setmetatable({}, weaktable)
+ListTable.f = setmetatable({}, weaktable)
 local eventsRegistered = true
 
 local function UpdateBnetList()

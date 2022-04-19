@@ -41,16 +41,18 @@ function TidyPlatesThreat:currentRoleBool(number)
 	end
 end
 function TidyPlatesThreat:setSpecTank(number)
-	local specIs = {}
-	specIs[1] = "primary"
-	specIs[2] = "secondary"
-	TidyPlatesThreat.db.char.spec[specIs[number]] = true
+	if number == 1 then
+		TidyPlatesThreat.db.char.spec["primary"] = true
+	elseif number == 2 then
+		TidyPlatesThreat.db.char.spec["secondary"] = true
+	end
 end
 function TidyPlatesThreat:setSpecDPS(number)
-	local specIs = {}
-	specIs[1] = "primary"
-	specIs[2] = "secondary"
-	TidyPlatesThreat.db.char.spec[specIs[number]] = false
+	if number == 1 then
+		TidyPlatesThreat.db.char.spec["primary"] = false
+	elseif number == 2 then
+		TidyPlatesThreat.db.char.spec["secondary"] = false
+	end
 end
 
 function TidyPlatesThreat:dualSpec()
