@@ -412,13 +412,14 @@ end
 --
 
 do
+	local c = {r = 1, g = 1, b = 0, a = 1}
 	local function SetCastbarColor(unit)
 		local db = TidyPlatesThreat.db.profile
-		local c = {r = 1, g = 1, b = 0, a = 1}
+		c.r, c.g, c.b, c.a = 1, 1, 0, 1
 		if db.castbarColor.toggle and not unit.spellIsShielded then
-			c = db.castbarColor
+			c.r, c.g, c.b, c.a = db.castbarColor.r, db.castbarColor.g, db.castbarColor.b, db.castbarColor.a
 		elseif db.castbarColorShield.toggle and db.castbarColor.toggle and unit.spellIsShielded then
-			c = db.castbarColorShield
+			c.r, c.g, c.b, c.a = db.castbarColorShield.r, db.castbarColorShield.g, db.castbarColorShield.b, db.castbarColorShield.a
 		end
 		return c.r, c.g, c.b, c.a
 	end
@@ -483,13 +484,20 @@ end
 --
 
 do
+	local c = {r = 0, g = 0, b = 0, a = 0}
+
 	local function SetThreatColor(unit)
 		local style = TidyPlatesThreat.SetStyle(unit)
-		local color = {r = "0", g = "0", b = "0", a = "0"}
+		c.r, c.g, c.b, c.a = 0, 0, 0, 0
+
 		if style == "dps" or style == "tank" or style == "normal" and InCombatLockdown() then
-			color = TidyPlatesThreat.db.profile.settings[style]["threatcolor"][unit.threatSituation]
+			c.r = TidyPlatesThreat.db.profile.settings[style]["threatcolor"][unit.threatSituation].r
+			c.g = TidyPlatesThreat.db.profile.settings[style]["threatcolor"][unit.threatSituation].g
+			c.b = TidyPlatesThreat.db.profile.settings[style]["threatcolor"][unit.threatSituation].b
+			c.a = TidyPlatesThreat.db.profile.settings[style]["threatcolor"][unit.threatSituation].a
 		end
-		return color.r, color.g, color.b, color.a
+
+		return c.r, c.g, c.b, c.a
 	end
 
 	TidyPlatesThreat.SetThreatColor = SetThreatColor

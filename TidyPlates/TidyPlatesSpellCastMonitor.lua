@@ -90,8 +90,7 @@ local function OnSpellCast(...)
 	if FoundPlate then
 		local FoundPlateUnit = FoundPlate.extended.unit
 		if not FoundPlateUnit.isTarget then
-			local currentTime = GetTime()
-			StartCastAnimationOnNameplate(FoundPlate, spell, spellid, icon, currentTime, currentTime + (castTime * 0.001), false, false)
+			StartCastAnimationOnNameplate(FoundPlate, spell, spellid, icon, false, false)
 		end
 	end
 end
@@ -138,30 +137,20 @@ TidyPlates.StopSpellCastWatcher = StopSpellCastWatcher
 -- To test spell cast: /run TestTidyPlatesCastBar("Boognish", 133, true)
 function TidyPlates.TestCastBar(SearchFor, SpellID, Shielded, ForceChanneled)
 	local FoundPlate
-	local currentTime = GetTime()
-	local spell, _, icon, _, _, _, castTime, _, _ = GetSpellInfo(SpellID)
+	local spell, _, icon = GetSpellInfo(SpellID)
 	local channel
 
-	print("Testing Spell Cast on", SearchFor)
 	-- Search for the nameplate, by name (you could also search by GUID)
 	for VisiblePlate in pairs(TidyPlates.NameplatesByVisible) do
-		if VisiblePlate.extended.unit.name == SearchFor then
+		if VisiblePlate.extended.unit.name == SearchFor or VisiblePlate.extended.unit.guid == SearchFor then
 			FoundPlate = VisiblePlate
 			break
 		end
 	end
 
-	if ForceChanneled ~= nil then
-		channel = ForceChanneled
-		if ForceChanneled then
-			castTime = castTime + 2412
-		end
-	else
-		channel = false
-	end
-
 	-- If found, display the cast bar
 	if FoundPlate then
-		StartCastAnimationOnNameplate(FoundPlate, spell, spell, icon, currentTime, currentTime + (castTime / 1000), Shielded, channel)
+		print("Testing Spell Cast on", SearchFor, "(no cast animation)")
+		StartCastAnimationOnNameplate(FoundPlate, spell, spell, icon, Shielded, ForceChanneled)
 	end
 end

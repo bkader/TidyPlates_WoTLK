@@ -5,6 +5,8 @@
 local addonName, TidyPlates = ...
 _G.TidyPlates = TidyPlates
 
+TidyPlates.callbacks = TidyPlates.callbacks or LibStub("CallbackHandler-1.0"):New(TidyPlates)
+
 local _
 local numChildren = -1
 local activetheme = {}
@@ -59,12 +61,13 @@ local UpdateIndicator_Level, UpdateIndicator_ThreatGlow, UpdateIndicator_RaidIco
 local UpdateIndicator_HealthBar, UpdateHitboxShape
 
 -- Data and Condition Functions
-local OnNewNameplate, OnShowNameplate, OnHideNameplate, OnUpdateNameplate, OnResetNameplate, OnEchoNewNameplate, OnHideCastbar
+local OnNewNameplate, OnShowNameplate, OnHideNameplate, OnUpdateNameplate, OnResetNameplate, OnEchoNewNameplate
 local OnUpdateHealth, OnUpdateLevel, OnUpdateThreatSituation, OnUpdateRaidIcon, OnUpdateHealthRange
 local OnMouseoverNameplate, OnRequestWidgetUpdate, OnRequestDelegateUpdate
+local OnShowCastbar, OnHideCastbar, OnValueChangedCastbar
 
 -- Spell Casting
-local UpdateCastAnimation, UpdateChannelAnimation, StartCastAnimation, StopCastAnimation, OnUpdateTargetCastbar
+local StartCastAnimation, StopCastAnimation, OnUpdateTargetCastbar
 
 -- Main Loop
 local OnUpdate
@@ -279,10 +282,10 @@ do
 	function UpdateIndicator_UnitColor()
 		-- Set Health Bar
 		if activetheme.SetHealthbarColor then
-			--bars.healthbar:SetStatusBarColor(activetheme.SetHealthbarColor(unit))
+			--bars.healthbar:SetForegroundColor(activetheme.SetHealthbarColor(unit))
 			bars.healthbar:SetStatusBarSmartGradient(activetheme.SetHealthbarColor(unit)) -- Testing Gradient
 		else
-			bars.healthbar:SetStatusBarColor(bars.health:GetStatusBarColor())
+			bars.healthbar:SetForegroundColor(bars.health:GetStatusBarColor())
 		end
 		-- Name Color
 		if activetheme.SetNameColor then
@@ -654,7 +657,10 @@ do
 		health:HookScript("OnHide", OnHideNameplate)
 		health:HookScript("OnValueChanged", OnUpdateHealth)
 		health:HookScript("OnMinMaxChanged", OnUpdateHealthRange)
+
+		cast:HookScript("OnShow", OnShowCastbar)
 		cast:HookScript("OnHide", OnHideCastbar)
+		cast:HookScript("OnValueChanged", OnValueChangedCastbar)
 
 		-- Activates nameplate visibility
 		PlatesVisible[plate] = true
@@ -677,10 +683,16 @@ do
 		SetTargetQueue(plate, OnUpdateNameplate) -- Echo for a full update
 	end
 
-	function OnHideCastbar(source)
-		if source and source.parentPlate then
-			StopCastAnimation(source.parentPlate)
-		end
+	function OnShowCastbar(cast)
+		cast.castbar:SetMinMaxValues(cast:GetMinMaxValues())
+	end
+
+	function OnHideCastbar(cast)
+		StopCastAnimation(cast.parentPlate)
+	end
+
+	function OnValueChangedCastbar(cast, value)
+		cast.castbar:SetValue(value)
 	end
 
 	-- OnUpdateNameplate
@@ -832,27 +844,8 @@ do
 		OnUpdateNameplate(plate)
 	end
 
-	-- Update the Animation
-	function UpdateCastAnimation(castbar)
-		local currentTime = GetTime()
-		if currentTime > (castbar.endTime or 0) then
-			StopCastAnimation(castbar.parentPlate)
-		else
-			castbar:SetValue(currentTime)
-		end
-	end
-
-	function UpdateChannelAnimation(castbar)
-		local currentTime = GetTime()
-		if currentTime > (castbar.endTime or 0) then
-			StopCastAnimation(castbar.parentPlate)
-		else
-			castbar:SetValue(castbar.startTime + (castbar.endTime - currentTime))
-		end
-	end
-
 	-- Shows the Cast Animation (requires references)
-	function StartCastAnimation(plate, spell, spellid, icon, startTime, endTime, notInterruptible, channel)
+	function StartCastAnimation(plate, spell, spellid, icon, notInterruptible, channel)
 		UpdateReferences(plate)
 		if (tonumber(GetCVar("showVKeyCastbar")) == 1) and spell then
 			local castbar = bars.castbar
@@ -870,10 +863,8 @@ do
 				end
 			end
 
-			castbar.endTime = endTime
-			castbar.startTime = startTime
-			castbar:SetStatusBarColor(r, g, b, a or 1)
-			castbar:SetMinMaxValues(startTime, endTime)
+			castbar:SetMinMaxValues(castbar.cast:GetMinMaxValues())
+			castbar:SetForegroundColor(r, g, b, a or 1)
 			visual.spelltext:SetText(spell)
 
 			visual.spellicon:SetTexture(icon)
@@ -886,13 +877,6 @@ do
 			end
 
 			castbar:Show()
-			if channel then
-				castbar:SetValue(endTime - GetTime())
-				castbar:SetScript("OnUpdate", UpdateChannelAnimation)
-			else
-				castbar:SetValue(GetTime())
-				castbar:SetScript("OnUpdate", UpdateCastAnimation)
-			end
 
 			UpdateIndicator_CustomScaleText()
 			UpdateIndicator_CustomAlpha()
@@ -923,17 +907,17 @@ do
 
 		if plate and plate.extended.unit.isTarget then
 			-- Grabs the target's casting information
-			local spell, _, icon, start, finish, nonInt, channel, spellid, _
+			local spell, icon, nonInt, channel, spellid
 
-			spell, _, _, icon, start, finish, _, spellid, nonInt = UnitCastingInfo("target")
+			spell, _, _, icon, _, _, _, spellid, nonInt = UnitCastingInfo("target")
 
 			if not spell then
-				spell, _, _, icon, start, finish, spellid, nonInt = UnitChannelInfo("target")
+				spell, _, _, icon, _, _, spellid, nonInt = UnitChannelInfo("target")
 				channel = true
 			end
 
 			if spell then
-				StartCastAnimation(plate, spell, spellid, icon, start / 1000, finish / 1000, nonInt, channel)
+				StartCastAnimation(plate, spell, spellid, icon, nonInt, channel)
 			else
 				StopCastAnimation(plate)
 			end
@@ -1009,11 +993,15 @@ do
 		cast.parentPlate = plate
 		castbar.parentPlate = plate
 
+		-- reference to each other
+		cast.castbar = castbar
+		castbar.cast = cast
+
 		-- Visible Bars
 		healthbar:SetFrameLevel(platelevels - 1)
 		castbar:Hide()
 		castbar:SetFrameLevel(platelevels)
-		castbar:SetStatusBarColor(1, .8, 0)
+		castbar:SetForegroundColor(1, .8, 0)
 
 		-- Visual Regions
 		visual = extended.visual
