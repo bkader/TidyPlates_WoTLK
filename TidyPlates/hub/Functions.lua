@@ -7,6 +7,9 @@ TidyPlatesData = TidyPlatesData or {}
 local LocalVars = TidyPlatesHubDamageVariables
 local LocalRole = 1
 
+local HelpersLib = TidyPlatesHubHelpers
+local PlayerGUID = HelpersLib.PlayerGUID
+
 local WidgetLib = TidyPlatesWidgets
 local valueToString = TidyPlatesUtility.abbrevNumber
 local EnableTankWatch = TidyPlatesWidgets.EnableTankWatch
@@ -642,19 +645,18 @@ local function GetPrefixPriority(debuff)
 end
 
 local CCSpells = WidgetLib.CCSpells
-local PlayerGUID = UnitGUID("player")
 
 local DebuffPrefixModes = {
 	-- All
 	function(debuff) return true end,
 	-- My
-	function(debuff) return (debuff.caster == PlayerGUID) or nil end,
+	function(debuff) return (debuff.caster == PlayerGUID()) or nil end,
 	-- No
 	function(debuff) return nil end,
 	-- CC
 	function(debuff) return CCSpells and CCSpells[debuff.name] or nil end,
 	-- Other
-	function(debuff) return (debuff.caster ~= PlayerGUID) end
+	function(debuff) return (debuff.caster ~= PlayerGUID()) end
 }
 
 local DebuffFilterModes = {
@@ -671,12 +673,12 @@ local DebuffFilterModes = {
 	end,
 	-- All mine
 	function(debuff)
-		return (debuff.caster == PlayerGUID)
+		return (debuff.caster == PlayerGUID())
 	end,
 	-- My specific
 	function(debuff)
 		local prefix, priority = GetPrefixPriority(debuff)
-		if prefix and debuff.caster == PlayerGUID then
+		if prefix and debuff.caster == PlayerGUID() then
 			return true, priority
 		end
 	end,

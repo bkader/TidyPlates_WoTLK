@@ -12,15 +12,15 @@ local DebuffPrefixModes = TidyPlatesHubFunctions.DebuffPrefixModes
 
 local TidyPlatesHubHelpers = TidyPlatesHubHelpers
 local PrefixList = TidyPlatesHubHelpers.PrefixList
+local PlayerGUID = TidyPlatesHubHelpers.PlayerGUID
 
-local PlayerGUID = UnitGUID("player")
 local DebuffFilterModes = {}
 
 -- All
 DebuffFilterModes.all = function(debuff, list) return true end
 
 -- All mine
-DebuffFilterModes.allMine = function(debuff, list) return (debuff.caster == PlayerGUID) end
+DebuffFilterModes.allMine = function(debuff, list) return (debuff.caster == PlayerGUID()) end
 
 -- Whitelist
 DebuffFilterModes.whitelist = function(debuff, list)
@@ -34,7 +34,7 @@ end
 -- whitelist mine
 DebuffFilterModes.whitelistMine = function(debuff, list)
 	local found = DebuffFilterModes.whitelist(debuff, list)
-	return (found and debuff.caster == PlayerGUID)
+	return (found and debuff.caster == PlayerGUID())
 end
 
 -- blacklist
@@ -50,7 +50,7 @@ end
 	-- blacklist mine
 DebuffFilterModes.blacklistMine = function(debuff, list)
 	local found = DebuffFilterModes.blacklist(debuff, list)
-	return (found == true and debuff.caster == PlayerGUID)
+	return (found == true and debuff.caster == PlayerGUID())
 end
 
 -- prefix
@@ -98,14 +98,14 @@ local function DebuffFilter(debuff)
 		return false
 	end
 
-	db = db or TidyPlatesThreat.db.profile
+	db = TidyPlatesThreat.db.profile
 	return DebuffFilterModes[db.debuffWidget.mode](debuff, db.debuffWidget.filter)
 end
 ----------------
 -- INITIALIZE --
 ----------------
 local function OnInitialize(plate)
-	db = db or TidyPlatesThreat.db.profile
+	db = TidyPlatesThreat.db.profile
 	local w = plate.widgets
 	-- Debuff Widget
 	if db.debuffWidget.ON then
@@ -246,7 +246,7 @@ end
 -- CONTEXT UPDATE --
 --------------------
 local function OnContextUpdate(plate, unit)
-	db = db or TidyPlatesThreat.db.profile
+	db = TidyPlatesThreat.db.profile
 	local w = plate.widgets
 	-- Debuff Widget
 	if db.debuffWidget.ON then
@@ -280,7 +280,7 @@ end
 -- NORMAL UPDATE --
 -------------------
 local function OnUpdate(plate, unit)
-	db = db or TidyPlatesThreat.db.profile
+	db = TidyPlatesThreat.db.profile
 	local w = plate.widgets
 	-- Target Art
 	if db.targetWidget.ON then

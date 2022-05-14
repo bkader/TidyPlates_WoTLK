@@ -7,7 +7,7 @@ local db
 
 -- Threat Widget
 local function UpdateThreatWidget(frame, unit)
-	db = db or TidyPlatesThreat.db.profile
+	db = TidyPlatesThreat.db.profile
 	local threatLevel
 	local style = TidyPlatesThreat.SetStyle(unit)
 	if TidyPlatesThreat.db.char.threat.tanking then
@@ -36,7 +36,7 @@ local function CreateThreatArtWidget(parent)
 	local frame = CreateFrame("Frame", nil, parent)
 	frame:SetFrameLevel(parent.bars.healthbar:GetFrameLevel() + 2)
 
-	db = db or TidyPlatesThreat.db.profile
+	db = TidyPlatesThreat.db.profile
 
 	local width = db.settings.healthbar.width
 	local height = db.settings.healthbar.height

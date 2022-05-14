@@ -103,6 +103,14 @@ local function ConvertDebuffListTable(source, target, order)
 	end
 end
 
+local playerGUID
+local function PlayerGUID()
+	if not playerGUID then
+		playerGUID = UnitGUID("player")
+	end
+	return playerGUID
+end
+
 TidyPlatesHubHelpers = {}
 TidyPlatesHubHelpers.PrefixList = PrefixList
 TidyPlatesHubHelpers.CallForStyleUpdate = CallForStyleUpdate
@@ -112,3 +120,4 @@ TidyPlatesHubHelpers.GetSavedVariables = GetSavedVariables
 TidyPlatesHubHelpers.ListToTable = ListToTable
 TidyPlatesHubHelpers.ConvertStringToTable = ConvertStringToTable
 TidyPlatesHubHelpers.ConvertDebuffListTable = ConvertDebuffListTable
+TidyPlatesHubHelpers.PlayerGUID = PlayerGUID

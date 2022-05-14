@@ -1027,7 +1027,7 @@ local UnitInGroup = TidyPlatesUtility.UnitInGroup
 local TotemNameFallback = TidyPlatesUtility.TotemNameFallback
 -- Unit Classification
 function TidyPlatesThreat.UnitType(unit)
-	DB = DB or  TidyPlatesThreat.db.profile
+	DB = TidyPlatesThreat.db.profile
 	local totem = TPtotemList[unit.name] or TPtotemList[TotemNameFallback(unit.name)]
 
 	-- a totem?
@@ -1098,7 +1098,7 @@ function TidyPlatesThreat.UnitType(unit)
 end
 
 function TidyPlatesThreat.SetStyle(unit)
-	DB = DB or  TidyPlatesThreat.db.profile
+	DB = TidyPlatesThreat.db.profile
 	local T, custom = TidyPlatesThreat.UnitType(unit)
 	if T == "Totem" then
 		local tS = DB.totemSettings[TPtotemList[unit.name] or TPtotemList[TotemNameFallback(unit.name)]]
@@ -1325,7 +1325,7 @@ end
 --
 local f = CreateFrame("Frame")
 local function EventHandler(self, event, ...)
-	local DB = TidyPlatesThreat.db.profile
+	DB = TidyPlatesThreat.db.profile
 	local CharDB = TidyPlatesThreat.db.char
 	local arg1, arg2 = ...
 	if event == "ADDON_LOADED" then
