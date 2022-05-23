@@ -633,7 +633,6 @@ do
 		end
 
 		bars.castbar:Hide()
-		bars.castbar:SetScript("OnUpdate", nil)
 		unit.isCasting = false
 
 		PlatesVisible[plate] = nil
@@ -865,6 +864,12 @@ do
 		UpdateReferences(plate)
 		if (tonumber(GetCVar("showVKeyCastbar")) == 1) and spell then
 			local castbar = bars.castbar
+			local minval, maxval = castbar.cast:GetMinMaxValues()
+			if not (minval or maxval) or maxval == 0 or minval == maxval then
+				StopCastAnimation(plate)
+				return
+			end
+
 			local r, g, b, a = 1, .8, 0, 1
 			unit.isCasting = true
 			unit.spellName = spell
@@ -879,7 +884,7 @@ do
 				end
 			end
 
-			castbar:SetMinMaxValues(castbar.cast:GetMinMaxValues())
+			castbar:SetMinMaxValues(minval, maxval)
 			castbar:SetForegroundColor(r, g, b, a or 1)
 			visual.spelltext:SetText(spell)
 
@@ -903,7 +908,6 @@ do
 	function StopCastAnimation(plate)
 		UpdateReferences(plate)
 		bars.castbar:Hide()
-		bars.castbar:SetScript("OnUpdate", nil)
 		unit.isCasting = false
 		UpdateIndicator_CustomScaleText()
 		UpdateIndicator_CustomAlpha()

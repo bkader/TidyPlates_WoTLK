@@ -5,6 +5,6 @@
 ## Version: 6.5.0
 ## SavedVariables: TidyPlatesData, TidyPlatesHubTankCache, TidyPlatesHubDamageCache
 ## SavedVariablesPerCharacter: TidyPlatesOptions, TidyPlatesHubTankSavedVariables, TidyPlatesHubDamageSavedVariables
-## X-Date: 2022-05-14 @ 10:22 PM |cff808080UTC|r
+## X-Date: 2022-05-23 @ 11:18 PM |cff808080UTC|r
 
 TidyPlates.xml
