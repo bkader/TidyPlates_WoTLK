@@ -47,6 +47,15 @@ local function CreateStyle(self, event, ...)
 			anchor = "CENTER",
 			show = false
 		}
+		config.target = {
+			texture = path .. "Empty",
+			width = width * 2.1333,
+			height = height * 6.4,
+			x = 0,
+			y = 0,
+			anchor = "CENTER",
+			show = false
+		}
 		config.healthborder = {
 			texture = path .. "Empty",
 			glowtexture = path .. "Empty",

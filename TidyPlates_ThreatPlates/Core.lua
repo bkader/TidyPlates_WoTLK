@@ -752,6 +752,9 @@ function TidyPlatesThreat:OnInitialize()
 				highlight = {
 					texture = "TP_HealthBarHighlight"
 				},
+				target = {
+					texture = "TP_HealthBarHighlight"
+				},
 				elitehealthborder = {
 					texture = "TP_HealthBarEliteOverlay",
 					show = true

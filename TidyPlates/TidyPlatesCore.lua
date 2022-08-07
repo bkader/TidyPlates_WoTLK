@@ -70,7 +70,7 @@ end
 
 -- Indicator Functions
 local UpdateIndicator_CustomScaleText, UpdateIndicator_Standard, UpdateIndicator_CustomAlpha
-local UpdateIndicator_Level, UpdateIndicator_ThreatGlow, UpdateIndicator_RaidIcon, UpdateIndicator_EliteIcon, UpdateIndicator_UnitColor, UpdateIndicator_Name
+local UpdateIndicator_Level, UpdateIndicator_ThreatGlow, UpdateIndicator_Target, UpdateIndicator_RaidIcon, UpdateIndicator_EliteIcon, UpdateIndicator_UnitColor, UpdateIndicator_Name
 local UpdateIndicator_HealthBar, UpdateHitboxShape
 
 -- Data and Condition Functions
@@ -382,6 +382,7 @@ end
 --------------------------------------------------------------------------------------------------------------
 -- V. Data Gather: Gathers Information about the unit and requests updates, if needed
 --------------------------------------------------------------------------------------------------------------
+local UpdateReferences
 do
 	--------------------------------
 	-- References and Cache

@@ -39,6 +39,15 @@ local function CreateStyle(self, event, ...)
 			y = 0,
 			anchor = "CENTER"
 		}
+		config.target = {
+			texture = path .. db.target.texture,
+			width = width * 2.1333,
+			height = height * 6.4,
+			x = 0,
+			y = 0,
+			anchor = "CENTER",
+			show = true
+		}
 		config.healthborder = {
 			texture = path .. db.healthborder.texture,
 			backdrop = path .. db.healthborder.backdrop,

@@ -733,10 +733,18 @@ local function GetOptions()
 											order = 5.5,
 											name = ""
 										},
+										Target = {
+											type = "select",
+											order = 6,
+											name = L["Target"],
+											get = GetValue,
+											set = SetThemeValueArt,
+											values = {TP_HealthBarHighlight = "Default", Empty = "None"},
+											arg = {"settings", "target", "texture"}
+										},
 										Mouseover = {
 											type = "select",
-											width = "double",
-											order = 6,
+											order = 6.5,
 											name = L["Mouseover"],
 											get = GetValue,
 											set = SetThemeValueArt,

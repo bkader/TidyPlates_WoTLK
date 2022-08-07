@@ -145,6 +145,7 @@ L["Show Border"] = true
 L["Normal Border"] = true
 L["Show Elite Border"] = true
 L["Elite Border"] = true
+L["Target"] = STATUS_TEXT_TARGET
 L["Mouseover"] = true
 L["Width"] = true
 L["Height"] = true
